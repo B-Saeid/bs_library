@@ -1,0 +1,31 @@
+name: bs_internet_service
+description: "Internet service packed with convenience providers to easily watch connection status."
+version: 0.0.1
+homepage: https://bsaeid.dev/
+#repository: https://github.com/B-Saeid/bs_internet_checker
+#issue_tracker: https://github.com/ueman/bs_internet_checker/issues
+publish_to: none
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  bs_internet_checker:
+    path: ../bs_internet_checker
+  bs_utils:
+    path: ../bs_utils
+  bs_toast:
+    path: ../bs_toast
+  riverpod: 3.0.3
+  riverpod_annotation: 3.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 6.0.0
+  build_runner: 2.10.4
+  riverpod_generator: 3.0.3

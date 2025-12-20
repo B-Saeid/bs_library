@@ -1,0 +1,28 @@
+name: bs_styles
+description: "Styles used across apps like colors and adaptive icons"
+version: 0.0.1
+homepage: https://bsaeid.dev/
+#repository: https://github.com/B-Saeid/bs_widgets
+#issue_tracker: https://github.com/ueman/bs_widgets/issues
+publish_to: none
+
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  bs_utils:
+    path: ../bs_utils
+  bs_ref_query:
+    path: ../bs_ref_query
+  flutter:
+    sdk: flutter
+  flutter_riverpod: 3.0.3
+  iconify_flutter: 0.0.7
+  colorful_iconify_flutter: 0.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

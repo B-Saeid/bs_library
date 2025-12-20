@@ -1,0 +1,30 @@
+name: bs_toast
+description: "Toast that is aware of others enqueued and can be prioritized."
+version: 0.0.1
+homepage: https://bsaeid.dev/
+#repository: https://github.com/B-Saeid/bs_overlay
+#issue_tracker: https://github.com/ueman/bs_overlay/issues
+publish_to: none
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  bs_overlay:
+    path: ../bs_overlay
+  bs_widgets:
+    path: ../bs_widgets
+  bs_ref_query:
+    path: ../bs_ref_query
+  bs_styles:
+    path: ../bs_styles
+  flutter:
+    sdk: flutter
+  flutter_riverpod: 3.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+

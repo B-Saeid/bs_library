@@ -1,0 +1,23 @@
+name: bs_internet_checker
+description: "A reliable package for realtime internet checking with customizable configs."
+version: 0.0.1
+homepage: https://bsaeid.dev/
+#repository: https://github.com/B-Saeid/bs_internet_checker
+#issue_tracker: https://github.com/ueman/bs_internet_checker/issues
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  http: 1.6.0
+  connectivity_plus: 7.0.0
+  collection: 1.19.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 6.0.0

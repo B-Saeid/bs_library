@@ -1,0 +1,38 @@
+name: bs_feedback
+description: "Package that allows the user to give interactive feedback directly in the app"
+version: 0.0.1
+homepage: https://bsaeid.dev/
+#repository: https://github.com/B-Saeid/bs_widgets
+#issue_tracker: https://github.com/ueman/bs_widgets/issues
+publish_to: none
+
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  bs_utils:
+    path: ../bs_utils
+  bs_l10n:
+    path: ../bs_l10n
+  bs_ref_query:
+    path: ../bs_ref_query
+  bs_widgets:
+    path: ../bs_widgets
+  bs_toast:
+    path: ../bs_toast
+  bs_overlay:
+    path: ../bs_overlay
+  bs_styles:
+    path: ../bs_styles
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  collection: 1.19.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

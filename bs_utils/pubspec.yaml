@@ -1,0 +1,22 @@
+name: bs_utils
+description: "Combination of useful utilities used across bs_packages."
+version: 0.0.1
+homepage: https://bsaeid.dev/
+#repository: https://github.com/B-Saeid/bs_internet_checker
+#issue_tracker: https://github.com/ueman/bs_internet_checker/issues
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  intl: 0.20.2
+  timing: 1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

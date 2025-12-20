@@ -1,0 +1,1 @@
+export 'src/adaptive/dialog/dialog.dart';
