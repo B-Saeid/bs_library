@@ -1,4 +1,6 @@
+import 'package:bs_riverpod_utils/bs_riverpod_utils.dart';
 import 'package:bs_utils/bs_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,20 +12,32 @@ part 'static_data.dart';
 
 @Riverpod(keepAlive: true)
 class LiveData extends _$LiveData {
+  // /// To avoid have both LiveData and LiveData() in the code completion
+  // /// but riverpod says there must be a default constructor. TEST IT.
+  // LiveData._();
+
   @override
   LiveDataState build() => LiveDataState._();
 
-  /// This method is to be called with the context
-  /// inside wrapped inside `Future(() {...})` at the top of your app.
+  // ignore: avoid_build_context_in_providers
+  void _keepSynced(BuildContext context) {
+    _setThemeData(context);
+    _setMediaQuery(context);
+  }
+
+  /// This method is to be called with the context at the top of your app.
+  /// Make sure to wrap it inside `Future(() {...})` as below.
   ///
-  /// Example: In router's builder callback
+  /// Example:
   ///
   /// ```dart
-  /// MaterialApp.router(
+  ///
+  /// MaterialApp( // or .router
+  ///
   ///   ...
   ///   builder: (context, child) {
-  ///           // ignore: use_build_context_synchronously
-  ///           Future(() => ref.read(liveDataProvider.notifier).keepSynced(context));
+  ///           // ignore: use_build_context_synchronously // use for silencing linter warning
+  ///           Future(() => LiveData.init(context)); // you need to have a ProviderScope.
   ///           return child!;
   ///         },
   ///   ...
@@ -33,10 +47,22 @@ class LiveData extends _$LiveData {
   /// or in router's builder callback:
   ///
   // ignore: avoid_build_context_in_providers
-  void keepSynced(BuildContext context) {
-    _setThemeData(context);
-    _setMediaQuery(context);
+  static void init(BuildContext context) {
+    context.read(liveDataProvider.notifier)._keepSynced(context);
+    _initialized = true;
   }
+
+  static bool _initialized = false;
+
+  static void _assertInitialized() {
+    assert(_initialized, notInitializedAssertionString);
+  }
+
+  @internal
+  static const notInitializedAssertionString =
+      'LiveData is not initialized, Make sure to initialize it by calling'
+      ' `Future(() => LiveData.init(context));` '
+      'in you root widget builder.';
 
   /// These static variables are used in the [StaticData] class.
   static double __scalePercentage = 1.0;
@@ -261,43 +287,114 @@ class LiveData extends _$LiveData {
 
 class LiveDataState {
   LiveDataState._({
-    this.scaleFactor = 1.0,
-    this.mediaQuery = const MediaQueryData(),
-    this.sizeQuery = Size.zero,
-    this.deviceWidth = 0.0,
-    this.deviceHeight = 0.0,
-    this.viewPadding = EdgeInsets.zero,
-    this.viewInsets = EdgeInsets.zero,
-    this.padding = EdgeInsets.zero,
-    this.isPortrait = true,
-    ThemeData? themeData, // = ThemeData(),
-    this.textTheme = const TextTheme(),
-    this.isLight = true,
-  }) : themeData = themeData ?? ThemeData();
+    double scaleFactor = 1.0,
+    MediaQueryData mediaQuery = const MediaQueryData(),
+    Size sizeQuery = Size.zero,
+    double deviceWidth = 0.0,
+    double deviceHeight = 0.0,
+    EdgeInsets viewPadding = EdgeInsets.zero,
+    EdgeInsets viewInsets = EdgeInsets.zero,
+    EdgeInsets padding = EdgeInsets.zero,
+    bool isPortrait = true,
+    ThemeData? themeData,
+    TextTheme textTheme = const TextTheme(),
+    bool isLight = true,
+  }) : _isLight = isLight,
+       _textTheme = textTheme,
+       _isPortrait = isPortrait,
+       _padding = padding,
+       _viewInsets = viewInsets,
+       _viewPadding = viewPadding,
+       _deviceHeight = deviceHeight,
+       _deviceWidth = deviceWidth,
+       _sizeQuery = sizeQuery,
+       _mediaQuery = mediaQuery,
+       _scaleFactor = scaleFactor,
+       _themeData = themeData ?? ThemeData();
 
-  final double scaleFactor;
+  final double _scaleFactor;
 
-  final MediaQueryData mediaQuery;
+  double get scaleFactor {
+    LiveData._assertInitialized();
+    return _scaleFactor;
+  }
 
-  final Size sizeQuery;
+  final MediaQueryData _mediaQuery;
 
-  final double deviceWidth;
+  MediaQueryData get mediaQuery {
+    LiveData._assertInitialized();
+    return _mediaQuery;
+  }
 
-  final double deviceHeight;
+  final Size _sizeQuery;
 
-  final EdgeInsets viewPadding;
+  Size get sizeQuery {
+    LiveData._assertInitialized();
+    return _sizeQuery;
+  }
 
-  final EdgeInsets viewInsets;
+  final double _deviceWidth;
 
-  final EdgeInsets padding;
+  double get deviceWidth {
+    LiveData._assertInitialized();
+    return _deviceWidth;
+  }
 
-  final bool isPortrait;
+  final double _deviceHeight;
 
-  final ThemeData themeData;
+  double get deviceHeight {
+    LiveData._assertInitialized();
+    return _deviceHeight;
+  }
 
-  final TextTheme textTheme;
+  final EdgeInsets _viewPadding;
 
-  final bool isLight;
+  EdgeInsets get viewPadding {
+    LiveData._assertInitialized();
+    return _viewPadding;
+  }
+
+  final EdgeInsets _viewInsets;
+
+  EdgeInsets get viewInsets {
+    LiveData._assertInitialized();
+    return _viewInsets;
+  }
+
+  final EdgeInsets _padding;
+
+  EdgeInsets get padding {
+    LiveData._assertInitialized();
+    return _padding;
+  }
+
+  final bool _isPortrait;
+
+  bool get isPortrait {
+    LiveData._assertInitialized();
+    return _isPortrait;
+  }
+
+  final ThemeData _themeData;
+
+  ThemeData get themeData {
+    LiveData._assertInitialized();
+    return _themeData;
+  }
+
+  final TextTheme _textTheme;
+
+  TextTheme get textTheme {
+    LiveData._assertInitialized();
+    return _textTheme;
+  }
+
+  final bool _isLight;
+
+  bool get isLight {
+    LiveData._assertInitialized();
+    return _isLight;
+  }
 
   LiveDataState _copyWith({
     double? scaleFactor,

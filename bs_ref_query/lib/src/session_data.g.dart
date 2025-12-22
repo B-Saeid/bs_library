@@ -41,7 +41,7 @@ final class LiveDataProvider
   }
 }
 
-String _$liveDataHash() => r'a9961b782d8ca47c049716e3ce0c4fbf97a3f6b8';
+String _$liveDataHash() => r'e56f8f247acc59a6e400473942ba0faa92988227';
 
 abstract class _$LiveData extends $Notifier<LiveDataState> {
   LiveDataState build();

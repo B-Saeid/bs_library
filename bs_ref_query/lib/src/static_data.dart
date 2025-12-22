@@ -5,29 +5,65 @@ part of 'session_data.dart';
 ///
 /// Comes in handy when in callbacks or displaying dialogs or toasts.
 abstract final class StaticData {
-  static double get scalePercentage => LiveData.__scalePercentage;
+  static double get scalePercentage {
+    LiveData._assertInitialized();
+    return LiveData.__scalePercentage;
+  }
 
-  static MediaQueryData get mediaQuery => LiveData.__mediaQuery;
+  static MediaQueryData get mediaQuery {
+    LiveData._assertInitialized();
+    return LiveData.__mediaQuery;
+  }
 
-  static Size get sizeQuery => LiveData.__sizeQuery;
+  static Size get sizeQuery {
+    LiveData._assertInitialized();
+    return LiveData.__sizeQuery;
+  }
 
-  static double get deviceWidth => LiveData.__deviceWidth;
+  static double get deviceWidth {
+    LiveData._assertInitialized();
+    return LiveData.__deviceWidth;
+  }
 
-  static double get deviceHeight => LiveData.__deviceHeight;
+  static double get deviceHeight {
+    LiveData._assertInitialized();
+    return LiveData.__deviceHeight;
+  }
 
-  static EdgeInsets get viewPadding => LiveData.__viewPadding;
+  static EdgeInsets get viewPadding {
+    LiveData._assertInitialized();
+    return LiveData.__viewPadding;
+  }
 
-  static EdgeInsets get viewInsets => LiveData.__viewInsets;
+  static EdgeInsets get viewInsets {
+    LiveData._assertInitialized();
+    return LiveData.__viewInsets;
+  }
 
-  static EdgeInsets get padding => LiveData.__padding;
+  static EdgeInsets get padding {
+    LiveData._assertInitialized();
+    return LiveData.__padding;
+  }
 
-  static bool get isPortrait => LiveData.__isPortrait;
+  static bool get isPortrait {
+    LiveData._assertInitialized();
+    return LiveData.__isPortrait;
+  }
 
-  static ThemeData get themeData => LiveData.__themeData;
+  static ThemeData get themeData {
+    LiveData._assertInitialized();
+    return LiveData.__themeData;
+  }
 
-  static TextTheme get textTheme => LiveData.__textTheme;
+  static TextTheme get textTheme {
+    LiveData._assertInitialized();
+    return LiveData.__textTheme;
+  }
 
-  static bool get isLight => LiveData.__isLight;
+  static bool get isLight {
+    LiveData._assertInitialized();
+    return LiveData.__isLight;
+  }
 
   static final DevicePlatform platform = DevicePlatform.fromIO;
 
