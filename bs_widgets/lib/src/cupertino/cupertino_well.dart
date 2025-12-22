@@ -69,7 +69,9 @@ class _CupertinoWellState extends State<CupertinoWell> {
           border: widget.separated
               ? Border.all(
                   width: 0.5,
-                  style: LiveData.isLight(ref) ? BorderStyle.solid : BorderStyle.none,
+                  style: LiveDataOrQuery.isLight(ref: ref, context: context)
+                      ? BorderStyle.solid
+                      : BorderStyle.none,
                   color: Colors.grey,
                 )
               : null,
@@ -78,7 +80,7 @@ class _CupertinoWellState extends State<CupertinoWell> {
           color: isPressed
               ? widget.pressedColor ??
                     widget.color?.darken(by: 0.2) ??
-                    LiveData.themeData(ref).highlightColor
+                    LiveDataOrQuery.themeData(ref: ref, context: context).highlightColor
               : widget.color,
         ),
         alignment: widget.alignment,

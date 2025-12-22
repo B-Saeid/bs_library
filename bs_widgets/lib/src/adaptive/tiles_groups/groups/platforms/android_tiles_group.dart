@@ -26,8 +26,8 @@ class AndroidTilesGroup extends ConsumerWidget {
         if (header != null)
           Padding(
             padding: EdgeInsetsDirectional.only(
-              top: 24.scalable(ref),
-              bottom: 10.scalable(ref),
+              top: 24.scalableFlexible(ref: ref, context: context),
+              bottom: 10.scalableFlexible(ref: ref, context: context),
               start: 24,
               end: 24,
             ),

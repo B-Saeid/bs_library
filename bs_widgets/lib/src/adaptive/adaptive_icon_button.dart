@@ -155,7 +155,7 @@ class AdaptiveIconButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
-      (platform ?? StaticData.platform).isApple ? _appleButton(ref) : _othersButton;
+      (platform ?? StaticData.platform).isApple ? _appleButton(context, ref) : _othersButton;
 
   /// Android & Other platform button
   IconButton get _othersButton {
@@ -219,12 +219,14 @@ class AdaptiveIconButton extends ConsumerWidget {
   }
 
   /// Apple platform button
-  Widget _appleButton(WidgetRef ref) {
+  Widget _appleButton(BuildContext context, WidgetRef ref) {
     final child =
         this.child ??
         Icon(
           iconData,
-          color: onPressed != null ? iconColor : LiveData.themeData(ref).disabledColor,
+          color: onPressed != null
+              ? iconColor
+              : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
           size: iconSize,
         );
 
@@ -236,6 +238,7 @@ class AdaptiveIconButton extends ConsumerWidget {
         padding: padding,
       ),
       _Type.outline => _outlinedCupertinoButton(
+        context: context,
         ref: ref,
         child: child,
         padding: padding,
@@ -276,13 +279,14 @@ class AdaptiveIconButton extends ConsumerWidget {
   }
 
   Widget _outlinedCupertinoButton({
+    required BuildContext context,
     required WidgetRef ref,
     required Widget child,
     required EdgeInsets padding,
   }) {
     final borderSide = BorderSide(
       // color: color ?? AppStyle.colors.adaptivePrimary(ref),
-      color: color ?? LiveData.themeData(ref).colorScheme.primary,
+      color: color ?? LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.primary,
     );
     return CupertinoButton(
       padding: EdgeInsets.zero,

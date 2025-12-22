@@ -88,7 +88,7 @@ class _HideDrawerButton extends ConsumerWidget {
         Directionality.of(context) == TextDirection.ltr
             ? AppStyle.icons.arrowLeft
             : AppStyle.icons.arrowRight,
-        size: 24.scalable(ref, maxValue: 32),
+        size: 24.scalableFlexible(ref: ref, context: context, maxValue: 32),
       ),
       onPressed: () => LargeLayout.drawerHidden.value = true,
       tooltip: hideDrawerTooltip(ref),

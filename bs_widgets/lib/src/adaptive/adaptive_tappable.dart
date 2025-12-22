@@ -42,10 +42,12 @@ class AdaptiveTappable extends ConsumerWidget {
 
     if (StaticData.platform.isApple) {
       // final defaultColor = color ?? AppStyle.colors.adaptiveIPrimary(ref);
-      final colorScheme = LiveData.themeData(ref).colorScheme;
+      final colorScheme = LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme;
       final defaultColor =
           color ??
-          (LiveData.isLight(ref) ? colorScheme.primaryFixedDim : colorScheme.secondaryContainer);
+          (LiveDataOrQuery.isLight(ref: ref, context: context)
+              ? colorScheme.primaryFixedDim
+              : colorScheme.secondaryContainer);
       final cupertinoWell = CupertinoWell(
         borderRadius: borderRadius ?? BorderRadius.circular(12),
         width: width,
@@ -57,7 +59,7 @@ class AdaptiveTappable extends ConsumerWidget {
         margin: getMargin,
         color: defaultColor,
         pressedColor: Color.alphaBlend(
-          AppStyle.colors.whiteLightBlackDark(ref).withAlpha(120),
+          AppStyle.colors.whiteLightBlackDark(ref: ref, context: context).withAlpha(120),
           defaultColor,
         ),
         child: DefaultTextStyle.merge(

@@ -20,8 +20,8 @@ class AndroidDialogueAction extends ConsumerWidget {
     child: Text(
       title,
       style: encouraged
-          ? AppStyle.colors.positiveChoiceStyle(ref)
-          : AppStyle.colors.negativeChoiceStyle(ref),
+          ? AppStyle.colors.positiveChoiceStyle(ref: ref, context: context)
+          : AppStyle.colors.negativeChoiceStyle(ref: ref, context: context),
     ),
   );
 }

@@ -46,7 +46,7 @@ class TextContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final defaultColor = color ?? AppStyle.colors.adaptiveGrey(ref);
+    final defaultColor = color ?? AppStyle.colors.adaptiveGrey(ref: ref, context: context);
     final container = animated
         ? AnimatedContainer(
             width: width,

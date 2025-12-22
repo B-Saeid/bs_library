@@ -33,10 +33,10 @@ class AdaptiveTilesList extends ConsumerWidget {
 
   DevicePlatform get _platform => platform ?? StaticData.platform;
 
-  AdaptiveTilesThemeData settingsThemeData(WidgetRef ref) =>
+  AdaptiveTilesThemeData settingsThemeData(BuildContext context, WidgetRef ref) =>
       AdaptiveTilesThemeHelper.getThemeData(
         platform: _platform,
-        isLight: LiveData.isLight(ref),
+        isLight: LiveDataOrQuery.isLight(ref: ref, context: context),
       ).merge(
         themeData ?? (brightness == Brightness.dark ? darkTheme : lightTheme),
       );
@@ -53,7 +53,7 @@ class AdaptiveTilesList extends ConsumerWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1024),
         child: AdaptiveTilesTheme(
-          themeData: settingsThemeData(ref),
+          themeData: settingsThemeData(context, ref),
           platform: _platform,
           child: ListView.builder(
             physics: physics,

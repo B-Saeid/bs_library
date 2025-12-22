@@ -38,7 +38,7 @@ class AndroidTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final theme = SettingsTheme.of(context);
-    // final scaleFactor = LiveData.scalePercentage(ref);
+    // final scaleFactor = LiveDataOrQuery.scalePercentage(ref);
     //
     // final cantShowAnimation = tileType == SettingsTileType.switchTile
     //     ? onToggle == null && onPressed == null
@@ -151,12 +151,12 @@ class AndroidTile extends ConsumerWidget {
       ignoring: !enabled,
       child: switch (tileType) {
         AdaptiveTileType.switchTile => buildSwitchTile(),
-        _ => buildListTile(ref),
+        _ => buildListTile(context, ref),
       },
     );
   }
 
-  Widget buildListTile(WidgetRef ref) => ListTile(
+  Widget buildListTile(BuildContext context, WidgetRef ref) => ListTile(
     leading: leading,
     title: description != null && value != null
         ? Wrap(
@@ -167,8 +167,10 @@ class AndroidTile extends ConsumerWidget {
             children: [
               title,
               Padding(
-                padding: EdgeInsets.only(top: 5.0.scalable(ref)),
-                child: buildValue(ref),
+                padding: EdgeInsets.only(
+                  top: 5.0.scalableFlexible(ref: ref, context: context),
+                ),
+                child: buildValue(context, ref),
               ),
             ],
           )
@@ -179,8 +181,8 @@ class AndroidTile extends ConsumerWidget {
     trailing: loading ? const NeatCircularIndicator() : trailing,
   );
 
-  Widget buildValue(WidgetRef ref) => DefaultTextStyle.merge(
-    style: LiveData.textTheme(ref).bodyMedium!.copyWith(),
+  Widget buildValue(BuildContext context, WidgetRef ref) => DefaultTextStyle.merge(
+    style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(),
     child: value!,
   );
 

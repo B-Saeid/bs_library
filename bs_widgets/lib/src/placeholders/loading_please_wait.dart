@@ -17,12 +17,16 @@ class LoadingPleaseWait extends ConsumerWidget {
     children: [
       Text(
         title?.call(ref) ?? 'Loading, Please Wait',
-        style: LiveData.textTheme(ref).titleLarge,
+        style: LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge,
       ),
-      SizedBox(height: 10.scalable(ref, allowBelow: false)),
+      SizedBox(
+        height: 10.scalableFlexible(ref: ref, context: context, allowBelow: false),
+      ),
       const NeatCircularIndicator(),
       if (child != null) ...[
-        SizedBox(height: 20.scalable(ref, allowBelow: false)),
+        SizedBox(
+          height: 20.scalableFlexible(ref: ref, context: context, allowBelow: false),
+        ),
         child!,
       ],
     ],

@@ -140,19 +140,19 @@ class ScaleControlledText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final defaultStyle = LiveData.textTheme(ref).bodyMedium!;
+    // final defaultStyle = LiveDataOrQuery.textTheme(ref:ref, context:context).bodyMedium!;
     final defaultStyle = DefaultTextStyle.of(context).style;
 
     TextStyle? scaledStyle;
     List<InlineSpan>? scaledSpans;
 
     if (shouldScale) {
-      scaledStyle = getScaledStyle(ref, style ?? defaultStyle);
+      scaledStyle = getScaledStyle(context, ref, style ?? defaultStyle);
       if (spans != null) {
         scaledSpans = spans
             ?.map(
               (span) => (span as TextSpan).copyWith(
-                style: getScaledStyle(ref, span.style ?? style ?? defaultStyle),
+                style: getScaledStyle(context, ref, span.style ?? style ?? defaultStyle),
               ),
             )
             .toList();
@@ -184,7 +184,7 @@ class ScaleControlledText extends ConsumerWidget {
         softWrap: softWrap,
         overflow: overflow,
         // textScaleFactor: textScaleFactor,
-        // textScaler: TextScaler.linear(LiveData.scalePercentage(ref)),
+        // textScaler: TextScaler.linear(LiveDataOrQuery.scalePercentage(ref)),
         // textScaler: textScaler,
         maxLines: maxLines,
         locale: locale,
@@ -198,10 +198,11 @@ class ScaleControlledText extends ConsumerWidget {
   }
 
   // double
-  TextStyle getScaledStyle(WidgetRef ref, TextStyle style) {
+  TextStyle getScaledStyle(BuildContext context, WidgetRef ref, TextStyle style) {
     assert((maxSize ?? style.fontSize!) >= style.fontSize!);
-    final scaledSize = style.fontSize!.scalable(
-      ref,
+    final scaledSize = style.fontSize!.scalableFlexible(
+      ref: ref,
+      context: context,
       maxValue: maxSize,
       maxFactor: maxFactor,
       allowBelow: allowBelow,

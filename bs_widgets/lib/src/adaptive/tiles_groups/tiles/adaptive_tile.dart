@@ -170,7 +170,7 @@ class AdaptiveTile extends ConsumerWidget {
         final tilesThemeData =
             AdaptiveTilesThemeHelper.getThemeData(
               platform: platform,
-              isLight: LiveData.isLight(ref),
+              isLight: LiveDataOrQuery.isLight(ref: ref, context: context),
             ).merge(
               themeData ?? (brightness == Brightness.dark ? darkTheme : lightTheme),
             );

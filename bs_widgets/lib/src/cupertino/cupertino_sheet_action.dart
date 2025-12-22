@@ -50,7 +50,7 @@ class CupertinoSheetAction extends ConsumerWidget {
         : Navigator.of(_context).pop;
     final text = Text(
       title(ref),
-      style: (style ?? LiveData.textTheme(ref).titleLarge!).copyWith(
+      style: (style ?? LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge!).copyWith(
         color: destructive ? CupertinoColors.destructiveRed.resolveFrom(context) : null,
       ),
     );

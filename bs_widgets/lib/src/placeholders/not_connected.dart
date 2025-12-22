@@ -6,7 +6,6 @@ import 'package:bs_styles/bs_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class NotConnected extends ConsumerWidget {
   const NotConnected({this.title, super.key});
 
@@ -34,10 +33,12 @@ class NotConnected extends ConsumerWidget {
           ),
         ],
       ),
-      SizedBox(height: 10.scalable(ref, allowBelow: false)),
+      SizedBox(
+        height: 10.scalableFlexible(ref: ref, context: context, allowBelow: false),
+      ),
       Text(
         title?.call(ref) ?? 'Check your internet connection.',
-        style: LiveData.textTheme(ref).titleLarge,
+        style: LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge,
       ),
     ],
   );

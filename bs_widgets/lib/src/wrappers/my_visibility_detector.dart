@@ -7,7 +7,7 @@ enum ScrollType { horizontal, vertical }
 
 /// A widget that checks every [checkInterval] for the visibility of a [child]
 /// in a [Scrollable] that takes the entire body of a Scaffold with control over
-/// whether or not to take [query]'s [viewPadding], [viewInsets]
+/// whether or not to take `query`'s `viewPadding`, `viewInsets`
 /// and [appBarHeight] into account.
 ///
 class MyVisibilityDetector extends StatefulWidget {
@@ -71,7 +71,7 @@ class MyVisibilityDetector extends StatefulWidget {
   /// default to true
   final bool removeViewPaddings;
 
-  /// Set this to false if you do not want to take [viewInsets] into account
+  /// Set this to false if you do not want to take `viewInsets` into account
   /// e.g. if you want the [child] to be marked as visible when it appears
   /// behind the area of a virtual keyboard.
   ///

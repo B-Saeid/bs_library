@@ -30,12 +30,12 @@ class OtherTilesGroup extends ConsumerWidget {
 
   Padding buildHeader(BuildContext context, WidgetRef ref) => Padding(
     padding: EdgeInsetsDirectional.only(
-      bottom: 15.scalable(ref),
+      bottom: 15.scalableFlexible(ref: ref, context: context),
       start: 6,
-      top: 40.scalable(ref),
+      top: 40.scalableFlexible(ref: ref, context: context),
     ),
     child: DefaultTextStyle.merge(
-      style: LiveData.textTheme(ref).titleLarge,
+      style: LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge,
       child: header!,
     ),
   );

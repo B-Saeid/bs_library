@@ -52,12 +52,14 @@ class OtherTile extends ConsumerWidget {
       ignoring: !enabled,
       child: Material(
         // color: AppStyle.colors.adaptivePrimary(ref).withAlpha(80),
-        color: AppStyle.colors.onScaffoldBackground(ref),
+        color: AppStyle.colors.onScaffoldBackground(ref: ref, context: context),
         shape: OutlineInputBorder(
           borderRadius: borderRadius,
           borderSide: BorderSide(
             width: 0.5,
-            style: LiveData.isLight(ref) ? BorderStyle.solid : BorderStyle.none,
+            style: LiveDataOrQuery.isLight(ref: ref, context: context)
+                ? BorderStyle.solid
+                : BorderStyle.none,
             color: Colors.grey,
           ),
         ),
@@ -79,15 +81,15 @@ class OtherTile extends ConsumerWidget {
               if (leading != null)
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 24),
-                  child: buildLeading(ref, themeData),
+                  child: buildLeading(context, ref, themeData),
                 ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(
                     start: 15,
                     end: 10,
-                    top: 19.scalable(ref, maxValue: 25),
-                    bottom: 19.scalable(ref, maxValue: 25),
+                    top: 19.scalableFlexible(ref: ref, context: context, maxValue: 25),
+                    bottom: 19.scalableFlexible(ref: ref, context: context, maxValue: 25),
                   ),
                   // padding: EdgeInsetsDirectional.only(start: leading != null ? 12 : 0, end: 18),
                   child: Row(
@@ -104,8 +106,8 @@ class OtherTile extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                buildTitle(ref),
-                                if (description != null) buildDescription(themeData, ref),
+                                buildTitle(context, ref),
+                                if (description != null) buildDescription(context, ref, themeData),
                               ],
                             ),
                             if (value != null)
@@ -125,7 +127,7 @@ class OtherTile extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             if (onPressed != null && tileType == AdaptiveTileType.switchTile)
-                              buildVerticalDivider(ref),
+                              buildVerticalDivider(context, ref),
                             buildTrailing(context, ref),
                           ],
                         ),
@@ -141,12 +143,15 @@ class OtherTile extends ConsumerWidget {
     );
   }
 
-  Widget buildLeading(WidgetRef ref, AdaptiveTilesThemeData themeData) => IconTheme.merge(
-    data: LiveData.themeData(ref).iconTheme.copyWith(
-      color: enabled ? themeData.leadingIconsColor : LiveData.themeData(ref).disabledColor,
-    ),
-    child: leading!,
-  );
+  Widget buildLeading(BuildContext context, WidgetRef ref, AdaptiveTilesThemeData themeData) =>
+      IconTheme.merge(
+        data: LiveDataOrQuery.themeData(ref: ref, context: context).iconTheme.copyWith(
+          color: enabled
+              ? themeData.leadingIconsColor
+              : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
+        ),
+        child: leading!,
+      );
 
   Widget buildValue({
     required BuildContext context,
@@ -162,31 +167,34 @@ class OtherTile extends ConsumerWidget {
     ),
   };
 
-  Widget buildVerticalDivider(WidgetRef ref) => Container(
+  Widget buildVerticalDivider(BuildContext context, WidgetRef ref) => Container(
     width: 2,
     height: 26,
     margin: const EdgeInsetsDirectional.only(start: 3, end: 6),
     decoration: ShapeDecoration(
       shape: const StadiumBorder(),
-      color: LiveData.themeData(ref).dividerColor,
+      color: LiveDataOrQuery.themeData(ref: ref, context: context).dividerColor,
     ),
   );
 
-  Padding buildDescription(AdaptiveTilesThemeData themeData, WidgetRef ref) => Padding(
-    padding: const EdgeInsets.only(top: 4.0),
-    child: DefaultTextStyle.merge(
-      style: LiveData.textTheme(ref).bodyMedium!.copyWith(
-        color: enabled ? themeData.tileDescriptionTextColor : LiveData.themeData(ref).disabledColor,
-      ),
-      child: description!,
-    ),
-  );
+  Padding buildDescription(BuildContext context, WidgetRef ref, AdaptiveTilesThemeData themeData) =>
+      Padding(
+        padding: const EdgeInsets.only(top: 4.0),
+        child: DefaultTextStyle.merge(
+          style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(
+            color: enabled
+                ? themeData.tileDescriptionTextColor
+                : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
+          ),
+          child: description!,
+        ),
+      );
 
-  Widget buildTitle(WidgetRef ref) => DefaultTextStyle.merge(
+  Widget buildTitle(BuildContext context, WidgetRef ref) => DefaultTextStyle.merge(
     style: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w400,
-      color: enabled ? null : LiveData.themeData(ref).disabledColor,
+      color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: title,
   );
@@ -194,8 +202,10 @@ class OtherTile extends ConsumerWidget {
   Widget buildTrailing(BuildContext context, WidgetRef ref) => trailing != null
       ? IconTheme.merge(
           data: IconThemeData(
-            size: 32.scalable(ref, maxValue: 40, allowBelow: false),
-            color: enabled ? null : LiveData.themeData(ref).disabledColor,
+            size: 32.scalableFlexible(ref: ref, context: context, maxValue: 40, allowBelow: false),
+            color: enabled
+                ? null
+                : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
           ),
           child: trailing!,
         )
@@ -205,14 +215,18 @@ class OtherTile extends ConsumerWidget {
           AdaptiveTileType.switchTile => Switch.adaptive(
             value: initialValue!,
             onChanged: enabled ? onToggle : null,
-            activeThumbColor: enabled ? activeSwitchColor : LiveData.themeData(ref).disabledColor,
+            activeThumbColor: enabled
+                ? activeSwitchColor
+                : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
           ),
           AdaptiveTileType.navigationTile => Icon(
-            color: enabled ? null : LiveData.themeData(ref).disabledColor,
+            color: enabled
+                ? null
+                : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
             Directionality.of(context) == TextDirection.ltr
                 ? CupertinoIcons.chevron_forward
                 : CupertinoIcons.chevron_left,
-            size: 18.scalable(ref),
+            size: 18.scalableFlexible(ref: ref, context: context),
           ),
         };
 }

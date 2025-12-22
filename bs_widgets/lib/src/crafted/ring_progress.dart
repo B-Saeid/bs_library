@@ -20,7 +20,7 @@ class RingProgress extends ConsumerWidget {
   });
 
   /// Determines the size of the widget
-  /// defaults to 48.scalable(ref, maxValue: 60)
+  /// defaults to `48` scalable with `maxValue` of `60`
   final double? size;
 
   /// Used to display percentage of progress inside the widget
@@ -62,19 +62,20 @@ class RingProgress extends ConsumerWidget {
   final Animation<double>? progressAnimation;
   final Animation<Color>? progressColorAnimation;
 
-  Color _color(WidgetRef ref) => activeColor ?? LiveData.themeData(ref).colorScheme.primary;
+  Color _color(BuildContext context, WidgetRef ref) =>
+      activeColor ?? LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.primary;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => SizedBox.square(
-    dimension: size ?? 48.scalable(ref, maxValue: 60),
+    dimension: size ?? 48.scalableFlexible(ref: ref, context: context, maxValue: 60),
     child: Stack(
       alignment: Alignment.center,
       children: [
         Positioned.fill(
           child: CircularProgressIndicator(
-            color: _color(ref),
+            color: _color(context, ref),
             value: progress,
-            backgroundColor: backgroundColor ?? _color(ref).withAlpha(80),
+            backgroundColor: backgroundColor ?? _color(context, ref).withAlpha(80),
             strokeCap: StrokeCap.round,
             valueColor: progressColorAnimation,
             strokeWidth: stroke,
@@ -89,7 +90,7 @@ class RingProgress extends ConsumerWidget {
                 child: Text(
                   // '${localizedPercent ? L10nR.tNumString((progress! * 100).ceil()) : (progress! * 100).ceil().toString()}%',
                   '$getPercentage%',
-                  style: LiveData.textTheme(ref).labelLarge,
+                  style: LiveDataOrQuery.textTheme(ref: ref, context: context).labelLarge,
                 ),
               ),
             ),

@@ -22,7 +22,7 @@ class AppleListTile extends AdaptiveListTile {
 
   Widget buildContent(WidgetRef ref, BuildContext context) => CupertinoWell(
     // color: theme.themeData.tileColor,
-    color: AppStyle.colors.onScaffoldBackground(ref),
+    color: AppStyle.colors.onScaffoldBackground(ref: ref, context: context),
     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
     borderRadius: BorderRadius.circular(12),
     pressedColor: CupertinoColors.systemGrey.resolveFrom(context).withAlpha(180),
@@ -32,7 +32,7 @@ class AppleListTile extends AdaptiveListTile {
         if (leading != null)
           Padding(
             padding: const EdgeInsetsDirectional.only(end: 15),
-            child: buildLeading(ref),
+            child: buildLeading(ref, context),
           ),
         Expanded(
           child: Row(
@@ -46,17 +46,19 @@ class AppleListTile extends AdaptiveListTile {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       /// Title & Description
-                      buildTitle(ref),
+                      buildTitle(ref, context),
                       if (description != null)
                         Padding(
-                          padding: EdgeInsets.only(top: 2.scalable(ref)),
-                          child: buildDescription(ref),
+                          padding: EdgeInsets.only(
+                            top: 2.scalableFlexible(ref: ref, context: context),
+                          ),
+                          child: buildDescription(ref, context),
                         ),
                     ],
                   ),
                 ),
               ),
-              if (trailing != null) buildTrailing(ref),
+              if (trailing != null) buildTrailing(ref, context),
             ],
           ),
         ),
@@ -64,38 +66,40 @@ class AppleListTile extends AdaptiveListTile {
     ),
   );
 
-  Widget buildLeading(WidgetRef ref) => FitWithin(
-    size: Size.square(32.scalable(ref, maxFactor: 2)),
+  Widget buildLeading(WidgetRef ref, BuildContext context) => FitWithin(
+    size: Size.square(32.scalableFlexible(ref: ref, context: context, maxFactor: 2)),
     alignment: AlignmentDirectional.center,
     child: Padding(
       padding: const EdgeInsets.all(3.0),
       child: IconTheme.merge(
         data: IconThemeData(
-          color: enabled ? null : LiveData.themeData(ref).disabledColor,
+          color: enabled
+              ? null
+              : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
         ),
         child: leading!,
       ),
     ),
   );
 
-  Widget buildTitle(WidgetRef ref) => DefaultTextStyle.merge(
-    style: LiveData.textTheme(ref).titleMedium?.copyWith(
-      color: enabled ? null : LiveData.themeData(ref).disabledColor,
+  Widget buildTitle(WidgetRef ref, BuildContext context) => DefaultTextStyle.merge(
+    style: LiveDataOrQuery.textTheme(ref: ref, context: context).titleMedium?.copyWith(
+      color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: title,
   );
 
-  Widget buildDescription(WidgetRef ref) => DefaultTextStyle.merge(
-    style: LiveData.textTheme(ref).bodyMedium?.copyWith(
-      color: enabled ? null : LiveData.themeData(ref).disabledColor,
+  Widget buildDescription(WidgetRef ref, BuildContext context) => DefaultTextStyle.merge(
+    style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium?.copyWith(
+      color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: description!,
   );
 
-  Widget buildTrailing(WidgetRef ref) => IconTheme.merge(
+  Widget buildTrailing(WidgetRef ref, BuildContext context) => IconTheme.merge(
     data: IconThemeData(
-      size: 24.scalable(ref, maxFactor: 1.5),
-      color: enabled ? null : LiveData.themeData(ref).disabledColor,
+      size: 24.scalableFlexible(ref: ref, context: context, maxFactor: 1.5),
+      color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: trailing!,
   );

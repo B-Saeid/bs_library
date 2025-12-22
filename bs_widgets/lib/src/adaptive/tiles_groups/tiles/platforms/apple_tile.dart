@@ -8,7 +8,6 @@ import '../../../../cupertino/cupertino_well.dart';
 import '../../../../layout/fit_within.dart';
 import '../../../neat_circular_indicator.dart';
 
-
 class AppleTile extends ConsumerWidget {
   const AppleTile({
     required this.tileType,
@@ -56,8 +55,8 @@ class AppleTile extends ConsumerWidget {
     required AdaptiveTilesThemeData themeData,
   }) {
     final symmetricVerticalPadding = tileType.isSwitch
-        ? 8.delayedScale(ref, startFrom: 1.1, beforeStart: 0)
-        : 8.scalable(ref);
+        ? 8.delayedScaleFlexible(ref: ref, context: context, startFrom: 1.1, beforeStart: 0)
+        : 8.scalableFlexible(ref: ref, context: context);
     // return ConstrainedBox(
     //   constraints: const BoxConstraints(minHeight: 44),
     //   child: CupertinoListTile(
@@ -80,7 +79,7 @@ class AppleTile extends ConsumerWidget {
     // );
     return CupertinoWell(
       separated: false,
-      color: AppStyle.colors.onScaffoldBackground(ref),
+      color: AppStyle.colors.onScaffoldBackground(ref: ref, context: context),
       // color: theme.themeData.tileColor,
       pressedColor: themeData.tileHighlightColor,
       onPressed: onPressed,
@@ -92,7 +91,7 @@ class AppleTile extends ConsumerWidget {
         ),
         child: Row(
           children: [
-            if (leading != null) buildLeading(ref),
+            if (leading != null) buildLeading(context, ref),
             Expanded(
               child: Padding(
                 padding: EdgeInsetsDirectional.only(
@@ -104,7 +103,9 @@ class AppleTile extends ConsumerWidget {
                     Expanded(
                       child: Padding(
                         padding: EdgeInsetsDirectional.only(
-                          end: trailing == null && !tileType.isSimple ? 2.scalable(ref) : 0,
+                          end: trailing == null && !tileType.isSimple
+                              ? 2.scalableFlexible(ref: ref, context: context)
+                              : 0,
                         ),
                         child: value == null || tileType == AdaptiveTileType.switchTile
                             ? buildTitle(themeData)
@@ -118,11 +119,12 @@ class AppleTile extends ConsumerWidget {
                                   buildTitle(themeData),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top: 5.0.scalable(ref),
+                                      top: 5.0.scalableFlexible(ref: ref, context: context),
                                     ),
                                     child: buildValue(
-                                      ref: ref,
-                                      themeData: themeData,
+                                      context,
+                                      ref,
+                                      themeData,
                                     ),
                                   ),
                                 ],
@@ -130,7 +132,7 @@ class AppleTile extends ConsumerWidget {
                       ),
                     ),
                     if (onPressed != null && tileType == AdaptiveTileType.switchTile)
-                      buildVerticalDivider(ref),
+                      buildVerticalDivider(context, ref),
                     buildTrailing(context, ref),
                   ],
                 ),
@@ -142,13 +144,13 @@ class AppleTile extends ConsumerWidget {
     );
   }
 
-  Widget buildLeading(WidgetRef ref) => FitWithin(
-    size: Size.square(32.scalable(ref, maxFactor: 2)),
+  Widget buildLeading(BuildContext context, WidgetRef ref) => FitWithin(
+    size: Size.square(32.scalableFlexible(ref: ref, context: context, maxFactor: 2)),
     alignment: AlignmentDirectional.center,
     child: IconTheme.merge(
       data: IconThemeData(
         // color: enabled ? null : theme.themeData.inactiveTitleColor,
-        color: enabled ? null : LiveData.themeData(ref).disabledColor,
+        color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
       ),
       child: leading!,
     ),
@@ -163,11 +165,12 @@ class AppleTile extends ConsumerWidget {
     child: title,
   );
 
-  Widget buildValue({
-    required WidgetRef ref,
-    required AdaptiveTilesThemeData themeData,
-  }) => DefaultTextStyle.merge(
-    style: LiveData.textTheme(ref).bodyMedium!.copyWith(
+  Widget buildValue(
+    BuildContext context,
+    WidgetRef ref,
+    AdaptiveTilesThemeData themeData,
+  ) => DefaultTextStyle.merge(
+    style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(
       color: enabled ? themeData.trailingTextColor : themeData.inactiveTitleColor,
       fontSize: 17,
     ),
@@ -178,26 +181,32 @@ class AppleTile extends ConsumerWidget {
     if (trailing != null) {
       return IconTheme.merge(
         data: IconThemeData(
-          size: 24.scalable(ref, maxValue: 32, allowBelow: false),
-          color: enabled ? null : LiveData.themeData(ref).disabledColor,
+          size: 24.scalableFlexible(ref: ref, context: context, maxValue: 32, allowBelow: false),
+          color: enabled
+              ? null
+              : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
         ),
         child: trailing!,
       );
     }
 
-    final scaleFactor = LiveData.scalePercentage(ref);
+    final scaleFactor = LiveDataOrQuery.scalePercentage(ref: ref, context: context);
     return switch (tileType) {
       _ when loading => const NeatCircularIndicator(),
       AdaptiveTileType.simpleTile => const SizedBox(),
       AdaptiveTileType.switchTile => CupertinoSwitch(
         value: initialValue!,
         onChanged: enabled ? onToggle : null,
-        activeTrackColor: enabled ? activeSwitchColor : LiveData.themeData(ref).disabledColor,
+        activeTrackColor: enabled
+            ? activeSwitchColor
+            : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
       ),
       AdaptiveTileType.navigationTile => Padding(
         padding: const EdgeInsetsDirectional.only(start: 6, end: 2),
         child: Icon(
-          color: enabled ? null : LiveData.themeData(ref).disabledColor,
+          color: enabled
+              ? null
+              : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
           Directionality.of(context) == TextDirection.ltr
               ? CupertinoIcons.chevron_forward
               : CupertinoIcons.chevron_left,
@@ -207,13 +216,13 @@ class AppleTile extends ConsumerWidget {
     };
   }
 
-  Widget buildVerticalDivider(WidgetRef ref) => Container(
+  Widget buildVerticalDivider(BuildContext context, WidgetRef ref) => Container(
     width: 2,
     height: 26,
     margin: const EdgeInsetsDirectional.only(start: 3, end: 6),
     decoration: ShapeDecoration(
       shape: const StadiumBorder(),
-      color: LiveData.themeData(ref).dividerColor,
+      color: LiveDataOrQuery.themeData(ref: ref, context: context).dividerColor,
     ),
   );
 }

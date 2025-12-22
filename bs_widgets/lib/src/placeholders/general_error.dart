@@ -19,10 +19,14 @@ class GeneralError extends ConsumerWidget {
         color: Theme.of(context).disabledColor,
         size: 50,
       ),
-      SizedBox(height: 10.scalable(ref, allowBelow: false)),
+      SizedBox(
+        height: 10.scalableFlexible(ref: ref, context: context, allowBelow: false),
+      ),
       Text(title?.call(ref) ?? 'Something went wrong'),
       if (child != null) ...[
-        SizedBox(height: 20.scalable(ref, allowBelow: false)),
+        SizedBox(
+          height: 20.scalableFlexible(ref: ref, context: context, allowBelow: false),
+        ),
         child!,
       ],
     ],

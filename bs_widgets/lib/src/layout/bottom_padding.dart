@@ -23,7 +23,7 @@ class BottomPadding extends ConsumerWidget {
   /// The padding to add to the bottom of the screen
   /// when the keyboard is **not shown**
   ///
-  /// **IGNORED** if it is less than the [viewPadding.bottom] i.e. the bottom of safe area.
+  /// **IGNORED** if it is less than the `viewPadding.bottom` i.e. the bottom of safe area.
   ///
   /// defaults to 30
   final double minPadding;
@@ -35,55 +35,57 @@ class BottomPadding extends ConsumerWidget {
   final bool scalable;
 
   static EdgeInsets asBottomEdgeInsets(
+    BuildContext context,
     WidgetRef ref, {
     double kbPadding = 30,
     double minPadding = 30,
     bool scalable = false,
   }) {
-    final viewInsets = LiveData.viewInsets(ref);
-    final viewPadding = LiveData.viewPadding(ref);
+    final viewInsets = LiveDataOrQuery.viewInsets(ref: ref, context: context);
+    final viewPadding = LiveDataOrQuery.viewPadding(ref: ref, context: context);
     final keyboardIsShown = viewInsets.bottom > 50;
     return EdgeInsets.only(
       bottom: keyboardIsShown
           ? scalable
-                ? kbPadding.scalable(ref)
+                ? kbPadding.scalableFlexible(ref: ref, context: context)
                 : kbPadding
           : scalable
-          ? max(minPadding, viewPadding.bottom).scalable(ref)
+          ? max(minPadding, viewPadding.bottom).scalableFlexible(ref: ref, context: context)
           : max(minPadding, viewPadding.bottom),
     );
   }
 
   static double asDouble(
+    BuildContext context,
     WidgetRef ref, {
     double kbPadding = 30,
     double minPadding = 30,
     bool scalable = false,
   }) {
-    final viewInsets = LiveData.viewInsets(ref);
-    final viewPadding = LiveData.viewPadding(ref);
+    final viewInsets = LiveDataOrQuery.viewInsets(ref: ref, context: context);
+    final viewPadding = LiveDataOrQuery.viewPadding(ref: ref, context: context);
     final keyboardIsShown = viewInsets.bottom > 50;
     return keyboardIsShown
         ? scalable
-              ? kbPadding.scalable(ref)
+              ? kbPadding.scalableFlexible(ref: ref, context: context)
               : kbPadding
         : scalable
-        ? max(minPadding, viewPadding.bottom).scalable(ref)
+        ? max(minPadding, viewPadding.bottom).scalableFlexible(ref: ref, context: context)
         : max(minPadding, viewPadding.bottom);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewInsets = LiveData.viewInsets(ref);
-    final viewPadding = LiveData.viewPadding(ref);
+    final viewInsets = LiveDataOrQuery.viewInsets(ref: ref, context: context);
+    final viewPadding = LiveDataOrQuery.viewPadding(ref: ref, context: context);
     final keyboardIsShown = viewInsets.bottom > 50;
     return SizedBox(
       height: keyboardIsShown
           ? scalable
-                ? kbPadding.scalable(ref)
+                ? kbPadding.scalableFlexible(ref: ref, context: context)
                 : kbPadding
           : scalable
-          ? max(minPadding, viewPadding.bottom).scalable(ref)
+          ? max(minPadding, viewPadding.bottom).scalableFlexible(ref: ref, context: context)
           : max(minPadding, viewPadding.bottom),
     );
   }

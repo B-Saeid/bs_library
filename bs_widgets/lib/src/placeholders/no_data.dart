@@ -18,10 +18,12 @@ class NoData extends ConsumerWidget {
         color: Theme.of(context).disabledColor,
         size: 50,
       ),
-      SizedBox(height: 10.scalable(ref, allowBelow: false)),
+      SizedBox(
+        height: 10.scalableFlexible(ref: ref, context: context, allowBelow: false),
+      ),
       Text(
         title?.call(ref) ?? 'No data was found!',
-        style: LiveData.textTheme(ref).titleLarge,
+        style: LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge,
       ),
     ],
   );

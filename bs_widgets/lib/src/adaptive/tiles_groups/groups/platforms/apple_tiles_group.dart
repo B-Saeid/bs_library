@@ -131,7 +131,9 @@ class _SectionHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Padding(
-    padding: EdgeInsetsDirectional.only(bottom: 5.scalable(ref)),
+    padding: EdgeInsetsDirectional.only(
+      bottom: 5.scalableFlexible(ref: ref, context: context),
+    ),
     child: DefaultTextStyle.merge(
       style: TextStyle(
         // color: ref.watch(adaptiveTilesThemeProvider).themeData.titleTextColor,

@@ -273,7 +273,6 @@ class AdaptiveButton extends StatelessWidget {
 
     /// Main Part
     Widget mainPart(WidgetRef ref) => _buildMainPart(
-      ref,
       contrastingColor,
       callToAction != null,
     );
@@ -283,13 +282,19 @@ class AdaptiveButton extends StatelessWidget {
 
     return RefWidget(
       (ref) => isAppleAndAdaptive
-          ? _appleButton(ref, callToAction, mainPart(ref), iconPart)
-          : _othersButton(ref, callToAction, mainPart(ref), iconPart),
+          ? _appleButton(callToAction, mainPart(ref), iconPart)
+          : _othersButton(callToAction, mainPart(ref), iconPart),
     );
   }
 
-  Padding _buildMainPart(WidgetRef ref, Color? contrastingColor, bool enabled) {
-    TextStyle convenienceStyle(WidgetRef ref) => /*LiveData.textTheme(ref)
+  Widget _buildMainPart(
+    Color? contrastingColor,
+    bool enabled,
+  ) {
+    TextStyle convenienceStyle(
+      BuildContext context,
+      WidgetRef ref,
+    ) => /*LiveDataOrQuery.textTheme(ref:ref,context:context)
         .titleLarge!
         .copyExcept(
           color: false,
@@ -302,25 +307,35 @@ class AdaptiveButton extends StatelessWidget {
           decorationStyle: false,
         )
         .copyWith(*/ TextStyle(
-      color: enabled ? contrastingColor : LiveData.themeData(ref).disabledColor,
-      fontSize: basic ? null : LiveData.textTheme(ref).titleLarge?.fontSize,
-      height: basic ? null : LiveData.textTheme(ref).titleLarge?.height,
-      // foreground: basic ? null : LiveData.textTheme(ref).titleLarge?.foreground,
+      color: enabled
+          ? contrastingColor
+          : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
+      fontSize: basic
+          ? null
+          : LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge?.fontSize,
+      height: basic
+          ? null
+          : LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge?.height,
+      // foreground: basic ? null : LiveDataOrQuery.textTheme(ref:ref,context:context).titleLarge?.foreground,
       // fontWeight: basic || !isAppleAndAdaptive ? null : FontWeight.w700,
-      fontWeight: basic ? null : LiveData.textTheme(ref).titleLarge?.fontWeight,
+      fontWeight: basic
+          ? null
+          : LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge?.fontWeight,
       // fontVariations: basic || !isAppleAndAdaptive ? null : [FontVariation('wght', 600)],
-      fontVariations: basic ? null : LiveData.textTheme(ref).titleLarge?.fontVariations,
+      fontVariations: basic
+          ? null
+          : LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge?.fontVariations,
       fontFamily: fontFamily,
       // fontFamily: ref.watch(
       //   stylesProvider.select((value) => value.topLevelFamily),
       // ),
       // ),
     );
-    return Padding(
-      padding: _mainPadding(ref),
-      child: RefWidget(
-        (ref) => SizedBox(
-          height: childHeight?.scalable(ref),
+    return Consumer(
+      builder: (context, ref, child) => Padding(
+        padding: _mainPadding(context, ref),
+        child: SizedBox(
+          height: childHeight?.scalableFlexible(ref: ref, context: context),
           child: FittedBox(
             child: DefaultTextStyle.merge(
               ///
@@ -331,15 +346,17 @@ class AdaptiveButton extends StatelessWidget {
               ///
               /// Note: [disabledColor] has to be emphasized over any other color.
               /// This is done by copying [textStyle] ,The highest priority, with
-              /// [LiveData.themeData(ref).disabledColor]
+              /// [LiveDataOrQuery.themeData(ref:ref,context:context).disabledColor]
               ///
               /// Also Note: We don't pass in [textStyle] to the [Text] widget below
               /// we have already merged it above, so either the user pass a Widget
               /// or a String in [child] we apply [textStyle] over any of them.
               ///
-              style: convenienceStyle(ref).merge(
+              style: convenienceStyle(context, ref).merge(
                 textStyle?.copyWith(
-                  color: enabled ? null : LiveData.themeData(ref).disabledColor,
+                  color: enabled
+                      ? null
+                      : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
                 ),
               ),
               child: child is String ? Text(child as String) : child as Widget,
@@ -350,7 +367,7 @@ class AdaptiveButton extends StatelessWidget {
     );
   }
 
-  EdgeInsets _mainPadding(WidgetRef ref) {
+  EdgeInsets _mainPadding(BuildContext context, WidgetRef ref) {
     if (childPadding != null) {
       if (addPadding == null) return childPadding!;
 
@@ -358,7 +375,7 @@ class AdaptiveButton extends StatelessWidget {
     }
 
     final defaultPadding = basic
-        ? LiveData.scalePercentage(ref) > 1.5
+        ? LiveDataOrQuery.scalePercentage(ref: ref, context: context) > 1.5
               ? const EdgeInsets.symmetric(horizontal: 10, vertical: 5)
               : EdgeInsets.zero
         : EdgeInsets.symmetric(
@@ -378,15 +395,18 @@ class AdaptiveButton extends StatelessWidget {
     return defaultPadding + addPadding!;
   }
 
-  RefWidget _buildIcon(Color? contrastingColor, bool enabled) => RefWidget(
-    (ref) => SizedBox.square(
+  Consumer _buildIcon(Color? contrastingColor, bool enabled) => Consumer(
+    builder: (context, ref, _) => SizedBox.square(
+      /// TODO: Revisit dimension and the fittedBox below
       dimension: density?.isCompact ?? false
-          ? 24.scalable(ref, maxValue: 40)
-          : 32.scalable(ref, maxValue: 50),
+          ? 24.scalableFlexible(ref: ref, context: context, maxValue: 40)
+          : 32.scalableFlexible(ref: ref, context: context, maxValue: 50),
       child: FittedBox(
         child: IconTheme.merge(
           data: IconThemeData(
-            color: enabled ? contrastingColor : LiveData.themeData(ref).disabledColor,
+            color: enabled
+                ? contrastingColor
+                : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
           ),
           child: icon!,
         ),
@@ -396,12 +416,11 @@ class AdaptiveButton extends StatelessWidget {
 
   /// Normal Button for apple platforms
   CupertinoButton _appleButton(
-    WidgetRef ref,
     VoidCallback? callToAction,
     Widget mainPart,
-    RefWidget? iconPart,
+    Widget? iconPart,
   ) {
-    // final disabledColor = LiveData.themeData(ref).disabledColor;
+    // final disabledColor = LiveDataOrQuery.themeData(ref:ref,context:context).disabledColor;
     final zChild = iconPart != null
         ? Row(
             mainAxisSize: MainAxisSize.min,
@@ -456,10 +475,9 @@ class AdaptiveButton extends StatelessWidget {
 
   /// Normal Button for all other platforms
   RefWidget _othersButton(
-    WidgetRef ref,
     VoidCallback? callToAction,
     Widget mainPart,
-    RefWidget? iconPart,
+    Widget? iconPart,
   ) {
     final shape = basic ? null : RoundedRectangleBorder(borderRadius: customBorderRadius);
     final filledStyle = FilledButton.styleFrom(

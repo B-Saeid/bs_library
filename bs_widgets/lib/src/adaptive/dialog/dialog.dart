@@ -65,7 +65,7 @@ class BsDialogue extends ConsumerWidget {
     var title = this.title is String ? Text(this.title as String) : this.title as Widget;
     title = Padding(
       padding: EdgeInsets.all(
-        8.0.delayedScale(ref, startFrom: 1.5, beforeStart: 0.0),
+        8.0.delayedScaleFlexible(ref: ref, context: context, startFrom: 1.5, beforeStart: 0.0),
       ),
       child: isApple
           ? DefaultTextStyle.merge(
@@ -104,7 +104,9 @@ class BsDialogue extends ConsumerWidget {
     if (content != null) {
       content = isApple
           ? Padding(
-              padding: EdgeInsets.only(top: 15.scalable(ref)),
+              padding: EdgeInsets.only(
+                top: 15.scalableFlexible(ref: ref, context: context),
+              ),
               child: DefaultTextStyle.merge(
                 style: TextStyle(
                   fontFamily: fontFamily,
@@ -116,8 +118,8 @@ class BsDialogue extends ConsumerWidget {
             )
           : Padding(
               padding: EdgeInsets.symmetric(
-                vertical: 25.scalable(ref, maxFactor: 2),
-                horizontal: 15.scalable(ref, maxFactor: 2),
+                vertical: 25.scalableFlexible(ref: ref, context: context, maxFactor: 2),
+                horizontal: 15.scalableFlexible(ref: ref, context: context, maxFactor: 2),
               ),
               child: DefaultTextStyle.merge(
                 textAlign: TextAlign.start,

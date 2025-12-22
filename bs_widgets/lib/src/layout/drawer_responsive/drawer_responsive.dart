@@ -3,7 +3,6 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../riverpod_widgets.dart';
 import '../break_points.dart';
 import 'large_layout.dart';
 import 'mobile_layout.dart';
@@ -32,9 +31,9 @@ class DrawerResponsiveLayout extends ConsumerWidget {
   final StringRef hideDrawerTooltip;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Selector<double>(
-    selector: LiveData.widthSelector,
-    builder: (context, width, _) => BreakPoints.isMobile(width)
+  Widget build(BuildContext context, WidgetRef ref) => Consumer(
+    builder: (context, ref, _) =>
+        BreakPoints.isMobile(LiveDataOrQuery.deviceWidth(ref: ref, context: context))
         ? MobileLayout(
             content: content,
             title: title,

@@ -22,12 +22,14 @@ class OthersListTile extends AdaptiveListTile {
     child: IgnorePointer(
       ignoring: !enabled,
       child: Material(
-        color: AppStyle.colors.onScaffoldBackground(ref),
+        color: AppStyle.colors.onScaffoldBackground(ref: ref, context: context),
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
             width: 0.5,
-            style: LiveData.isLight(ref) ? BorderStyle.solid : BorderStyle.none,
+            style: LiveDataOrQuery.isLight(ref: ref, context: context)
+                ? BorderStyle.solid
+                : BorderStyle.none,
             color: Colors.grey,
           ),
         ),
@@ -40,13 +42,13 @@ class OthersListTile extends AdaptiveListTile {
               if (leading != null)
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 20),
-                  child: buildLeading(ref),
+                  child: buildLeading(ref, context),
                 ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsetsDirectional.symmetric(
                     horizontal: 15,
-                    vertical: 19.scalable(ref, maxValue: 25),
+                    vertical: 19.scalableFlexible(ref: ref, context: context, maxValue: 25),
                   ),
                   child: Row(
                     children: [
@@ -58,13 +60,17 @@ class OthersListTile extends AdaptiveListTile {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              buildTitle(ref),
+                              buildTitle(ref, context),
                               if (description != null)
                                 Padding(
                                   padding: EdgeInsets.only(
-                                    top: 4.0.scalable(ref, maxValue: 8),
+                                    top: 4.0.scalableFlexible(
+                                      ref: ref,
+                                      context: context,
+                                      maxValue: 8,
+                                    ),
                                   ),
-                                  child: buildDescription(ref),
+                                  child: buildDescription(ref, context),
                                 ),
                             ],
                           ),
@@ -76,7 +82,7 @@ class OthersListTile extends AdaptiveListTile {
                             start: 15,
                             end: 5,
                           ),
-                          child: buildTrailing(context, ref),
+                          child: buildTrailing(ref, context),
                         ),
                     ],
                   ),
@@ -89,32 +95,32 @@ class OthersListTile extends AdaptiveListTile {
     ),
   );
 
-  Widget buildLeading(WidgetRef ref) => IconTheme.merge(
-    data: LiveData.themeData(ref).iconTheme.copyWith(
-      color: enabled ? null : LiveData.themeData(ref).disabledColor,
-      size: 32.scalable(ref, maxValue: 35),
+  Widget buildLeading(WidgetRef ref, BuildContext context) => IconTheme.merge(
+    data: LiveDataOrQuery.themeData(ref: ref, context: context).iconTheme.copyWith(
+      color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
+      size: 32.scalableFlexible(ref: ref, context: context, maxValue: 35),
     ),
     child: leading!,
   );
 
-  Widget buildTitle(WidgetRef ref) => DefaultTextStyle.merge(
-    style: LiveData.textTheme(ref).titleLarge?.copyWith(
-      color: enabled ? null : LiveData.themeData(ref).disabledColor,
+  Widget buildTitle(WidgetRef ref, BuildContext context) => DefaultTextStyle.merge(
+    style: LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge?.copyWith(
+      color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: title,
   );
 
-  Widget buildDescription(WidgetRef ref) => DefaultTextStyle.merge(
-    style: LiveData.textTheme(ref).bodyLarge?.copyWith(
-      color: enabled ? null : LiveData.themeData(ref).disabledColor,
+  Widget buildDescription(WidgetRef ref, BuildContext context) => DefaultTextStyle.merge(
+    style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyLarge?.copyWith(
+      color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: description!,
   );
 
-  Widget buildTrailing(BuildContext context, WidgetRef ref) => IconTheme.merge(
+  Widget buildTrailing(WidgetRef ref, BuildContext context) => IconTheme.merge(
     data: IconThemeData(
-      size: 32.scalable(ref, maxValue: 35),
-      color: enabled ? null : LiveData.themeData(ref).disabledColor,
+      size: 32.scalableFlexible(ref: ref, context: context, maxValue: 35),
+      color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: trailing!,
   );

@@ -63,7 +63,7 @@ class _HandleBorder extends ConsumerWidget {
         child: CustomPaint(
           painter: _MyHandleBorderPainter(
             width: borderWidth,
-            color: color ?? AppStyle.colors.whiteDarkBlackLight(ref),
+            color: color ?? AppStyle.colors.whiteDarkBlackLight(ref: ref, context: context),
           ),
         ),
       ),
