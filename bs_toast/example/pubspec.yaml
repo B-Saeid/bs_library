@@ -1,0 +1,35 @@
+name: bs_toast_example
+description: "Toast example of BSLibrary"
+publish_to: 'none'
+
+version: 1.0.0
+
+environment:
+  sdk: ^3.10.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dartx: 1.2.0
+  bs_toast:
+    git:
+      url: https://github.com/B-Saeid/bs_library.git
+      path: bs_toast
+  bs_widgets:
+    git:
+      url: https://github.com/B-Saeid/bs_library.git
+      path: bs_widgets
+
+  # You only need these if you opt in to use LiveData
+#  flutter_riverpod: 3.0.3
+#  bs_ref_query:
+#    git:
+#      url: https://github.com/B-Saeid/bs_library.git
+#      path: bs_ref_query
+
+  cupertino_icons: 1.0.8
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: 6.0.0
