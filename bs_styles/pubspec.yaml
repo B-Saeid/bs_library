@@ -13,9 +13,13 @@ environment:
 
 dependencies:
   bs_utils:
-    path: ../bs_utils
+    git:
+      url: https://github.com/B-Saeid/bs_library.git
+      path: bs_utils
   bs_ref_query:
-    path: ../bs_ref_query
+    git:
+      url: https://github.com/B-Saeid/bs_library.git
+      path: bs_ref_query
   flutter:
     sdk: flutter
   flutter_riverpod: 3.0.3

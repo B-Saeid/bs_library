@@ -13,7 +13,9 @@ environment:
 
 dependencies:
   bs_utils:
-    path: ../bs_utils
+    git:
+      url: https://github.com/B-Saeid/bs_library.git
+      path: bs_utils
   flutter:
     sdk: flutter
   flutter_localizations:
