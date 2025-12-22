@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     themeMode: mode,
     builder: (context, child) {
       /// Example does use Toast without context, so this line is necessary
-      /// If you will ONLY use Toast with context passed you can omit this line on your app
+      /// If you will ONLY use Toast with context passed you can omit this line in your app
       Toast.setNavigatorKey(MyApp.navigatorKey);
 
       // ignore: use_build_context_synchronously

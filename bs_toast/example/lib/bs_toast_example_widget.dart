@@ -154,76 +154,87 @@ class _CustomizationsState extends State<_Customizations> {
           style: Theme.of(context).textTheme.labelLarge,
         ),
       ),
-      Row(
-        spacing: 20,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('Gravity:', style: Theme.of(context).textTheme.titleLarge),
-          Flexible(
-            child: Wrap(
-              spacing: 10,
-              runSpacing: 20,
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                ...BsGravity.values.map(
-                  (e) => ChoiceChip(
-                    tooltip: e.isBottomSafe || e.isSnackBar ? 'Not obscured by keyboard' : null,
-                    selected: gravity == e,
-                    label: Text(e.name.capitalize()),
-                    onSelected: (_) => setState(() => gravity = e),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      Row(
-        spacing: 20,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('Priority:', style: Theme.of(context).textTheme.titleLarge),
-          Flexible(
-            child: Wrap(
-              spacing: 10,
-              runSpacing: 20,
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                ...BsPriority.values
-                    .whereNot((element) => element.isOverall)
-                    .map(
+      Card(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+          child: Row(
+            spacing: 20,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Gravity:', style: Theme.of(context).textTheme.titleLarge),
+              Flexible(
+                child: Wrap(
+                  spacing: 10,
+                  runSpacing: 20,
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    ...BsGravity.values.map(
                       (e) => ChoiceChip(
-                        selected: priority == e,
+                        tooltip: e.isBottomSafe || e.isSnackBar ? 'Not obscured by keyboard' : null,
+                        selected: gravity == e,
                         label: Text(e.name.capitalize()),
-                        onSelected: (_) {
-                          switch (e) {
-                            case BsPriority.regular:
-                              messageController.text = 'I am a regular customer I wait on the line';
-                            case BsPriority.noRepeat:
-                              messageController.text = 'I can not be repeated but I can wait';
-                            case BsPriority.now:
-                              messageController.text = 'Show me NOW then continue the queue';
-                            case BsPriority.ifEmpty:
-                              messageController.text =
-                                  'I have autism ONLY show me if queue is empty';
-                            case BsPriority.nowNoRepeat:
-                              messageController.text = 'I show now and can not be repeated';
-                            case BsPriority.replaceAll:
-                              messageController.text =
-                                  'DESTRUCTIVE Show me NOW and clear the queue';
-                            case BsPriority.overall:
-                              throw ('Internal Use only');
-                          }
-                          setState(() => priority = e);
-                        },
+                        onSelected: (_) => setState(() => gravity = e),
                       ),
                     ),
-              ],
-            ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+      ),
+      Card(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+          child: Row(
+            spacing: 20,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Priority:', style: Theme.of(context).textTheme.titleLarge),
+              Flexible(
+                child: Wrap(
+                  spacing: 10,
+                  runSpacing: 20,
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    ...BsPriority.values
+                        .whereNot((element) => element.isOverall)
+                        .map(
+                          (e) => ChoiceChip(
+                            selected: priority == e,
+                            label: Text(e.name.capitalize()),
+                            onSelected: (_) {
+                              switch (e) {
+                                case BsPriority.regular:
+                                  messageController.text =
+                                      'I am a regular customer I wait on the line';
+                                case BsPriority.noRepeat:
+                                  messageController.text = 'I can not be repeated but I can wait';
+                                case BsPriority.now:
+                                  messageController.text = 'Show me NOW then continue the queue';
+                                case BsPriority.ifEmpty:
+                                  messageController.text =
+                                      'I have autism ONLY show me if queue is empty';
+                                case BsPriority.nowNoRepeat:
+                                  messageController.text = 'I show now and can not be repeated';
+                                case BsPriority.replaceAll:
+                                  messageController.text =
+                                      'DESTRUCTIVE Show me NOW and clear the queue';
+                                case BsPriority.overall:
+                                  throw ('Internal Use only');
+                              }
+                              setState(() => priority = e);
+                            },
+                          ),
+                        ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       Row(
         mainAxisSize: MainAxisSize.min,
