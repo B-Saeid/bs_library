@@ -2,7 +2,6 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:bs_styles/bs_styles.dart';
 import 'package:bs_widgets/riverpod_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'enum.dart';
 
@@ -24,32 +23,35 @@ class MessageWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) => LayoutBuilder(
     builder: (_, constraints) => RefWidget(
-      (ref) => Container(
-        constraints: constraints,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-        decoration: ShapeDecoration(
-          color: color ?? toastState.color(ref),
-          shape: const StadiumBorder(),
-          shadows: kElevationToShadow[4],
-        ),
-        child: FittedBox(fit: BoxFit.scaleDown, child: buildText(ref)),
-      ),
+      (ref) {
+        final backgroundColor = color ?? toastState.color(ref: ref, context: context);
+        return Container(
+          constraints: constraints,
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+          decoration: ShapeDecoration(
+            color: backgroundColor,
+            shape: const StadiumBorder(),
+            shadows: kElevationToShadow[4],
+          ),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: buildText(
+              style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(
+                color: backgroundColor.invertedBW, // to make the text always visible
+              ),
+            ),
+          ),
+        );
+      },
     ),
   );
 
-  Widget buildText(WidgetRef ref) {
-    final message = this.message;
-    final style = LiveData.textTheme(
-      ref,
-    ).bodyMedium!.copyWith(color: (color ?? toastState.color(ref)).invertedBW);
-
-    return switch (message) {
-      String() => Text(message, style: style),
-      ValueNotifier<String>() => ValueListenableBuilder(
-        valueListenable: message,
-        builder: (_, value, _) => Text(value, style: style),
-      ),
-      _ => throw UnimplementedError(),
-    };
-  }
+  Widget buildText({required TextStyle style}) => switch (message) {
+    final String text => Text(text, style: style),
+    final ValueNotifier<String> notifier => ValueListenableBuilder(
+      valueListenable: notifier,
+      builder: (_, value, _) => Text(value, style: style),
+    ),
+    _ => throw UnimplementedError(),
+  };
 }

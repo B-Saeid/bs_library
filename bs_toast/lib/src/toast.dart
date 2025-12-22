@@ -4,14 +4,50 @@ import 'package:flutter/material.dart';
 import 'parts/enum.dart';
 import 'parts/message_wrapper.dart';
 
-/// TODO: Only export enum when you combine all the packages in one repo/
-export 'package:bs_overlay/bs_overlay.dart';
+export 'package:bs_overlay/bs_overlay.dart' hide BsOverlay, CloseOverlayCallback;
 
 abstract final class Toast {
   /// If you need to be able to show toasts without passing
   /// the context you have to call this setter before doing so.
-  static void setNavigatorKey(GlobalKey<NavigatorState> navigatorKey) =>
-      BsOverlay.setNavigatorKey(navigatorKey);
+  ///
+  /// Note: This `navigatorKey` is not a hack it is genuinely used
+  /// by flutter to monitor the navigator stack, navigation notifications, etc.
+  /// The benefit of it is that it holds the current active BuildContext within.
+  ///
+  /// See this: [https://medium.com/@moeinmoradi.dev/navigatorkey-in-flutter-ecbb81b8ad34]
+  ///
+  /// Using GoRouter! Simply use it like this: [https://stackoverflow.com/a/77241743]
+  ///
+  /// Ex:
+  ///
+  /// ```dart
+  /// class MyApp extends StatelessWidget {
+  ///   const MyApp({super.key});
+  ///
+  ///   static final navigatorKey = GlobalKey<NavigatorState>();
+  ///
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return MaterialApp(
+  ///       ...
+  ///       navigatorKey: navigatorKey, // Attach it to your root widget
+  ///       builder: (context, child) {
+  ///         Toast.setNavigatorKey(navigatorKey); // Now you can omit context
+  ///         return child!;
+  ///       },
+  ///       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+  ///       ...
+  ///     );
+  ///   }
+  /// }
+  /// ```
+  ///
+  static void setNavigatorKey(GlobalKey<NavigatorState> navigatorKey) {
+    BsOverlay.setNavigatorKey(navigatorKey);
+    _navigatorKeyIsSet = true;
+  }
+
+  static bool _navigatorKeyIsSet = false;
 
   static VoidCallback? _show({
     required Object message,
@@ -35,7 +71,8 @@ abstract final class Toast {
                 color: color,
               ),
               gravity: gravity,
-              avoidKeyboard: false, // gravity takes control
+              // gravity takes control
+              avoidKeyboard: false,
               dismissOnTap: dismissOnTap,
               onDismiss: onDismiss,
 
@@ -59,8 +96,10 @@ abstract final class Toast {
               /// to explicitly allow hit testing in other areas of the screen
               barrier: false,
             );
-      // }
     } catch (error, stackTrace) {
+      if (!_navigatorKeyIsSet && context == null) {
+        throw ('You need to call Toast.setNavigatorKey or pass in the context');
+      }
       print(
         '===== TOAST ^ & & & & ^ ERROR ====== ${error.toString()}\n'
         'With Trace >> : $stackTrace',
