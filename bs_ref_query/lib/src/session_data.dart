@@ -49,8 +49,8 @@ class LiveData extends _$LiveData {
   ///
   // ignore: avoid_build_context_in_providers
   static void init(BuildContext context) {
-    context.read(liveDataProvider.notifier)._keepSynced(context);
     _initialized = true;
+    context.read(liveDataProvider.notifier)._keepSynced(context);
   }
 
   static bool _initialized = false;
