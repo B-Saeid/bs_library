@@ -152,6 +152,9 @@ abstract final class BsOverlayLogic {
         );
       }
     } catch (error, stackTrace) {
+      if (_navigatorKey == null && context == null) {
+        throw ('You need to call BSOverlay.setNavigatorKey or pass in the context');
+      }
       clearAllEnqueuedOverlays();
       print(
         'Error While _showOverlay ${error.toString()} with ${stackTrace.toString()}',

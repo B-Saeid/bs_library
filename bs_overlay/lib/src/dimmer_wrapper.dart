@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'logic.dart';
 
-class DimmedWrapper extends StatefulWidget {
+class DimmedWrapper extends ConsumerStatefulWidget {
   const DimmedWrapper(
     this.child, {
     super.key,
@@ -25,10 +25,10 @@ class DimmedWrapper extends StatefulWidget {
   final bool isOverall;
 
   @override
-  State<DimmedWrapper> createState() => _DimmedWrapperState();
+  ConsumerState<DimmedWrapper> createState() => _DimmedWrapperState();
 }
 
-class _DimmedWrapperState extends State<DimmedWrapper> {
+class _DimmedWrapperState extends ConsumerState<DimmedWrapper> {
   late final _focusNode = widget.barrierDismissible ? FocusNode() : null;
 
   @override
@@ -47,24 +47,25 @@ class _DimmedWrapperState extends State<DimmedWrapper> {
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
-    builder: (context, constraints) => RefWidget(
-      (ref) => Focus(
+    builder: (context, constraints) => Consumer(
+      builder: (context, ref, child) => Focus(
         focusNode: _focusNode,
         onKeyEvent: !widget.barrierDismissible ? null : _dismissOnESCPressed,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 20),
           color: Colors.black87.withAlphaFraction(StaticData.platform.isApple ? 0.4 : 0.8),
-          width: LiveData.deviceWidth(ref),
-          height: LiveData.deviceHeight(ref),
-          child: Stack(
-            children: [
-              if (widget.barrierDismissible)
-                Positioned.fill(child: GestureDetector(onTap: _handleDismiss)),
-              _centerContainer(ref, widget.child),
-              if (widget.showCloseIcon) _DismissIconButton(_handleDismiss),
-            ],
-          ),
+          width: LiveDataOrQuery.deviceWidth(ref: ref, context: context),
+          height: LiveDataOrQuery.deviceHeight(ref: ref, context: context),
+          child: child!,
         ),
+      ),
+      child: Stack(
+        children: [
+          if (widget.barrierDismissible)
+            Positioned.fill(child: GestureDetector(onTap: _handleDismiss)),
+          _centerContainer(ref, widget.child),
+          if (widget.showCloseIcon) _DismissIconButton(_handleDismiss),
+        ],
       ),
     ),
   );
@@ -83,22 +84,22 @@ class _DimmedWrapperState extends State<DimmedWrapper> {
           ? GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: _handleDismiss,
-              child: _childWrapper(child, ref),
+              child: _childWrapper(context, ref, child),
             )
-          : _childWrapper(child, ref),
+          : _childWrapper(context, ref, child),
     ),
   );
 
-  Widget _childWrapper(Object child, WidgetRef ref) {
+  Widget _childWrapper(BuildContext context, WidgetRef ref, Object child) {
     final zChild = switch (child) {
       String s => DefaultTextStyle.merge(
-        style: LiveData.textTheme(ref).titleLarge,
+        style: LiveDataOrQuery.textTheme(ref: ref).titleLarge,
         child: Text(s),
       ),
       _ => child as Widget,
     };
 
-    final width = LiveData.deviceWidth(ref) * 0.8;
+    final width = LiveDataOrQuery.deviceWidth(ref: ref, context: context) * 0.8;
     const padding = EdgeInsets.all(18.0);
 
     Widget childWrapper;
@@ -115,7 +116,7 @@ class _DimmedWrapperState extends State<DimmedWrapper> {
       childWrapper = TextContainer(
         width: width,
         padding: padding,
-        color: LiveData.themeData(ref).colorScheme.surfaceDim,
+        color: LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.surfaceDim,
         child: zChild,
       );
     }
@@ -136,7 +137,7 @@ class _DismissIconButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final direction = Directionality.of(context);
-    final viewPadding = LiveData.viewPadding(ref);
+    final viewPadding = LiveDataOrQuery.viewPadding(ref: ref, context: context);
     final baseEndPadding = direction == TextDirection.ltr ? viewPadding.right : viewPadding.left;
     return Positioned.directional(
       textDirection: direction,

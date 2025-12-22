@@ -11,8 +11,41 @@ abstract final class BsOverlay {
   /// ###### Note: This only applies to overlays shown with [showTimed] NOT [show]
   static void clearAllEnqueuedOverlays() => BsOverlayLogic.clearAllEnqueuedOverlays();
 
-  /// If you need to be able to show overlays and toast without passing
+  /// If you need to be able to show overlays without passing
   /// the context you have to call this setter before doing so.
+  ///
+  /// Note: This `navigatorKey` is not a hack it is genuinely used
+  /// by flutter to monitor the navigator stack, navigation notifications, etc.
+  /// The benefit of it is that it holds the current active BuildContext within.
+  ///
+  /// See this: [https://medium.com/@moeinmoradi.dev/navigatorkey-in-flutter-ecbb81b8ad34]
+  ///
+  /// Using GoRouter! Simply use it like this: [https://stackoverflow.com/a/77241743]
+  ///
+  /// Ex:
+  ///
+  /// ```dart
+  /// class MyApp extends StatelessWidget {
+  ///   const MyApp({super.key});
+  ///
+  ///   static final navigatorKey = GlobalKey<NavigatorState>();
+  ///
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return MaterialApp(
+  ///       ...
+  ///       navigatorKey: navigatorKey, // Attach it to your root widget
+  ///       builder: (context, child) {
+  ///         BSOverlay.setNavigatorKey(navigatorKey); // Now you can omit context
+  ///         return child!;
+  ///       },
+  ///       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+  ///       ...
+  ///     );
+  ///   }
+  /// }
+  /// ```
+  ///
   static void setNavigatorKey(GlobalKey<NavigatorState> navigatorKey) =>
       BsOverlayLogic.setNavigatorKey(navigatorKey);
 
@@ -20,14 +53,6 @@ abstract final class BsOverlay {
   /// If you call this function without passing the context
   /// it will assume that you have already set the navigator key
   /// by calling [BsOverlay.setNavigatorKey]. Otherwise it will throw an error.
-  ///
-  /// Note: This navigatorKey is not a hack it is genuinely used
-  /// by flutter to monitor the navigator stack, navigation notifications, etc.
-  /// The benefit of it is that it holds the current active BuildContext within.
-  ///
-  /// See this: [https://medium.com/@moeinmoradi.dev/navigatorkey-in-flutter-ecbb81b8ad34]
-  ///
-  /// Using GoRouter! Simply use it like this: [https://stackoverflow.com/a/77241743]
   ///
   /// Note: If you pass in [context], it will will use the nearest overlay to this context instead
   /// of the [navigatorKey]'s overlay.
@@ -66,8 +91,8 @@ abstract final class BsOverlay {
   ///   your overlay.
   ///
   /// {@template dialogs_note}
-  /// ### Note: `barrierDismissible` does not work with [BsDialogue] or other [AlertDialog]s
-  /// when passed to child as it internally uses `Align` to center the dialogue content
+  /// ##### Note: `barrierDismissible` does not work with [BsDialogue] or other [AlertDialog]s when passed to child.
+  /// Because they internally uses `Align` to center the dialogue content
   /// which takes up almost the entire screen making the gesture detector
   /// behind unreachable. If you want a workaround without editing
   /// the dialog source code you can set `dismissOnTap` to true but
@@ -141,6 +166,8 @@ abstract final class BsOverlay {
     return () => BsOverlayLogic.resetAndGoToNext(context: context, manualDismiss: true);
   }
 
+  /// {@macro contextAndNavigatorKey}
+  ///
   /// This method is used to show overlay without automatic dismiss
   /// you are to handle the dismiss manually by any of these ways:
   /// - calling the returned VoidCallback.
@@ -152,6 +179,8 @@ abstract final class BsOverlay {
   /// - pass [dismissOnBack] with true in order to dismiss when
   ///   back button is pressed This shall work with devices with back button
   ///   e.g. Android.
+  ///
+  /// {@macro dialogs_note}
   ///
   /// ##### Parameters
   /// - [content] is centered inside a dimmed container,
@@ -184,13 +213,6 @@ abstract final class BsOverlay {
   ///   the entire screen. Also note that if [dismissOnTap] is true this will be ignored.
   /// - [showCloseIcon] Shows an [AdaptiveIconButton] with close icon to manually dismiss
   ///   your overlay.
-  ///
-  /// {@macro contextAndNavigatorKey}
-  /// **content** is centered inside a dimmed container.
-  ///
-  /// **child** is passed as it is
-  ///
-  /// {@macro dialogs_note}
   ///
   /// ###### Returns a [VoidCallback] that will dismiss the overlay when called.
   static VoidCallback show({

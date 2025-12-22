@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:bs_utils/bs_utils.dart';
-import 'package:bs_widgets/riverpod_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -145,14 +144,14 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
           onKeyEvent: !widget.barrierDismissible ? null : _dismissOnESCPressed,
           child: Stack(
             children: [
-              Selector(
-                selector: LiveData.sizeQuerySelector,
-                builder: (_, sizeQuery, _) => SizedBox.fromSize(
-                  size: sizeQuery,
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: widget.barrierDismissible ? animateDismiss : null,
-                  ),
+              Consumer(
+                builder: (context, ref, child) => SizedBox.fromSize(
+                  size: LiveDataOrQuery.sizeQuery(ref: ref, context: context),
+                  child: child!,
+                ),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: widget.barrierDismissible ? animateDismiss : null,
                 ),
               ),
               widget.gravity?.positionedBuilder(_bottomCareWrapper) ?? _bottomCareWrapper,
@@ -174,9 +173,12 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
           /// SWEET Observation:
           /// on both Android & iOS: When the keyboard is dismissed while the
           /// overlay is shown it animates down nicely with the keyboard.
-          builder: (_, ref, child) {
-            final viewInsetsBottom = LiveData.viewInsets(ref).bottom;
-            final viewPaddingBottom = LiveData.viewPadding(ref).bottom;
+          builder: (context, ref, child) {
+            final viewInsetsBottom = LiveDataOrQuery.viewInsets(ref: ref, context: context).bottom;
+            final viewPaddingBottom = LiveDataOrQuery.viewPadding(
+              ref: ref,
+              context: context,
+            ).bottom;
             return Padding(
               padding: EdgeInsets.only(
                 bottom: widget.avoidKeyboard || widget.gravity!.isBottomSafe
