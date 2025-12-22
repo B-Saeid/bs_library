@@ -359,11 +359,12 @@ class AdaptiveButton extends StatelessWidget {
                       : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
                 ),
               ),
-              child: child is String ? Text(child as String) : child as Widget,
+              child: child!,
             ),
           ),
         ),
       ),
+      child: child is String ? Text(child as String) : child as Widget,
     );
   }
 
