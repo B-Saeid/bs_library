@@ -16,47 +16,32 @@ final class AppColors {
   // /// however we support from Android 6 (API 23)
   // bool get isDarkModeSupported => (DeviceInfoService.android?.apiLevel ?? 30) >= 29;
 
-  TextStyle? positiveChoiceStyle(WidgetRef ref, {bool bold = true}) =>
-      LiveData.textTheme(ref).bodyMedium?.copyWith(
+  TextStyle? positiveChoiceStyle({WidgetRef? ref, BuildContext? context, bool bold = true}) =>
+      LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium?.copyWith(
         fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-        color: LiveData.themeData(ref).colorScheme.surfaceTint,
+        color: LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.surfaceTint,
       );
 
-  TextStyle? staticPositiveChoiceStyle({bool bold = true}) =>
-      StaticData.textTheme.bodyMedium?.copyWith(
-        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-        color: StaticData.themeData.colorScheme.surfaceTint,
+  TextStyle? negativeChoiceStyle({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium?.copyWith(
+        color: negativeColor(ref: ref, context: context),
       );
 
-  TextStyle? negativeChoiceStyle(WidgetRef ref) => LiveData.textTheme(ref).bodyMedium?.copyWith(
-    color: negativeColor(ref),
-  );
+  Color negativeColor({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.error;
 
-  TextStyle? get staticNegativeChoiceStyle => StaticData.textTheme.bodyMedium?.copyWith(
-    color: staticNegativeColor,
-  );
+  Color adaptiveNegativeColor({WidgetRef? ref, BuildContext? context}) =>
+      StaticData.platform.isApple
+      ? context != null
+            ? CupertinoColors.destructiveRed.resolveFrom(context)
+            : CupertinoColors.destructiveRed
+      : LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.error;
 
-  Color negativeColor(WidgetRef ref) => LiveData.themeData(ref).colorScheme.error;
+  Color whiteDarkBlackLight({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? Colors.black : Colors.white;
 
-  Color get staticNegativeColor => StaticData.themeData.colorScheme.error;
-
-  Color adaptiveNegativeColor(WidgetRef ref, BuildContext context) => StaticData.platform.isApple
-      ? CupertinoColors.destructiveRed.resolveFrom(context)
-      : LiveData.themeData(ref).colorScheme.error;
-
-  Color get staticAdaptiveNegativeColor => StaticData.platform.isApple
-      ? CupertinoColors.destructiveRed
-      : StaticData.themeData.colorScheme.error;
-
-  Color whiteDarkBlackLight(WidgetRef ref) => LiveData.isLight(ref) ? Colors.black : Colors.white;
-
-  Color staticWhiteDarkBlackLight(WidgetRef ref) =>
-      StaticData.isLight ? Colors.black : Colors.white;
-
-  Color whiteLightBlackDark(WidgetRef ref) => LiveData.isLight(ref) ? Colors.white : Colors.black;
-
-  Color staticWhiteLightBlackDark(WidgetRef ref) =>
-      StaticData.isLight ? Colors.white : Colors.black;
+  Color whiteLightBlackDark({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? Colors.white : Colors.black;
 
   LinearGradient opacityGradient(Color color, [(double from, double to)? bounds]) => LinearGradient(
     colors: [
@@ -71,47 +56,40 @@ final class AppColors {
 
   Color get greenLight => Colors.green.shade400;
 
-  Color adaptiveGreen(WidgetRef ref) => LiveData.isLight(ref) ? green : greenLight;
+  Color adaptiveGreen({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? green : greenLight;
 
-  Color get staticAdaptiveGreen => StaticData.isLight ? green : greenLight;
-
-  Color adaptiveIGreen(WidgetRef ref) => LiveData.isLight(ref) ? greenLight : green;
-
-  Color get staticAdaptiveIGreen => StaticData.isLight ? greenLight : green;
+  Color adaptiveIGreen({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? greenLight : green;
 
   Color get grey => const Color(0xff4b4b4b);
 
   Color get greyLight => const Color(0xffd2d2d2);
 
-  Color adaptiveGrey(WidgetRef ref) =>
-      LiveData.isLight(ref) ? const Color(0xffd2d2d2) : const Color(0xff4b4b4b);
-
-  Color get staticAdaptiveGrey =>
-      StaticData.isLight ? const Color(0xffd2d2d2) : const Color(0xff4b4b4b);
+  Color adaptiveGrey({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context)
+      ? const Color(0xffd2d2d2)
+      : const Color(0xff4b4b4b);
 
   Color get yellow => const Color(0xff7b6727);
 
   Color get yellowLight => const Color(0xfffff799);
 
-  Color adaptiveYellow(WidgetRef ref) => LiveData.isLight(ref) ? yellow : yellowLight;
+  Color adaptiveYellow({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? yellow : yellowLight;
 
-  Color get staticAdaptiveYellow => StaticData.isLight ? yellow : yellowLight;
-
-  Color adaptiveIYellow(WidgetRef ref) => LiveData.isLight(ref) ? yellowLight : yellow;
-
-  Color get staticAdaptiveIYellow => StaticData.isLight ? yellowLight : yellow;
+  Color adaptiveIYellow({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? yellowLight : yellow;
 
   Color get red => const Color(0xffb33c3c);
 
   Color get redLight => const Color(0xffff9999);
 
-  Color adaptiveRed(WidgetRef ref) => LiveData.isLight(ref) ? red : redLight;
+  Color adaptiveRed({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? red : redLight;
 
-  Color get staticAdaptiveRed => StaticData.isLight ? red : redLight;
-
-  Color adaptiveIRed(WidgetRef ref) => LiveData.isLight(ref) ? redLight : red;
-
-  Color get staticAdaptiveIRed => StaticData.isLight ? redLight : red;
+  Color adaptiveIRed({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? redLight : red;
 
   Color get blue => const Color(0xFF3c6ab3);
 
@@ -121,30 +99,25 @@ final class AppColors {
 
   Color get purpleLight => const Color(0xffb388ff);
 
-  Color adaptiveBlue(WidgetRef ref) => LiveData.isLight(ref) ? blue : blueLight;
+  Color adaptiveBlue({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? blue : blueLight;
 
-  Color get staticAdaptiveBlue => StaticData.isLight ? blue : blueLight;
+  Color adaptivePurple({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? purple : purpleLight;
 
-  Color adaptivePurple(WidgetRef ref) => LiveData.isLight(ref) ? purple : purpleLight;
+  Color scaffoldBackground({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.themeData(ref: ref, context: context).scaffoldBackgroundColor;
 
-  Color get staticAdaptivePurple => StaticData.isLight ? purple : purpleLight;
-
-  Color scaffoldBackground(WidgetRef ref) => LiveData.themeData(ref).scaffoldBackgroundColor;
-
-  Color get staticScaffoldBackground => StaticData.themeData.scaffoldBackgroundColor;
-
-  Color onScaffoldBackground(WidgetRef ref) {
-    return LiveData.themeData(ref).colorScheme.surfaceContainerLowest;
-    // final scaBg = LiveData.themeData(ref).scaffoldBackgroundColor;
-    // return LiveData.isLight(ref)
+  Color onScaffoldBackground({WidgetRef? ref, BuildContext? context}) {
+    return LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.surfaceContainerLowest;
+    // final scaBg = LiveDataOrQuery.themeData(ref: ref, context: context).scaffoldBackgroundColor;
+    // return LiveDataOrQuery.isLight(ref: ref, context: context
     //     ? Colors.white
     //     : Color.fromARGB(
-    //         255,
-    //         scaBg.red + 4,
-    //         scaBg.green + 4,
-    //         scaBg.blue + 4,
-    //       );
+    //   255,
+    //   scaBg.red + 4,
+    //   scaBg.green + 4,
+    //   scaBg.blue + 4,
+    // );
   }
-
-  Color get staticOnScaffoldBackground => StaticData.themeData.colorScheme.surfaceContainerLowest;
 }

@@ -20,26 +20,27 @@ final class AdaptiveIcons {
 
   bool get isApple => StaticData.platform.isApple;
 
-  Color _adaptiveColor([WidgetRef? ref]) =>
-      (ref != null ? LiveData.isLight(ref) : StaticData.isLight) ? Colors.black : Colors.white;
+  Color _adaptiveColor({WidgetRef? ref, BuildContext? context}) =>
+      LiveDataOrQuery.isLight(ref: ref, context: context) ? Colors.black : Colors.white;
 
   Widget wGoogleLogo({double? size}) => Iconify(
     Logos.google_icon,
     size: size ?? 25,
   );
 
-  Widget wAppleLogo({WidgetRef? ref, Color? color, double? size}) => SizedBox.square(
-    dimension: size ?? 25,
-    child: Iconify(
-      Logos.apple,
-      color: color ?? _adaptiveColor(ref),
-      size: size ?? 25,
-    ),
-  );
+  Widget wAppleLogo({WidgetRef? ref, BuildContext? context, Color? color, double? size}) =>
+      SizedBox.square(
+        dimension: size ?? 25,
+        child: Iconify(
+          Logos.apple,
+          color: color ?? _adaptiveColor(ref: ref, context: context),
+          size: size ?? 25,
+        ),
+      );
 
-  Widget wSandTimer({WidgetRef? ref, Color? color, double? size}) => Iconify(
+  Widget wSandTimer({WidgetRef? ref, BuildContext? context, Color? color, double? size}) => Iconify(
     GameIcons.sands_of_time,
-    color: color ?? _adaptiveColor(ref),
+    color: color ?? _adaptiveColor(ref: ref, context: context),
     size: size,
   );
 
@@ -61,28 +62,48 @@ final class AdaptiveIcons {
   //       size: size,
   //     );
 
-  Widget wCardList({WidgetRef? ref, Color? color, double? size}) => Iconify(
+  Widget wCardList({
+    WidgetRef? ref,
+    BuildContext? context,
+    Color? color,
+    double? size,
+  }) => Iconify(
     Bi.card_list,
     size: size ?? 32,
-    color: color ?? _adaptiveColor(ref),
+    color: color ?? _adaptiveColor(ref: ref, context: context),
   );
 
-  Widget wCardHeading({WidgetRef? ref, Color? color, double? size}) => Iconify(
+  Widget wCardHeading({
+    WidgetRef? ref,
+    BuildContext? context,
+    Color? color,
+    double? size,
+  }) => Iconify(
     Bi.card_heading,
     size: size ?? 32,
-    color: color ?? _adaptiveColor(ref),
+    color: color ?? _adaptiveColor(ref: ref, context: context),
   );
 
-  Widget wDrivingLicenseOutline({WidgetRef? ref, Color? color, double? size}) => Iconify(
+  Widget wDrivingLicenseOutline({
+    WidgetRef? ref,
+    BuildContext? context,
+    Color? color,
+    double? size,
+  }) => Iconify(
     Fa.drivers_license_o,
-    color: color ?? _adaptiveColor(ref),
+    color: color ?? _adaptiveColor(ref: ref, context: context),
     size: size,
   );
 
-  Widget wDrivingLicense({WidgetRef? ref, Color? color, double? size}) => Iconify(
+  Widget wDrivingLicense({
+    WidgetRef? ref,
+    BuildContext? context,
+    Color? color,
+    double? size,
+  }) => Iconify(
     Fa.drivers_license,
     size: size ?? 32,
-    color: color ?? _adaptiveColor(ref),
+    color: color ?? _adaptiveColor(ref: ref, context: context),
   );
 
   // Widget wSpeakingHead({WidgetRef? ref, Color? color, double? size}) => Iconify(
