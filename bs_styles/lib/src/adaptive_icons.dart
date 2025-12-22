@@ -8,6 +8,7 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/fa.dart';
 import 'package:iconify_flutter/icons/game_icons.dart';
+import 'package:iconify_flutter/icons/simple_icons.dart';
 
 import 'overridden_icons.dart';
 
@@ -22,6 +23,13 @@ final class AdaptiveIcons {
 
   Color _adaptiveColor({WidgetRef? ref, BuildContext? context}) =>
       LiveDataOrQuery.isLight(ref: ref, context: context) ? Colors.black : Colors.white;
+
+  Widget wGithubLogo({WidgetRef? ref, BuildContext? context, Color? color, double? size}) =>
+      Iconify(
+        SimpleIcons.github,
+        color: color ?? _adaptiveColor(ref: ref, context: context),
+        size: size,
+      );
 
   Widget wGoogleLogo({double? size}) => Iconify(
     Logos.google_icon,
