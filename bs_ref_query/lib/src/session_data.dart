@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'live_data_or_query.dart';
 
 part 'extensions.dart';
 part 'session_data.g.dart';
@@ -134,8 +135,6 @@ class LiveData extends _$LiveData {
     _updateThemeDependants(newThemeData);
   }
 
-  late TextStyle _normalSize;
-
   void _updateThemeDependants(ThemeData newThemeData) {
     state = state._copyWith(
       themeData: newThemeData,
@@ -144,13 +143,11 @@ class LiveData extends _$LiveData {
     );
     __themeData = state.themeData;
     __textTheme = state.textTheme;
-    _normalSize = state.textTheme.bodyMedium!; // you can use any textTheme
     __isLight = state.themeData.brightness == Brightness.light;
   }
 
   void _updateLiveScalePercentage(TextScaler textScaler) {
-    final scaledSize = textScaler.scale(_normalSize.fontSize!);
-    final newPercentage = scaledSize / _normalSize.fontSize!;
+    final newPercentage = textScaler.scale(16) / 16;
     if (state.scaleFactor == newPercentage) return;
     // print('newPercentage: $newPercentage');
 
@@ -180,8 +177,7 @@ class LiveData extends _$LiveData {
   static ProviderListenable<Size> get sizeQuerySelector =>
       liveDataProvider.select((value) => value.sizeQuery);
 
-  static Size sizeQuery(WidgetRef ref) =>
-      ref.watch(liveDataProvider.select((p) => p.sizeQuery));
+  static Size sizeQuery(WidgetRef ref) => ref.watch(liveDataProvider.select((p) => p.sizeQuery));
 
   static ProviderListenable<double> get widthSelector =>
       liveDataProvider.select((value) => value.deviceWidth);
@@ -210,14 +206,12 @@ class LiveData extends _$LiveData {
   static ProviderListenable<EdgeInsets> get paddingSelector =>
       liveDataProvider.select((value) => value.padding);
 
-  static EdgeInsets padding(WidgetRef ref) =>
-      ref.watch(liveDataProvider.select((p) => p.padding));
+  static EdgeInsets padding(WidgetRef ref) => ref.watch(liveDataProvider.select((p) => p.padding));
 
   static ProviderListenable<bool> get isPortraitSelector =>
       liveDataProvider.select((value) => value.isPortrait);
 
-  static bool isPortrait(WidgetRef ref) =>
-      ref.watch(liveDataProvider.select((p) => p.isPortrait));
+  static bool isPortrait(WidgetRef ref) => ref.watch(liveDataProvider.select((p) => p.isPortrait));
 
   static ProviderListenable<ThemeData> get themeDataSelector =>
       liveDataProvider.select((value) => value.themeData);
@@ -234,33 +228,11 @@ class LiveData extends _$LiveData {
   static ProviderListenable<bool> get isLightSelector =>
       liveDataProvider.select((value) => value.isLight);
 
-  static bool isLight(WidgetRef ref) =>
-      ref.watch(liveDataProvider.select((p) => p.isLight));
+  static bool isLight(WidgetRef ref) => ref.watch(liveDataProvider.select((p) => p.isLight));
 
   /// End of watcher static methods
 
   /// Scaling Logic
-  static double _getScaledValue(
-    WidgetRef ref, {
-    required double baseValue,
-    bool allowBelow = true,
-    double? maxValue,
-    double? maxFactor,
-    double? startFrom,
-    double? beforeStart,
-  }) {
-    final currentScaleFactor = LiveData.scalePercentage(ref);
-    return applyScaleLogic(
-      currentScaleFactor,
-      baseValue: baseValue,
-      allowBelow: allowBelow,
-      maxValue: maxValue,
-      maxFactor: maxFactor,
-      startFrom: startFrom,
-      beforeStart: beforeStart,
-    );
-  }
-
   static double applyScaleLogic(
     double currentScaleFactor, {
     required double baseValue,
@@ -270,8 +242,7 @@ class LiveData extends _$LiveData {
     double? startFrom,
     double? beforeStart,
   }) {
-    var scaledValue =
-        baseValue * currentScaleFactor.clamp(0, maxFactor ?? double.infinity);
+    var scaledValue = baseValue * currentScaleFactor.clamp(0, maxFactor ?? double.infinity);
 
     if (startFrom != null && currentScaleFactor < startFrom) {
       return beforeStart ?? baseValue;

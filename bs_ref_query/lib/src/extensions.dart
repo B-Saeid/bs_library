@@ -1,21 +1,55 @@
 part of 'session_data.dart';
 
 extension LiveScaledValue on num {
-  /// a method that returns the scaled value of a number based on the current scale factor
-  /// It uses the riverpod [WidgetRef] to get a more reliable scale factor than a [BuildContext].
+  /// {@template flexible_scale}
+  /// A flexible method that returns the scaled value of a number
+  /// based on the current textScale factor.
+  ///
+  /// It uses [LiveData.scalePercentage] if `ref` is passed and if not available
+  /// while `context` is passed it fallbacks to using `MediaQuery.textScalerOf(context)`.
+  ///
+  /// ###### Be aware:
+  /// If neither is passed it uses [StaticData], which needs [LiveData] to be at least initialized.
+  /// Otherwise make sure you pass either `ref` or `context`.
+  /// {@endtemplate}
   ///
   /// {@template scalable}
-  /// `maxValue` is the maximum value of the scaled value above which scaling is no longer applied.
-  ///
-  /// `maxFactor` is the maximum scaling factor above which scaling is no longer applied.
+  ///   - `maxValue` is the maximum value of the scaled value above which scaling is no longer applied.
+  ///   - `maxFactor` is the maximum scaling factor above which scaling is no longer applied.
+  ///   - `allowBelow` is a flag that indicates whether scaling is allowed below the base value
+  ///      that only occurs when scale factor is less than `1.0`.
   /// {@endtemplate}
   ///
-  /// {@template allowBelow}
-  /// `allowBelow` is a flag that indicates whether scaling is allowed below the base value
-  /// that only occurs when scale factor is less than `1.0`.
+  /// see also: [delayedScaleFlexible] if you need delayed scaling.
+  double scalableFlexible({
+    WidgetRef? ref,
+    BuildContext? context,
+    bool allowBelow = true,
+    double? maxValue,
+    double? maxFactor,
+  }) {
+    assert(
+      (maxValue ?? double.infinity) > this,
+      'maxValue $maxValue must be greater than $this',
+    );
+
+    final scaleFactor = LiveDataOrQuery.scalePercentage(ref: ref, context: context);
+    return LiveData.applyScaleLogic(
+      scaleFactor,
+      baseValue: toDouble(),
+      allowBelow: allowBelow,
+      maxFactor: maxFactor,
+      maxValue: maxValue,
+    );
+  }
+
+  /// {@template ref_scale}
+  /// A method that returns the scaled value of a number based on the current textScale factor
+  /// It uses the riverpod [WidgetRef] to get a more reliable scale factor than a [BuildContext].
   /// {@endtemplate}
   ///
-  /// see also: [delayedScale] if you need delayed scaling.
+  /// {@macro scalable}
+  /// see also: [delayedScaleFlexible] if you need delayed scaling.
   double scalable(
     WidgetRef ref, {
     bool allowBelow = true,
@@ -26,8 +60,9 @@ extension LiveScaledValue on num {
       (maxValue ?? double.infinity) > this,
       'maxValue $maxValue must be greater than $this',
     );
-    return LiveData._getScaledValue(
-      ref,
+    final scaleFactor = LiveData.scalePercentage(ref);
+    return LiveData.applyScaleLogic(
+      scaleFactor,
       baseValue: toDouble(),
       allowBelow: allowBelow,
       maxFactor: maxFactor,
@@ -35,17 +70,46 @@ extension LiveScaledValue on num {
     );
   }
 
-  /// a method that returns a delayed scaled value of a number based on the current scale factor
-  /// It uses the riverpod [WidgetRef] to get a more reliable scale factor than a [BuildContext].
+  /// {@macro flexible_scale}
+  /// {@template delayed_scale}
+  ///   - `startFrom` is the scaling factor at which the scaling starts.
   ///
-  /// `startFrom` is the scaling factor at which the scaling starts.
-  ///
-  /// if `beforeStart` is null then the baseValue -the value you are calling this method on-
-  /// will be returned until scaling factor reaches the `startFrom` value.
+  ///   - if `beforeStart` is null then the baseValue -the value you are calling this method on-
+  ///     will be returned until scaling factor reaches the `startFrom` value.
+  /// {@endtemplate}
   ///
   /// {@macro scalable}
+  /// Note that `allowBelow` is no-op in cases `startFrom` is >= `1.0`
   ///
-  /// see also: [scalable] for standard scaling.
+  /// see also: [scalableFlexible] for standard scaling.
+  double delayedScaleFlexible({
+    WidgetRef? ref,
+    BuildContext? context,
+    required double startFrom,
+    bool allowBelow = true,
+    double? beforeStart,
+    double? maxValue,
+    double? maxFactor,
+  }) {
+    _safetyAssertion(startFrom, maxValue, maxFactor);
+    final scaleFactor = LiveDataOrQuery.scalePercentage(ref: ref, context: context);
+    return LiveData.applyScaleLogic(
+      scaleFactor,
+      startFrom: startFrom,
+      beforeStart: beforeStart,
+      baseValue: toDouble(),
+      maxFactor: maxFactor,
+      maxValue: maxValue,
+      allowBelow: allowBelow,
+    );
+  }
+
+  /// {@macro ref_scale}
+  /// {@macro delayed_scale}
+  /// {@macro scalable}
+  /// Note that `allowBelow` is no-op in cases `startFrom` is >= `1.0`
+  ///
+  /// see also: [scalableFlexible] for standard scaling.
   double delayedScale(
     WidgetRef ref, {
     required double startFrom,
@@ -55,8 +119,9 @@ extension LiveScaledValue on num {
     double? maxFactor,
   }) {
     _safetyAssertion(startFrom, maxValue, maxFactor);
-    return LiveData._getScaledValue(
-      ref,
+    final scaleFactor = LiveData.scalePercentage(ref);
+    return LiveData.applyScaleLogic(
+      scaleFactor,
       startFrom: startFrom,
       beforeStart: beforeStart,
       baseValue: toDouble(),
@@ -104,24 +169,13 @@ extension LiveStringSize on String {
     if (!followScale) {
       fontSize = style.fontSize!;
     } else {
-      final double scaledFontSize;
-      if (ref != null) {
-        scaledFontSize = style.fontSize!.scalable(
-          ref,
-          allowBelow: allowBelow,
-          maxValue: maxValue,
-          maxFactor: maxFactor,
-        );
-      } else {
-        final scaleFactor = 16 / MediaQuery.textScalerOf(context!).scale(16);
-        scaledFontSize = LiveData.applyScaleLogic(
-          scaleFactor,
-          baseValue: style.fontSize!,
-          allowBelow: allowBelow,
-          maxValue: maxValue,
-          maxFactor: maxFactor,
-        );
-      }
+      final scaledFontSize = LiveData.applyScaleLogic(
+        LiveDataOrQuery.scalePercentage(ref: ref, context: context),
+        baseValue: style.fontSize!,
+        allowBelow: allowBelow,
+        maxValue: maxValue,
+        maxFactor: maxFactor,
+      );
 
       fontSize = scaledFontSize;
     }
