@@ -59,7 +59,11 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
     widget.overall
         ? BsOverlayLogic.topEntries.last.animatedHide = null
         : BsOverlayLogic.current?.animatedHide = null;
-    await _animationController!.reverse();
+    try {
+      await _animationController!.reverse();
+    } catch (e) {
+      log('Error Caught While Animating out, $e', name: 'BsOverlay-CoreWidget');
+    }
     _timer?.cancel();
   }
 
@@ -131,8 +135,8 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
   /// [_bottomCareWrapper] ->
   /// [_backDismissWrapper] ->
   /// [_centerMaterialWrapper] ->
-  /// [_tapHandlerWrapper] ->
   /// [_ignorePointerWrapper] ->
+  /// [_tapHandlerWrapper] ->
   /// finally [_child]
   @override
   Widget build(BuildContext context) => _barrierDismissWrapper;
@@ -221,18 +225,19 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
   }
 
   Center get _centerMaterialWrapper => Center(
-    child: Material(color: Colors.transparent, child: _tapHandlerWrapper),
+    child: Material(color: Colors.transparent, child: _ignorePointerWrapper),
   );
+
+  Widget get _ignorePointerWrapper =>
+      widget.ignorePointer ? IgnorePointer(child: _tapHandlerWrapper) : _tapHandlerWrapper;
 
   Widget get _tapHandlerWrapper => widget.dismissOnTap
       ? GestureDetector(
           onTap: animateDismiss,
           behavior: HitTestBehavior.translucent,
-          child: _ignorePointerWrapper,
+          child: _child,
         )
-      : _ignorePointerWrapper;
-
-  Widget get _ignorePointerWrapper => widget.ignorePointer ? IgnorePointer(child: _child) : _child;
+      : _child;
 
   Widget get _child => FadeTransition(opacity: _fadeAnimation, child: widget.child);
 }

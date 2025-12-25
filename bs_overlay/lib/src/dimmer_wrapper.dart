@@ -16,6 +16,7 @@ class DimmedWrapper extends ConsumerStatefulWidget {
     this.barrierDismissible = false,
     this.isOverall = false,
     this.showCloseIcon = false,
+    required this.ignorePointer,
   });
 
   final Object child;
@@ -23,6 +24,7 @@ class DimmedWrapper extends ConsumerStatefulWidget {
   final bool dismissOnTap;
   final bool barrierDismissible;
   final bool isOverall;
+  final bool ignorePointer;
 
   @override
   ConsumerState<DimmedWrapper> createState() => _DimmedWrapperState();
@@ -63,7 +65,7 @@ class _DimmedWrapperState extends ConsumerState<DimmedWrapper> {
         children: [
           if (widget.barrierDismissible)
             Positioned.fill(child: GestureDetector(onTap: _handleDismiss)),
-          _centerContainer(ref, widget.child),
+          _centerContainer(ref, widget.child, widget.ignorePointer),
           if (widget.showCloseIcon) _DismissIconButton(_handleDismiss),
         ],
       ),
@@ -78,16 +80,14 @@ class _DimmedWrapperState extends ConsumerState<DimmedWrapper> {
     return KeyEventResult.ignored;
   }
 
-  SafeArea _centerContainer(WidgetRef ref, Object child) => SafeArea(
-    child: Center(
-      child: widget.dismissOnTap
-          ? GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: _handleDismiss,
-              child: _childWrapper(context, ref, child),
-            )
-          : _childWrapper(context, ref, child),
-    ),
+  Widget _centerContainer(WidgetRef ref, Object child, bool ignorePointer) => Center(
+    child: widget.dismissOnTap
+        ? GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: _handleDismiss,
+            child: _childWrapper(context, ref, child),
+          )
+        : AbsorbPointer(absorbing: ignorePointer, child: _childWrapper(context, ref, child)),
   );
 
   Widget _childWrapper(BuildContext context, WidgetRef ref, Object child) {

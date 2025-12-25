@@ -1,28 +1,11 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import 'core_widget.dart';
+import 'entry.dart';
 import 'enums.dart';
-
-/// internal class [Entry] which maintains
-/// each [OverlayEntry] and [Duration] for every overlay user
-/// triggered
-class Entry {
-  Entry({
-    required this.id,
-    required this.entry,
-    this.duration,
-    this.onDismiss,
-  });
-
-  final int id;
-  final OverlayEntry entry;
-  final Duration? duration;
-  final ValueSetter<bool>? onDismiss;
-
-  Future<void> Function()? animatedHide;
-}
 
 abstract final class BsOverlayLogic {
   static GlobalKey<NavigatorState>? _navigatorKey;
@@ -30,7 +13,6 @@ abstract final class BsOverlayLogic {
   static void setNavigatorKey(GlobalKey<NavigatorState> navigatorKey) =>
       _navigatorKey = navigatorKey;
 
-  /// It is for the call of [BsOverlay.showTimed]
   static Entry? current;
   static final List<Entry> _overlayQueue = [];
   static Timer? _timer;
@@ -38,30 +20,36 @@ abstract final class BsOverlayLogic {
   static final Duration _animationDuration = CoreWidget.fadeDurations;
 
   /// This is added to handle an overlay that is not to be in the queue
-  /// now It is for the call of [BsOverlay.show]
   static final List<Entry> topEntries = [];
 
-  static void removeOverallEntry() {
-    final topEntry = topEntries.last;
+  static void removeOverallEntry([String? uuid]) {
+    final Entry entry;
+
+    /// Internal use - SAFE
+    if (uuid == null) {
+      entry = topEntries.last;
+    }
+    /// Developers calling a returned VoidCallback - Unsafe
+    else {
+      final matchingEntry = topEntries.firstWhereOrNull((entry) => entry.uuid == uuid);
+      if (matchingEntry == null) return;
+      entry = matchingEntry;
+    }
+
     void harshRemove() {
-      topEntry.onDismiss?.call(true);
+      entry.onDismiss?.call(true);
 
       /// This line harshly removes the overlay But It is hidden
-      /// with animation above by calling [_overallEntry!.animatedHide].
-      topEntry.entry.remove();
-      topEntries.removeLast();
-
-      /// The below line can be buggy for a couple of reasons:
-      ///   - It removes the first occurrence of topEntry
-      ///    and as ,for now, equality is based on id, it might remove the wrong one
-      ///   - It has no effect if the topEntry is not in the list
-      ///    that leaves us uncertain of the success of the operation
-      // _topEntries.remove(topEntry);
+      /// with animation above by calling [entry.animatedHide!].
+      entry.entry.remove();
+      final removed = topEntries.remove(entry);
+      print('removed = $removed');
+      if (!removed) throw (FlutterError('Failed to remove entry'));
     }
 
     /// T O D O  : DONE / try to reach hideIt function or something to avoid harsh hiding
-    if (topEntry.animatedHide != null) {
-      topEntry.animatedHide!.call().then((_) => harshRemove());
+    if (entry.animatedHide != null) {
+      entry.animatedHide!.call().then((_) => harshRemove());
     } else {
       harshRemove();
     }
@@ -72,7 +60,16 @@ abstract final class BsOverlayLogic {
   static void resetAndGoToNext({
     BuildContext? context,
     bool manualDismiss = false,
+    String? uuid,
   }) {
+    /// Developers calling a returned VoidCallback - Unsafe.
+    if (uuid != null) {
+      final matchingEntry = _overlayQueue.firstWhereOrNull((entry) => entry.uuid == uuid);
+      if (matchingEntry != current || matchingEntry == null) {
+        _overlayQueue.remove(matchingEntry);
+        return; // Since matchingEntry is not found or not being shown.
+      }
+    }
     _timer?.cancel();
     _animationTimer?.cancel();
     _timer = null;
@@ -90,8 +87,8 @@ abstract final class BsOverlayLogic {
 
     if (manualDismiss) {
       /// T O D O  : DONE / try to reach hideIt function or something to avoid harsh hiding
-      if (current!.animatedHide != null) {
-        current!.animatedHide?.call().then((_) => removeCurrentShowNext());
+      if (current?.animatedHide != null) {
+        current?.animatedHide?.call().then((_) => removeCurrentShowNext());
         return;
       }
     }
@@ -180,18 +177,19 @@ abstract final class BsOverlayLogic {
   }
 
   static void showOverlay({
+    required int id,
+    required String uuid,
     BuildContext? context,
     required Widget child,
     BsGravity? gravity,
-    required int id,
+    BsPriority priority = BsPriority.regular,
     Duration? duration,
     bool ignorePointer = false,
     bool dismissOnTap = false,
-    BsPriority priority = BsPriority.regular,
     ValueSetter<bool>? onDismiss,
     bool dismissOnBack = false,
-    bool barrier = true,
     bool barrierDismissible = false,
+    bool barrier = true,
     bool avoidKeyboard = false,
   }) {
     /// Building the widget only
@@ -219,6 +217,7 @@ abstract final class BsOverlayLogic {
     /// Embedding the [OverlayEntry] inside a _ToastEntry instance
     final myEntry = Entry(
       id: id,
+      uuid: uuid,
       entry: newEntry,
       duration: duration,
       onDismiss: onDismiss,
