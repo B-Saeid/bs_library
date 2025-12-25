@@ -3,9 +3,9 @@ import 'dart:developer';
 
 import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:bs_utils/bs_utils.dart';
+import 'package:bs_widgets/riverpod_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'enums.dart';
 import 'logic.dart';
@@ -41,6 +41,7 @@ class CoreWidget extends StatefulWidget {
   final bool overall;
 
   @override
+  // ignore: library_private_types_in_public_api
   _CoreWidgetState createState() => _CoreWidgetState();
 
   static Duration get _fadeInDuration => 350.milliseconds;
@@ -148,7 +149,7 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
           onKeyEvent: !widget.barrierDismissible ? null : _dismissOnESCPressed,
           child: Stack(
             children: [
-              Consumer(
+              ConsumerOrStateless(
                 builder: (context, ref, child) => SizedBox.fromSize(
                   size: LiveDataOrQuery.sizeQuery(ref: ref, context: context),
                   child: child!,
@@ -173,7 +174,7 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
   }
 
   Widget get _bottomCareWrapper => bottomInsetsCare
-      ? Consumer(
+      ? ConsumerOrStateless(
           /// SWEET Observation:
           /// on both Android & iOS: When the keyboard is dismissed while the
           /// overlay is shown it animates down nicely with the keyboard.

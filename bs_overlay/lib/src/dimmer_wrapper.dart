@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'logic.dart';
 
-class DimmedWrapper extends ConsumerStatefulWidget {
+class DimmedWrapper extends StatefulWidget {
   const DimmedWrapper(
     this.child, {
     super.key,
@@ -27,10 +27,10 @@ class DimmedWrapper extends ConsumerStatefulWidget {
   final bool ignorePointer;
 
   @override
-  ConsumerState<DimmedWrapper> createState() => _DimmedWrapperState();
+  State<DimmedWrapper> createState() => _DimmedWrapperState();
 }
 
-class _DimmedWrapperState extends ConsumerState<DimmedWrapper> {
+class _DimmedWrapperState extends State<DimmedWrapper> {
   late final _focusNode = widget.barrierDismissible ? FocusNode() : null;
 
   @override
@@ -48,27 +48,25 @@ class _DimmedWrapperState extends ConsumerState<DimmedWrapper> {
   }
 
   @override
-  Widget build(BuildContext context) => LayoutBuilder(
-    builder: (context, constraints) => Consumer(
-      builder: (context, ref, child) => Focus(
-        focusNode: _focusNode,
-        onKeyEvent: !widget.barrierDismissible ? null : _dismissOnESCPressed,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          color: Colors.black87.withAlphaFraction(StaticData.platform.isApple ? 0.4 : 0.8),
-          width: LiveDataOrQuery.deviceWidth(ref: ref, context: context),
-          height: LiveDataOrQuery.deviceHeight(ref: ref, context: context),
-          child: child!,
-        ),
+  Widget build(BuildContext context) => ConsumerOrStateless(
+    builder: (context, ref, child) => Focus(
+      focusNode: _focusNode,
+      onKeyEvent: !widget.barrierDismissible ? null : _dismissOnESCPressed,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        color: Colors.black87.withAlphaFraction(StaticData.platform.isApple ? 0.4 : 0.8),
+        width: LiveDataOrQuery.deviceWidth(ref: ref, context: context),
+        height: LiveDataOrQuery.deviceHeight(ref: ref, context: context),
+        child: child!,
       ),
-      child: Stack(
-        children: [
-          if (widget.barrierDismissible)
-            Positioned.fill(child: GestureDetector(onTap: _handleDismiss)),
-          _centerContainer(ref, widget.child, widget.ignorePointer),
-          if (widget.showCloseIcon) _DismissIconButton(_handleDismiss),
-        ],
-      ),
+    ),
+    child: Stack(
+      children: [
+        if (widget.barrierDismissible)
+          Positioned.fill(child: GestureDetector(onTap: _handleDismiss)),
+        _centerContainer(widget.child, widget.ignorePointer),
+        if (widget.showCloseIcon) _DismissIconButton(_handleDismiss),
+      ],
     ),
   );
 
@@ -80,26 +78,30 @@ class _DimmedWrapperState extends ConsumerState<DimmedWrapper> {
     return KeyEventResult.ignored;
   }
 
-  Widget _centerContainer(WidgetRef ref, Object child, bool ignorePointer) => Center(
-    child: widget.dismissOnTap
-        ? GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: _handleDismiss,
-            child: _childWrapper(context, ref, child),
-          )
-        : AbsorbPointer(absorbing: ignorePointer, child: _childWrapper(context, ref, child)),
+  Widget _centerContainer(Object child, bool ignorePointer) => ConsumerOrStateless(
+    builder: (_, ref, _) => Center(
+      child: widget.dismissOnTap
+          ? GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: _handleDismiss,
+              child: _childWrapper(context, ref, child),
+            )
+          : AbsorbPointer(absorbing: ignorePointer, child: _childWrapper(context, ref, child)),
+    ),
   );
 
-  Widget _childWrapper(BuildContext context, WidgetRef ref, Object child) {
-    final zChild = switch (child) {
-      String s => DefaultTextStyle.merge(
-        style: LiveDataOrQuery.textTheme(ref: ref).titleLarge,
-        child: Text(s),
-      ),
-      _ => child as Widget,
-    };
+  Widget _childWrapper(BuildContext context, WidgetRef? ref, Object child) {
+    final zChild = FractionallySizedBox(
+      widthFactor: 0.8,
+      child: switch (child) {
+        String s => DefaultTextStyle.merge(
+          style: LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge,
+          child: Text(s),
+        ),
+        _ => child as Widget,
+      },
+    );
 
-    final width = LiveDataOrQuery.deviceWidth(ref: ref, context: context) * 0.8;
     const padding = EdgeInsets.all(18.0);
 
     Widget childWrapper;
@@ -107,14 +109,12 @@ class _DimmedWrapperState extends ConsumerState<DimmedWrapper> {
     if (StaticData.platform.isApple) {
       childWrapper = CupertinoPopupSurface(
         child: Container(
-          width: width,
           padding: padding,
           child: zChild,
         ),
       );
     } else {
       childWrapper = TextContainer(
-        width: width,
         padding: padding,
         color: LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.surfaceDim,
         child: zChild,
@@ -129,13 +129,13 @@ class _DimmedWrapperState extends ConsumerState<DimmedWrapper> {
       : BsOverlayLogic.resetAndGoToNext(manualDismiss: true);
 }
 
-class _DismissIconButton extends ConsumerWidget {
+class _DismissIconButton extends ConsumerOrStatelessWidget {
   const _DismissIconButton(this._handleDismiss);
 
   final VoidCallback _handleDismiss;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     final direction = Directionality.of(context);
     final viewPadding = LiveDataOrQuery.viewPadding(ref: ref, context: context);
     final baseEndPadding = direction == TextDirection.ltr ? viewPadding.right : viewPadding.left;
