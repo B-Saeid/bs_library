@@ -2,8 +2,8 @@ name: bs_ref_query
 description: "A MediaQuery alternative riverpod-based lookup system using either `WidgetRef` or `Ref`"
 version: 0.0.1
 homepage: https://bsaeid.dev/
-#repository: https://github.com/B-Saeid/bs_internet_checker
-#issue_tracker: https://github.com/ueman/bs_internet_checker/issues
+repository: https://github.com/B-Saeid/bs_library/tree/main/bs_ref_query
+issue_tracker: https://github.com/B-Saeid/bs_library/issues
 publish_to: none
 
 environment:

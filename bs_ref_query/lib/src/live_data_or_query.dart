@@ -22,7 +22,8 @@ abstract class LiveDataOrQuery {
     required BuildContext? context,
   }) {
     try {
-      return ref.watch(selector);
+      final value = ref.watch(selector);
+      return value;
     } catch (_) {
       assert(
         context != null,
