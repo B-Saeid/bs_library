@@ -17,7 +17,7 @@ class OthersListTile extends AdaptiveListTile {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Padding(
+  Widget build(BuildContext context, WidgetRef? ref) => Padding(
     padding: const EdgeInsets.only(right: 8, left: 8, bottom: 5),
     child: IgnorePointer(
       ignoring: !enabled,
@@ -95,7 +95,7 @@ class OthersListTile extends AdaptiveListTile {
     ),
   );
 
-  Widget buildLeading(WidgetRef ref, BuildContext context) => IconTheme.merge(
+  Widget buildLeading(WidgetRef? ref, BuildContext context) => IconTheme.merge(
     data: LiveDataOrQuery.themeData(ref: ref, context: context).iconTheme.copyWith(
       color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
       size: 32.scalableFlexible(ref: ref, context: context, maxValue: 35),
@@ -103,21 +103,21 @@ class OthersListTile extends AdaptiveListTile {
     child: leading!,
   );
 
-  Widget buildTitle(WidgetRef ref, BuildContext context) => DefaultTextStyle.merge(
+  Widget buildTitle(WidgetRef? ref, BuildContext context) => DefaultTextStyle.merge(
     style: LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge?.copyWith(
       color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: title,
   );
 
-  Widget buildDescription(WidgetRef ref, BuildContext context) => DefaultTextStyle.merge(
+  Widget buildDescription(WidgetRef? ref, BuildContext context) => DefaultTextStyle.merge(
     style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyLarge?.copyWith(
       color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: description!,
   );
 
-  Widget buildTrailing(WidgetRef ref, BuildContext context) => IconTheme.merge(
+  Widget buildTrailing(WidgetRef? ref, BuildContext context) => IconTheme.merge(
     data: IconThemeData(
       size: 32.scalableFlexible(ref: ref, context: context, maxValue: 35),
       color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../riverpod_widgets/consumer_or_stateless.dart';
 import '../theme/adaptive_tiles_theme.dart';
 import '../theme/adaptive_tiles_theme_helper.dart';
 import '../tiles/abstract_tile.dart';
@@ -58,8 +59,8 @@ class AdaptiveTilesGroup extends AbstractTilesGroup {
     if (lookedUpTheme != null) return child;
 
     /// If parent has not been wrapped in AdaptiveTilesTheme
-    return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+    return ConsumerOrStateless(
+      builder: (BuildContext context, WidgetRef? ref, Widget? child) {
         final tilesThemeData =
             AdaptiveTilesThemeHelper.getThemeData(
               platform: platform,

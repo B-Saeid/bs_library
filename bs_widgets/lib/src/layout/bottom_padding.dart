@@ -4,7 +4,9 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BottomPadding extends ConsumerWidget {
+import '../riverpod_widgets/consumer_or_stateless.dart';
+
+class BottomPadding extends ConsumerOrStatelessWidget {
   /// This widget is used to add padding to the bottom of the screen
   /// taking keyboard appearance into account
   const BottomPadding({
@@ -36,7 +38,7 @@ class BottomPadding extends ConsumerWidget {
 
   static EdgeInsets asBottomEdgeInsets(
     BuildContext context,
-    WidgetRef ref, {
+    WidgetRef? ref, {
     double kbPadding = 30,
     double minPadding = 30,
     bool scalable = false,
@@ -57,7 +59,7 @@ class BottomPadding extends ConsumerWidget {
 
   static double asDouble(
     BuildContext context,
-    WidgetRef ref, {
+    WidgetRef? ref, {
     double kbPadding = 30,
     double minPadding = 30,
     bool scalable = false,
@@ -75,7 +77,7 @@ class BottomPadding extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     final viewInsets = LiveDataOrQuery.viewInsets(ref: ref, context: context);
     final viewPadding = LiveDataOrQuery.viewPadding(ref: ref, context: context);
     final keyboardIsShown = viewInsets.bottom > 50;

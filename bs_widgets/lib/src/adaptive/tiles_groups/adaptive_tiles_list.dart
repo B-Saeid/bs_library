@@ -3,11 +3,12 @@ import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../riverpod_widgets/consumer_or_stateless.dart';
 import 'groups/abstract_group.dart';
 import 'theme/adaptive_tiles_theme.dart';
 import 'theme/adaptive_tiles_theme_helper.dart';
 
-class AdaptiveTilesList extends ConsumerWidget {
+class AdaptiveTilesList extends ConsumerOrStatelessWidget {
   const AdaptiveTilesList({
     required this.sections,
     this.shrinkWrap = false,
@@ -33,7 +34,7 @@ class AdaptiveTilesList extends ConsumerWidget {
 
   DevicePlatform get _platform => platform ?? StaticData.platform;
 
-  AdaptiveTilesThemeData settingsThemeData(BuildContext context, WidgetRef ref) =>
+  AdaptiveTilesThemeData settingsThemeData(BuildContext context, WidgetRef? ref) =>
       AdaptiveTilesThemeHelper.getThemeData(
         platform: _platform,
         isLight: LiveDataOrQuery.isLight(ref: ref, context: context),
@@ -42,7 +43,7 @@ class AdaptiveTilesList extends ConsumerWidget {
       );
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     // Future(() => ref.watch(adaptiveTilesThemeProvider.notifier).setTheme(
     //       themeData: settingsThemeData(ref),
     //       platform: _platform,

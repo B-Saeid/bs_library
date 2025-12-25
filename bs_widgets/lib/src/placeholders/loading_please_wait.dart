@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../adaptive/neat_circular_indicator.dart';
+import '../riverpod_widgets/consumer_or_stateless.dart';
 
-class LoadingPleaseWait extends ConsumerWidget {
+class LoadingPleaseWait extends ConsumerOrStatelessWidget {
   const LoadingPleaseWait({super.key, this.title, this.child});
 
   final Widget? child;
-  final StringRef? title;
+  final StringOptionalRef? title;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Column(
+  Widget build(BuildContext context, WidgetRef? ref) => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(

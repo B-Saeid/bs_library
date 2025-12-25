@@ -3,12 +3,13 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../riverpod_widgets/consumer_or_stateless.dart';
 import 'cupertino_dialogs.dart';
 
 /// Do not mistaken this with the original [CupertinoActionSheetAction]
 ///
 /// This is a wrapper around it for convenience
-class CupertinoSheetAction extends ConsumerWidget {
+class CupertinoSheetAction extends ConsumerOrStatelessWidget {
   const CupertinoSheetAction({
     required this.context,
     required this.title,
@@ -30,7 +31,7 @@ class CupertinoSheetAction extends ConsumerWidget {
   }) : _useCustom = true;
 
   final bool _useCustom;
-  final StringRef title;
+  final StringOptionalRef title;
   final TextStyle? style;
   final bool destructive;
   final VoidCallback? onPressed;
@@ -40,7 +41,7 @@ class CupertinoSheetAction extends ConsumerWidget {
   BuildContext get _context => context;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     // ignore: omit_local_variable_types
     VoidCallback onTap = onPressed != null
         ? () {

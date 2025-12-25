@@ -2,10 +2,11 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../riverpod_widgets/consumer_or_stateless.dart';
 import '../../../neat_circular_indicator.dart';
 import '../adaptive_tile.dart';
 
-class AndroidTile extends ConsumerWidget {
+class AndroidTile extends ConsumerOrStatelessWidget {
   const AndroidTile({
     required this.tileType,
     required this.leading,
@@ -36,7 +37,7 @@ class AndroidTile extends ConsumerWidget {
   final Widget? trailing;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     // final theme = SettingsTheme.of(context);
     // final scaleFactor = LiveDataOrQuery.scalePercentage(ref);
     //
@@ -156,7 +157,7 @@ class AndroidTile extends ConsumerWidget {
     );
   }
 
-  Widget buildListTile(BuildContext context, WidgetRef ref) => ListTile(
+  Widget buildListTile(BuildContext context, WidgetRef? ref) => ListTile(
     leading: leading,
     title: description != null && value != null
         ? Wrap(
@@ -181,7 +182,7 @@ class AndroidTile extends ConsumerWidget {
     trailing: loading ? const NeatCircularIndicator() : trailing,
   );
 
-  Widget buildValue(BuildContext context, WidgetRef ref) => DefaultTextStyle.merge(
+  Widget buildValue(BuildContext context, WidgetRef? ref) => DefaultTextStyle.merge(
     style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(),
     child: value!,
   );

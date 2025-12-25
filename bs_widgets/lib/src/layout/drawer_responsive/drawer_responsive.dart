@@ -3,11 +3,12 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../riverpod_widgets/consumer_or_stateless.dart';
 import '../break_points.dart';
 import 'large_layout.dart';
 import 'mobile_layout.dart';
 
-class DrawerResponsiveLayout extends ConsumerWidget {
+class DrawerResponsiveLayout extends ConsumerOrStatelessWidget {
   const DrawerResponsiveLayout({
     super.key,
     required this.title,
@@ -22,33 +23,31 @@ class DrawerResponsiveLayout extends ConsumerWidget {
          'Drawer cannot be null if showEndDrawer is true',
        );
 
-  final StringRef title;
+  final StringOptionalRef title;
   final Widget content;
   final Widget? drawer;
   final bool showEndDrawer;
   final bool useSafeArea;
-  final StringRef hideDrawerTitle;
-  final StringRef hideDrawerTooltip;
+  final StringOptionalRef hideDrawerTitle;
+  final StringOptionalRef hideDrawerTooltip;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Consumer(
-    builder: (context, ref, _) =>
-        BreakPoints.isMobile(LiveDataOrQuery.deviceWidth(ref: ref, context: context))
-        ? MobileLayout(
-            content: content,
-            title: title,
-            drawer: drawer,
-            showEndDrawer: showEndDrawer,
-            useSafeArea: useSafeArea,
-          )
-        : LargeLayout(
-            content: content,
-            title: title,
-            drawer: drawer,
-            showEndDrawer: showEndDrawer,
-            useSafeArea: useSafeArea,
-            hideDrawerTitle: hideDrawerTitle,
-            hideDrawerTooltip: hideDrawerTooltip,
-          ),
-  );
+  Widget build(BuildContext context, WidgetRef? ref) =>
+      BreakPoints.isMobile(LiveDataOrQuery.deviceWidth(ref: ref, context: context))
+      ? MobileLayout(
+          content: content,
+          title: title,
+          drawer: drawer,
+          showEndDrawer: showEndDrawer,
+          useSafeArea: useSafeArea,
+        )
+      : LargeLayout(
+          content: content,
+          title: title,
+          drawer: drawer,
+          showEndDrawer: showEndDrawer,
+          useSafeArea: useSafeArea,
+          hideDrawerTitle: hideDrawerTitle,
+          hideDrawerTooltip: hideDrawerTooltip,
+        );
 }

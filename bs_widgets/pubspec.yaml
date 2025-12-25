@@ -2,8 +2,8 @@ name: bs_widgets
 description: "A new Flutter package project."
 version: 0.0.1
 homepage: https://bsaeid.dev/
-#repository: https://github.com/B-Saeid/bs_widgets
-#issue_tracker: https://github.com/ueman/bs_widgets/issues
+repository: https://github.com/B-Saeid/bs_library/tree/main/bs_widgets
+issue_tracker: https://github.com/B-Saeid/bs_library/issues
 publish_to: none
 
 

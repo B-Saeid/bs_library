@@ -3,10 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../riverpod_widgets/consumer_or_stateless.dart';
 import '../../theme/adaptive_tiles_theme.dart';
 import '../../tiles/abstract_tile.dart';
 
-class AppleTilesGroup extends ConsumerWidget {
+class AppleTilesGroup extends ConsumerOrStatelessWidget {
   const AppleTilesGroup({
     required this.tiles,
     required this.margin,
@@ -19,7 +20,7 @@ class AppleTilesGroup extends ConsumerWidget {
   final Widget? header;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => ListView(
+  Widget build(BuildContext context, WidgetRef? ref) => ListView(
     padding: margin ?? EdgeInsets.zero,
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
@@ -75,7 +76,7 @@ class AppleTilesGroup extends ConsumerWidget {
     return tilesWidgetList;
   }
 
-  // _CustomCupertinoListSection _singleDescriptive(WidgetRef ref, int i) =>
+  // _CustomCupertinoListSection _singleDescriptive(WidgetRef? ref, int i) =>
   _CustomCupertinoListSection _singleDescriptive(
     BuildContext context,
     int i,
@@ -88,7 +89,7 @@ class AppleTilesGroup extends ConsumerWidget {
     tiles: [tiles[i]],
   );
 
-  // _CustomCupertinoListSection _lastIsDescriptive(WidgetRef ref, int start, int end) =>
+  // _CustomCupertinoListSection _lastIsDescriptive(WidgetRef? ref, int start, int end) =>
   _CustomCupertinoListSection _lastIsDescriptive(
     BuildContext context,
     int start,
@@ -102,7 +103,7 @@ class AppleTilesGroup extends ConsumerWidget {
     tiles: tiles.getRange(start, end + 1).toList(),
   );
 
-  // Widget buildDescription(WidgetRef ref, Widget description) => Padding(
+  // Widget buildDescription(WidgetRef? ref, Widget description) => Padding(
   Widget buildDescription(BuildContext context, Widget description) => Padding(
     // padding: const EdgeInsets.only(top: 8.0),
     padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
@@ -124,13 +125,13 @@ class AppleTilesGroup extends ConsumerWidget {
   );
 }
 
-class _SectionHeader extends ConsumerWidget {
+class _SectionHeader extends ConsumerOrStatelessWidget {
   const _SectionHeader(this.header);
 
   final Widget header;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Padding(
+  Widget build(BuildContext context, WidgetRef? ref) => Padding(
     padding: EdgeInsetsDirectional.only(
       bottom: 5.scalableFlexible(ref: ref, context: context),
     ),
@@ -145,7 +146,7 @@ class _SectionHeader extends ConsumerWidget {
   );
 }
 
-class _CustomCupertinoListSection extends ConsumerWidget {
+class _CustomCupertinoListSection extends ConsumerOrStatelessWidget {
   const _CustomCupertinoListSection({
     this.header,
     this.footer,
@@ -157,7 +158,7 @@ class _CustomCupertinoListSection extends ConsumerWidget {
   final List<Widget> tiles;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => CupertinoListSection.insetGrouped(
+  Widget build(BuildContext context, WidgetRef? ref) => CupertinoListSection.insetGrouped(
     margin: AdaptiveTilesTheme.of(context)!.themeData.iOSTilesGroupMargin,
     header: header,
     dividerMargin: 0,

@@ -2,9 +2,10 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../riverpod_widgets/consumer_or_stateless.dart';
 import '../../tiles/abstract_tile.dart';
 
-class OtherTilesGroup extends ConsumerWidget {
+class OtherTilesGroup extends ConsumerOrStatelessWidget {
   const OtherTilesGroup({
     required this.tiles,
     required this.margin,
@@ -17,7 +18,7 @@ class OtherTilesGroup extends ConsumerWidget {
   final Widget? header;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Padding(
+  Widget build(BuildContext context, WidgetRef? ref) => Padding(
     padding: margin ?? EdgeInsets.zero,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +29,7 @@ class OtherTilesGroup extends ConsumerWidget {
     ),
   );
 
-  Padding buildHeader(BuildContext context, WidgetRef ref) => Padding(
+  Padding buildHeader(BuildContext context, WidgetRef? ref) => Padding(
     padding: EdgeInsetsDirectional.only(
       bottom: 15.scalableFlexible(ref: ref, context: context),
       start: 6,

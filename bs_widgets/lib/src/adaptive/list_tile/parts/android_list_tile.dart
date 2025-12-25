@@ -15,7 +15,7 @@ class AndroidListTile extends AdaptiveListTile {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => ListTile(
+  Widget build(BuildContext context, WidgetRef? ref) => ListTile(
     leading: leading,
     title: title,
     subtitle: description,

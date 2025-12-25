@@ -5,12 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../adaptive/neat_circular_indicator.dart';
 import '../misc/l10nr_text.dart';
-
+import '../riverpod_widgets/consumer_or_stateless.dart';
 
 ///{@template CupertinoScreen}
 /// A convenient widget to create a Cupertino based screen
 ///{@endtemplate}
-class CupertinoScreen extends ConsumerWidget {
+class CupertinoScreen extends ConsumerOrStatelessWidget {
   const CupertinoScreen({
     super.key,
     this.navigationBar,
@@ -114,7 +114,7 @@ class CupertinoScreen extends ConsumerWidget {
   // final EdgeInsets? bodyWidgetsPadding;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => _slivered
+  Widget build(BuildContext context, WidgetRef? ref) => _slivered
       ? CupertinoPageScaffold(
           resizeToAvoidBottomInset: resizeToAvoidBottomInset,
           backgroundColor: backgroundColor,

@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'bs_dismissible.dart';
 
-class Swipeable extends ConsumerWidget {
+class Swipeable extends StatelessWidget {
   /// Creates a widget that can be dismissed.
   ///
   /// The [key] argument is required because [Swipeable]s are commonly used in
@@ -185,7 +184,7 @@ class Swipeable extends ConsumerWidget {
   final VoidCallback? actionCallback;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => BsDismissible(
+  Widget build(BuildContext context) => BsDismissible(
     key: key!,
     background: background,
     secondaryBackground: secondaryBackground,

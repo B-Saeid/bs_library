@@ -4,14 +4,16 @@ import 'package:bs_styles/bs_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class GeneralError extends ConsumerWidget {
-  const GeneralError({super.key, this.child, required this.title});
+import '../riverpod_widgets/consumer_or_stateless.dart';
+
+class GeneralError extends ConsumerOrStatelessWidget {
+  const GeneralError({super.key, this.child, this.title});
 
   final Widget? child;
-  final StringRef? title;
+  final StringOptionalRef? title;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Column(
+  Widget build(BuildContext context, WidgetRef? ref) => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Icon(

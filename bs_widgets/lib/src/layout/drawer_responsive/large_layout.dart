@@ -7,8 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../animated/custom_animated_size.dart';
 import '../../misc/l10nr_text.dart';
 import '../../misc/scale_controlled_text.dart';
+import '../../riverpod_widgets/consumer_or_stateless.dart';
 
-class LargeLayout extends ConsumerWidget {
+class LargeLayout extends ConsumerOrStatelessWidget {
   const LargeLayout({
     super.key,
     required this.content,
@@ -23,14 +24,14 @@ class LargeLayout extends ConsumerWidget {
   final Widget content;
   final Widget? drawer;
   final bool showEndDrawer;
-  final StringRef title;
+  final StringOptionalRef title;
   final bool useSafeArea;
-  final StringRef hideDrawerTitle;
-  final StringRef hideDrawerTooltip;
+  final StringOptionalRef hideDrawerTitle;
+  final StringOptionalRef hideDrawerTooltip;
   static ValueNotifier<bool> drawerHidden = ValueNotifier(false);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     final child = drawer != null
         ? Row(
             children: [
@@ -51,8 +52,8 @@ class _LargeLayoutDrawer extends StatelessWidget {
     this.hideDrawerTooltip,
   );
 
-  final StringRef hideDrawerTitle;
-  final StringRef hideDrawerTooltip;
+  final StringOptionalRef hideDrawerTitle;
+  final StringOptionalRef hideDrawerTooltip;
   final Widget drawer;
 
   @override
@@ -73,14 +74,14 @@ class _LargeLayoutDrawer extends StatelessWidget {
   );
 }
 
-class _HideDrawerButton extends ConsumerWidget {
+class _HideDrawerButton extends ConsumerOrStatelessWidget {
   const _HideDrawerButton(this.hideDrawerTitle, this.hideDrawerTooltip);
 
-  final StringRef hideDrawerTitle;
-  final StringRef hideDrawerTooltip;
+  final StringOptionalRef hideDrawerTitle;
+  final StringOptionalRef hideDrawerTooltip;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Padding(
+  Widget build(BuildContext context, WidgetRef? ref) => Padding(
     padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
     child: ActionChip(
       label: ScaleControlledText(hideDrawerTitle(ref), maxFactor: 2),
@@ -98,14 +99,14 @@ class _HideDrawerButton extends ConsumerWidget {
   );
 }
 
-class _ContentWithAppBar extends ConsumerWidget {
+class _ContentWithAppBar extends ConsumerOrStatelessWidget {
   const _ContentWithAppBar(this.content, this.title);
 
   final Widget content;
-  final StringRef title;
+  final StringOptionalRef title;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
+  Widget build(BuildContext context, WidgetRef? ref) => Scaffold(
     appBar: _LargeLayoutAppBar(title: title),
     body: content,
   );
@@ -114,7 +115,7 @@ class _ContentWithAppBar extends ConsumerWidget {
 class _LargeLayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
   const _LargeLayoutAppBar({required this.title});
 
-  final StringRef title;
+  final StringOptionalRef title;
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder(

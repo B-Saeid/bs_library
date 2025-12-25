@@ -2,10 +2,11 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../riverpod_widgets/consumer_or_stateless.dart';
 import '../../theme/adaptive_tiles_theme.dart';
 import '../../tiles/abstract_tile.dart';
 
-class AndroidTilesGroup extends ConsumerWidget {
+class AndroidTilesGroup extends ConsumerOrStatelessWidget {
   const AndroidTilesGroup({
     required this.tiles,
     required this.margin,
@@ -18,7 +19,7 @@ class AndroidTilesGroup extends ConsumerWidget {
   final Widget? header;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Padding(
+  Widget build(BuildContext context, WidgetRef? ref) => Padding(
     padding: margin ?? EdgeInsets.zero,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,

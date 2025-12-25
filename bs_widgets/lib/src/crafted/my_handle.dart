@@ -2,6 +2,8 @@ import 'package:bs_styles/bs_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../riverpod_widgets/consumer_or_stateless.dart';
+
 class MyHandle extends StatelessWidget {
   const MyHandle({
     super.key,
@@ -38,7 +40,7 @@ class MyHandle extends StatelessWidget {
   }
 }
 
-class _HandleBorder extends ConsumerWidget {
+class _HandleBorder extends ConsumerOrStatelessWidget {
   const _HandleBorder({
     required this.width,
     required this.color,
@@ -50,7 +52,7 @@ class _HandleBorder extends ConsumerWidget {
   final double handleWidth;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     final borderWidth = width ?? 1;
     return SizedBox(
       /// This is JUST what is needed to be subtracted from the width

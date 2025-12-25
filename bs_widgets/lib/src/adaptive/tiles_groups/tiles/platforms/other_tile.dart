@@ -4,11 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../riverpod_widgets/consumer_or_stateless.dart';
 import '../../../neat_circular_indicator.dart';
 import '../../theme/adaptive_tiles_theme.dart';
 import '../adaptive_tile.dart';
 
-class OtherTile extends ConsumerWidget {
+class OtherTile extends ConsumerOrStatelessWidget {
   const OtherTile({
     required this.tileType,
     required this.leading,
@@ -39,7 +40,7 @@ class OtherTile extends ConsumerWidget {
   final Color? activeSwitchColor;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     // final themeData = ref.watch(adaptiveTilesThemeProvider).themeData;
     final themeData = AdaptiveTilesTheme.of(context)!.themeData;
 
@@ -143,7 +144,7 @@ class OtherTile extends ConsumerWidget {
     );
   }
 
-  Widget buildLeading(BuildContext context, WidgetRef ref, AdaptiveTilesThemeData themeData) =>
+  Widget buildLeading(BuildContext context, WidgetRef? ref, AdaptiveTilesThemeData themeData) =>
       IconTheme.merge(
         data: LiveDataOrQuery.themeData(ref: ref, context: context).iconTheme.copyWith(
           color: enabled
@@ -167,7 +168,7 @@ class OtherTile extends ConsumerWidget {
     ),
   };
 
-  Widget buildVerticalDivider(BuildContext context, WidgetRef ref) => Container(
+  Widget buildVerticalDivider(BuildContext context, WidgetRef? ref) => Container(
     width: 2,
     height: 26,
     margin: const EdgeInsetsDirectional.only(start: 3, end: 6),
@@ -177,20 +178,23 @@ class OtherTile extends ConsumerWidget {
     ),
   );
 
-  Padding buildDescription(BuildContext context, WidgetRef ref, AdaptiveTilesThemeData themeData) =>
-      Padding(
-        padding: const EdgeInsets.only(top: 4.0),
-        child: DefaultTextStyle.merge(
-          style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(
-            color: enabled
-                ? themeData.tileDescriptionTextColor
-                : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
-          ),
-          child: description!,
-        ),
-      );
+  Padding buildDescription(
+    BuildContext context,
+    WidgetRef? ref,
+    AdaptiveTilesThemeData themeData,
+  ) => Padding(
+    padding: const EdgeInsets.only(top: 4.0),
+    child: DefaultTextStyle.merge(
+      style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(
+        color: enabled
+            ? themeData.tileDescriptionTextColor
+            : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
+      ),
+      child: description!,
+    ),
+  );
 
-  Widget buildTitle(BuildContext context, WidgetRef ref) => DefaultTextStyle.merge(
+  Widget buildTitle(BuildContext context, WidgetRef? ref) => DefaultTextStyle.merge(
     style: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w400,
@@ -199,7 +203,7 @@ class OtherTile extends ConsumerWidget {
     child: title,
   );
 
-  Widget buildTrailing(BuildContext context, WidgetRef ref) => trailing != null
+  Widget buildTrailing(BuildContext context, WidgetRef? ref) => trailing != null
       ? IconTheme.merge(
           data: IconThemeData(
             size: 32.scalableFlexible(ref: ref, context: context, maxValue: 40, allowBelow: false),

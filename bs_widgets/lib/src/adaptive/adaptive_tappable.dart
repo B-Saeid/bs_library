@@ -5,8 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../animated/custom_animated_size.dart';
 import '../cupertino/cupertino_well.dart';
+import '../riverpod_widgets/consumer_or_stateless.dart';
 
-class AdaptiveTappable extends ConsumerWidget {
+class AdaptiveTappable extends ConsumerOrStatelessWidget {
   const AdaptiveTappable({
     super.key,
     required this.child,
@@ -37,7 +38,7 @@ class AdaptiveTappable extends ConsumerWidget {
   EdgeInsetsGeometry get getMargin => margin ?? const EdgeInsets.symmetric(horizontal: 8);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     late final Widget widget;
 
     if (StaticData.platform.isApple) {

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../riverpod_widgets/consumer_or_stateless.dart';
 import 'parts/android_action.dart';
 import 'parts/ios_action.dart';
 
@@ -10,7 +11,7 @@ export 'parts/adaptive_action.dart';
 export 'parts/android_action.dart';
 export 'parts/ios_action.dart';
 
-class BsDialogue extends ConsumerWidget {
+class BsDialogue extends ConsumerOrStatelessWidget {
   const BsDialogue({
     super.key,
     required this.title,
@@ -58,7 +59,7 @@ class BsDialogue extends ConsumerWidget {
             customAdaptiveActions != null;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     /// Title
     final fontFamily = Theme.of(context).textTheme.bodyMedium?.fontFamily;
 

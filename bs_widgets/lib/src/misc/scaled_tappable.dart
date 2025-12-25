@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ScaledTappable extends ConsumerStatefulWidget {
+class ScaledTappable extends StatefulWidget {
   const ScaledTappable({
     super.key,
     required this.child,
@@ -12,11 +11,10 @@ class ScaledTappable extends ConsumerStatefulWidget {
   final VoidCallback onPressed;
 
   @override
-  ConsumerState<ScaledTappable> createState() => _ScaledTappableState();
+  State<ScaledTappable> createState() => _ScaledTappableState();
 }
 
-class _ScaledTappableState extends ConsumerState<ScaledTappable>
-    with SingleTickerProviderStateMixin {
+class _ScaledTappableState extends State<ScaledTappable> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _animation = CurvedAnimation(
     parent: _controller,

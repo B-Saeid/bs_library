@@ -2,7 +2,9 @@ import 'package:bs_styles/bs_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AndroidDialogueAction extends ConsumerWidget {
+import '../../../riverpod_widgets/consumer_or_stateless.dart';
+
+class AndroidDialogueAction extends ConsumerOrStatelessWidget {
   const AndroidDialogueAction({
     super.key,
     required this.title,
@@ -15,7 +17,7 @@ class AndroidDialogueAction extends ConsumerWidget {
   final bool encouraged;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => TextButton(
+  Widget build(BuildContext context, WidgetRef? ref) => TextButton(
     onPressed: onPressed,
     child: Text(
       title,

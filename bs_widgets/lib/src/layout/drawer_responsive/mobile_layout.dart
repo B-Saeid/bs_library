@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../bs_widgets.dart';
 
-class MobileLayout extends ConsumerWidget {
+class MobileLayout extends ConsumerOrStatelessWidget {
   const MobileLayout({
     required this.content,
     required this.title,
@@ -21,7 +21,7 @@ class MobileLayout extends ConsumerWidget {
   final bool useSafeArea;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
+  Widget build(BuildContext context, WidgetRef? ref) => Scaffold(
     appBar: AppBar(title: L10nRText(title)),
     drawer: showEndDrawer ? null : drawer,
     endDrawer: showEndDrawer ? drawer : null,

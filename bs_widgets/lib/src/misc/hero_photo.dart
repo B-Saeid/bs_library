@@ -7,7 +7,7 @@
 // import '../Styles/app_style.dart';
 // import 'neat_circular_indicator.dart';
 //
-// class HeroPhoto extends ConsumerWidget {
+// class HeroPhoto extends ConsumerOrStatelessWidget {
 //   const HeroPhoto({
 //     super.key,
 //     required this.imageProvider,
@@ -30,7 +30,7 @@
 //   final ImageProvider imageProvider;
 //
 //   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
+//   Widget build(BuildContext context, WidgetRef? ref) {
 //     return Scaffold(
 //       appBar: AppBar(),
 //       body: PhotoView(

@@ -2,7 +2,9 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RingProgress extends ConsumerWidget {
+import '../riverpod_widgets/consumer_or_stateless.dart';
+
+class RingProgress extends ConsumerOrStatelessWidget {
   const RingProgress({
     super.key,
     this.size,
@@ -62,11 +64,11 @@ class RingProgress extends ConsumerWidget {
   final Animation<double>? progressAnimation;
   final Animation<Color>? progressColorAnimation;
 
-  Color _color(BuildContext context, WidgetRef ref) =>
+  Color _color(BuildContext context, WidgetRef? ref) =>
       activeColor ?? LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.primary;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => SizedBox.square(
+  Widget build(BuildContext context, WidgetRef? ref) => SizedBox.square(
     dimension: size ?? 48.scalableFlexible(ref: ref, context: context, maxValue: 60),
     child: Stack(
       alignment: Alignment.center,

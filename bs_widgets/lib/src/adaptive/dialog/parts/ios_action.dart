@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class IOSDialogueAction extends ConsumerWidget {
+import '../../../riverpod_widgets/consumer_or_stateless.dart';
+
+class IOSDialogueAction extends ConsumerOrStatelessWidget {
   const IOSDialogueAction({
     super.key,
     required this.title,
@@ -15,7 +17,7 @@ class IOSDialogueAction extends ConsumerWidget {
   final bool encouraged;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => CupertinoDialogAction(
+  Widget build(BuildContext context, WidgetRef? ref) => CupertinoDialogAction(
     // textStyle: TextStyle(fontFamily: ref.read(stylesProvider).topLevelFamily),
     textStyle: TextStyle(fontFamily: Theme.of(context).textTheme.titleMedium?.fontFamily),
     onPressed: onPressed,

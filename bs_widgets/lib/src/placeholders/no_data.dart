@@ -4,13 +4,15 @@ import 'package:bs_styles/bs_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NoData extends ConsumerWidget {
+import '../riverpod_widgets/consumer_or_stateless.dart';
+
+class NoData extends ConsumerOrStatelessWidget {
   const NoData({this.title, super.key});
 
-  final StringRef? title;
+  final StringOptionalRef? title;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Column(
+  Widget build(BuildContext context, WidgetRef? ref) => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Icon(

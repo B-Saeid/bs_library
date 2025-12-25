@@ -4,11 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../riverpod_widgets/consumer_or_stateless.dart';
 import 'parts/android_list_tile.dart';
 import 'parts/apple_list_tile.dart';
 import 'parts/others_list_tile.dart';
 
-class AdaptiveListTile extends ConsumerWidget {
+class AdaptiveListTile extends ConsumerOrStatelessWidget {
   const AdaptiveListTile({
     super.key,
     this.platform,
@@ -31,7 +32,7 @@ class AdaptiveListTile extends ConsumerWidget {
   final DevicePlatform? platform;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => switch (platform ?? StaticData.platform) {
+  Widget build(BuildContext context, WidgetRef? ref) => switch (platform ?? StaticData.platform) {
     DevicePlatform.android => AndroidListTile(
       leading: leading,
       title: title,

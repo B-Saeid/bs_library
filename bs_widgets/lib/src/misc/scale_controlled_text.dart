@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ScaleControlledText extends ConsumerWidget {
+import '../riverpod_widgets/consumer_or_stateless.dart';
+
+class ScaleControlledText extends ConsumerOrStatelessWidget {
   const ScaleControlledText(
     this.text, {
     super.key,
@@ -139,7 +141,7 @@ class ScaleControlledText extends ConsumerWidget {
   bool get shouldScale => scale || maxSize != null || maxFactor != null || !allowBelow;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     // final defaultStyle = LiveDataOrQuery.textTheme(ref:ref, context:context).bodyMedium!;
     final defaultStyle = DefaultTextStyle.of(context).style;
 
@@ -198,7 +200,7 @@ class ScaleControlledText extends ConsumerWidget {
   }
 
   // double
-  TextStyle getScaledStyle(BuildContext context, WidgetRef ref, TextStyle style) {
+  TextStyle getScaledStyle(BuildContext context, WidgetRef? ref, TextStyle style) {
     assert((maxSize ?? style.fontSize!) >= style.fontSize!);
     final scaledSize = style.fontSize!.scalableFlexible(
       ref: ref,

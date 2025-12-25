@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../adaptive/adaptive_tappable.dart';
+import '../riverpod_widgets/consumer_or_stateless.dart';
 
-class TextContainer extends ConsumerWidget {
+class TextContainer extends ConsumerOrStatelessWidget {
   const TextContainer({
     super.key,
     required this.child,
@@ -45,7 +46,7 @@ class TextContainer extends ConsumerWidget {
   EdgeInsetsGeometry get getMargin => margin ?? const EdgeInsets.symmetric(horizontal: 8);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     final defaultColor = color ?? AppStyle.colors.adaptiveGrey(ref: ref, context: context);
     final container = animated
         ? AnimatedContainer(

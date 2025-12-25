@@ -6,9 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../adaptive_tiles_groups.dart';
 import '../../../../cupertino/cupertino_well.dart';
 import '../../../../layout/fit_within.dart';
+import '../../../../riverpod_widgets/consumer_or_stateless.dart';
 import '../../../neat_circular_indicator.dart';
 
-class AppleTile extends ConsumerWidget {
+class AppleTile extends ConsumerOrStatelessWidget {
   const AppleTile({
     required this.tileType,
     required this.leading,
@@ -39,7 +40,7 @@ class AppleTile extends ConsumerWidget {
   final Widget? trailing;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     // final themeData = ref.watch(adaptiveTilesThemeProvider).themeData;
     final themeData = AdaptiveTilesTheme.of(context)!.themeData;
 
@@ -51,7 +52,7 @@ class AppleTile extends ConsumerWidget {
 
   Widget buildContent({
     required BuildContext context,
-    required WidgetRef ref,
+    required WidgetRef? ref,
     required AdaptiveTilesThemeData themeData,
   }) {
     final symmetricVerticalPadding = tileType.isSwitch
@@ -144,7 +145,7 @@ class AppleTile extends ConsumerWidget {
     );
   }
 
-  Widget buildLeading(BuildContext context, WidgetRef ref) => FitWithin(
+  Widget buildLeading(BuildContext context, WidgetRef? ref) => FitWithin(
     size: Size.square(32.scalableFlexible(ref: ref, context: context, maxFactor: 2)),
     alignment: AlignmentDirectional.center,
     child: IconTheme.merge(
@@ -167,7 +168,7 @@ class AppleTile extends ConsumerWidget {
 
   Widget buildValue(
     BuildContext context,
-    WidgetRef ref,
+    WidgetRef? ref,
     AdaptiveTilesThemeData themeData,
   ) => DefaultTextStyle.merge(
     style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(
@@ -177,7 +178,7 @@ class AppleTile extends ConsumerWidget {
     child: value!,
   );
 
-  Widget buildTrailing(BuildContext context, WidgetRef ref) {
+  Widget buildTrailing(BuildContext context, WidgetRef? ref) {
     if (trailing != null) {
       return IconTheme.merge(
         data: IconThemeData(
@@ -216,7 +217,7 @@ class AppleTile extends ConsumerWidget {
     };
   }
 
-  Widget buildVerticalDivider(BuildContext context, WidgetRef ref) => Container(
+  Widget buildVerticalDivider(BuildContext context, WidgetRef? ref) => Container(
     width: 2,
     height: 26,
     margin: const EdgeInsetsDirectional.only(start: 3, end: 6),

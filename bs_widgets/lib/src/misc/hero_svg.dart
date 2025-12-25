@@ -4,14 +4,14 @@
 //
 // import '../Styles/app_style.dart';
 //
-// class HeroChild extends ConsumerWidget {
+// class HeroChild extends ConsumerOrStatelessWidget {
 //   const HeroChild({super.key, required this.child, this.tag});
 //
 //   final String? tag;
 //   final Widget child;
 //
 //   @override
-//   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
+//   Widget build(BuildContext context, WidgetRef? ref) => Scaffold(
 //         appBar: AppBar(),
 //         body: PhotoView.customChild(
 //           backgroundDecoration: BoxDecoration(color: AppStyle.colors.scaffoldBackground(ref)),

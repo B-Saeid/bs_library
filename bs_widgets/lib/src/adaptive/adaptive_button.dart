@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../riverpod_widgets/ref_widget.dart';
+import '../../riverpod_widgets.dart';
 import 'neat_circular_indicator.dart';
 
 enum AdaptiveButtonType { filled, outlined, text, elevated }
@@ -158,11 +158,11 @@ class AdaptiveButton extends StatelessWidget {
 
   // bool get isApple => StaticData.platform.isApple;
 
-  static String? fontFamily;
+  static String? _fontFamily;
 
   @override
   Widget build(BuildContext context) {
-    fontFamily = Theme.of(context).textTheme.titleMedium?.fontFamily;
+    _fontFamily = Theme.of(context).textTheme.titleMedium?.fontFamily;
 
     /// Priority Order regarding button wrappers
     // hidden or not ... i.e. if hidden != null
@@ -203,6 +203,7 @@ class AdaptiveButton extends StatelessWidget {
     );
   }
 
+  /// Must depend on riverpod when using requireInternet
   Consumer _internetListenerWrapper(VoidCallback? onPressed) => Consumer(
     builder: (context, ref, _) {
       final ancestorRouter = Router.maybeOf(context);
@@ -272,7 +273,7 @@ class AdaptiveButton extends StatelessWidget {
     final contrastingColor = fillColor?.invertedBW;
 
     /// Main Part
-    Widget mainPart(WidgetRef ref) => _buildMainPart(
+    Widget mainPart(WidgetRef? ref) => _buildMainPart(
       contrastingColor,
       callToAction != null,
     );
@@ -293,7 +294,7 @@ class AdaptiveButton extends StatelessWidget {
   ) {
     TextStyle convenienceStyle(
       BuildContext context,
-      WidgetRef ref,
+      WidgetRef? ref,
     ) => /*LiveDataOrQuery.textTheme(ref:ref,context:context)
         .titleLarge!
         .copyExcept(
@@ -325,13 +326,13 @@ class AdaptiveButton extends StatelessWidget {
       fontVariations: basic
           ? null
           : LiveDataOrQuery.textTheme(ref: ref, context: context).titleLarge?.fontVariations,
-      fontFamily: fontFamily,
+      fontFamily: _fontFamily,
       // fontFamily: ref.watch(
       //   stylesProvider.select((value) => value.topLevelFamily),
       // ),
       // ),
     );
-    return Consumer(
+    return ConsumerOrStateless(
       builder: (context, ref, child) => Padding(
         padding: _mainPadding(context, ref),
         child: SizedBox(
@@ -368,7 +369,7 @@ class AdaptiveButton extends StatelessWidget {
     );
   }
 
-  EdgeInsets _mainPadding(BuildContext context, WidgetRef ref) {
+  EdgeInsets _mainPadding(BuildContext context, WidgetRef? ref) {
     if (childPadding != null) {
       if (addPadding == null) return childPadding!;
 
@@ -396,7 +397,7 @@ class AdaptiveButton extends StatelessWidget {
     return defaultPadding + addPadding!;
   }
 
-  Consumer _buildIcon(Color? contrastingColor, bool enabled) => Consumer(
+  Widget _buildIcon(Color? contrastingColor, bool enabled) => ConsumerOrStateless(
     builder: (context, ref, _) => SizedBox.square(
       /// TODO: Revisit dimension and the fittedBox below
       dimension: density?.isCompact ?? false

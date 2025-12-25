@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../riverpod_widgets/consumer_or_stateless.dart';
+
 enum _Type { outline, tinted, fill }
 
 enum VisualSize {
@@ -17,7 +19,7 @@ enum VisualSize {
   huge,
 }
 
-class AdaptiveIconButton extends ConsumerWidget {
+class AdaptiveIconButton extends ConsumerOrStatelessWidget {
   const AdaptiveIconButton({
     super.key,
     this.iconData,
@@ -154,7 +156,7 @@ class AdaptiveIconButton extends ConsumerWidget {
   };
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) =>
+  Widget build(BuildContext context, WidgetRef? ref) =>
       (platform ?? StaticData.platform).isApple ? _appleButton(context, ref) : _othersButton;
 
   /// Android & Other platform button
@@ -219,7 +221,7 @@ class AdaptiveIconButton extends ConsumerWidget {
   }
 
   /// Apple platform button
-  Widget _appleButton(BuildContext context, WidgetRef ref) {
+  Widget _appleButton(BuildContext context, WidgetRef? ref) {
     final child =
         this.child ??
         Icon(
@@ -280,7 +282,7 @@ class AdaptiveIconButton extends ConsumerWidget {
 
   Widget _outlinedCupertinoButton({
     required BuildContext context,
-    required WidgetRef ref,
+    required WidgetRef? ref,
     required Widget child,
     required EdgeInsets padding,
   }) {
@@ -368,208 +370,208 @@ class AdaptiveIconButton extends ConsumerWidget {
   }
 }
 
-class TestingAdaptiveIconButton extends ConsumerWidget {
-  const TestingAdaptiveIconButton({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      spacing: 10,
-      children: [
-        Row(
-          children: [
-            const Text('Cupertino'),
-            const Spacer(),
-            AdaptiveIconButton(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.iOS,
-            ),
-            AdaptiveIconButton.outlined(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.iOS,
-            ),
-            AdaptiveIconButton.tinted(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.iOS,
-            ),
-            AdaptiveIconButton.fill(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.iOS,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const Text('Cupertino Custom (Circular)'),
-            const Spacer(),
-            AdaptiveIconButton(
-              onPressed: () {},
-              iconColor: Colors.purpleAccent,
-              forceCircularShapeOnApple: true,
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.iOS,
-            ),
-            AdaptiveIconButton.outlined(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              forceCircularShapeOnApple: true,
-              iconSize: 35,
-              iconColor: Colors.tealAccent,
-              color: Colors.white,
-              platform: DevicePlatform.iOS,
-            ),
-            AdaptiveIconButton.tinted(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              forceCircularShapeOnApple: true,
-              iconColor: Colors.yellow,
-              color: Colors.greenAccent,
-              platform: DevicePlatform.iOS,
-            ),
-            AdaptiveIconButton.fill(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              iconColor: Colors.black,
-              color: Colors.greenAccent,
-              forceCircularShapeOnApple: true,
-              platform: DevicePlatform.iOS,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const Text('Material'),
-            const Spacer(),
-            AdaptiveIconButton(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.android,
-            ),
-            AdaptiveIconButton.outlined(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.android,
-            ),
-            AdaptiveIconButton.tinted(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.android,
-            ),
-            AdaptiveIconButton.fill(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.android,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const Text('Material Custom'),
-            const Spacer(),
-            AdaptiveIconButton(
-              onPressed: () {},
-              iconColor: Colors.purpleAccent,
-              forceCircularShapeOnApple: true,
-              iconData: AppStyle.icons.bolt,
-              platform: DevicePlatform.android,
-            ),
-            AdaptiveIconButton.outlined(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              forceCircularShapeOnApple: true,
-              iconSize: 35,
-              iconColor: Colors.tealAccent,
-              color: Colors.white,
-              platform: DevicePlatform.android,
-            ),
-            AdaptiveIconButton.tinted(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              forceCircularShapeOnApple: true,
-              iconColor: Colors.yellow,
-              color: Colors.greenAccent,
-              platform: DevicePlatform.android,
-            ),
-            AdaptiveIconButton.fill(
-              onPressed: () {},
-              iconData: AppStyle.icons.bolt,
-              color: Colors.greenAccent,
-              iconColor: Colors.black,
-              forceCircularShapeOnApple: true,
-              platform: DevicePlatform.android,
-            ),
-          ],
-        ),
-      ],
-    );
-    // return Table(
-    //   // defaultColumnWidth: const FlexColumnWidth(),
-    //   defaultColumnWidth: const IntrinsicColumnWidth(),
-    //   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-    //   border: TableBorder.all(color: AppStyle.colors.adaptivePrimary(ref)),
-    //   // columnWidths: const {
-    //   //   0: FlexColumnWidth(),
-    //   //   1: FlexColumnWidth(),
-    //   //   2: FlexColumnWidth(),
-    //   //   3: FlexColumnWidth(),
-    //   //   4: FlexColumnWidth(),
-    //   // },
-    //   children: [
-    //     TableRow(
-    //       children: [
-    //         const Text('Apple'),
-    //         AdaptiveIconButton(
-    //           onPressed: () {},
-    //           iconData: Icons.add,
-    //           platform: DevicePlatform.iOS,
-    //         ),
-    //         AdaptiveIconButton.outlined(
-    //           onPressed: () {},
-    //           iconData: Icons.add,
-    //           platform: DevicePlatform.iOS,
-    //         ),
-    //         AdaptiveIconButton.tinted(
-    //           onPressed: () {},
-    //           iconData: Icons.add,
-    //           platform: DevicePlatform.iOS,
-    //         ),
-    //         AdaptiveIconButton.fill(
-    //           onPressed: () {},
-    //           iconData: Icons.add,
-    //           platform: DevicePlatform.iOS,
-    //         ),
-    //       ],
-    //     ),
-    //     TableRow(
-    //       children: [
-    //         const Text('Android & Others'),
-    //         AdaptiveIconButton(
-    //           onPressed: () {},
-    //           iconData: Icons.add,
-    //           platform: DevicePlatform.android,
-    //         ),
-    //         AdaptiveIconButton.outlined(
-    //           onPressed: () {},
-    //           iconData: Icons.add,
-    //           platform: DevicePlatform.android,
-    //         ),
-    //         AdaptiveIconButton.tinted(
-    //           onPressed: () {},
-    //           iconData: Icons.add,
-    //           platform: DevicePlatform.android,
-    //         ),
-    //         AdaptiveIconButton.fill(
-    //           onPressed: () {},
-    //           iconData: Icons.add,
-    //           platform: DevicePlatform.android,
-    //         ),
-    //       ],
-    //     ),
-    //   ],
-    // );
-  }
-}
+// class TestingAdaptiveIconButton extends ConsumerOrStatelessWidget {
+//   const TestingAdaptiveIconButton({super.key});
+//
+//   @override
+//   Widget build(BuildContext context, WidgetRef? ref) {
+//     return Column(
+//       spacing: 10,
+//       children: [
+//         Row(
+//           children: [
+//             const Text('Cupertino'),
+//             const Spacer(),
+//             AdaptiveIconButton(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.iOS,
+//             ),
+//             AdaptiveIconButton.outlined(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.iOS,
+//             ),
+//             AdaptiveIconButton.tinted(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.iOS,
+//             ),
+//             AdaptiveIconButton.fill(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.iOS,
+//             ),
+//           ],
+//         ),
+//         Row(
+//           children: [
+//             const Text('Cupertino Custom (Circular)'),
+//             const Spacer(),
+//             AdaptiveIconButton(
+//               onPressed: () {},
+//               iconColor: Colors.purpleAccent,
+//               forceCircularShapeOnApple: true,
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.iOS,
+//             ),
+//             AdaptiveIconButton.outlined(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               forceCircularShapeOnApple: true,
+//               iconSize: 35,
+//               iconColor: Colors.tealAccent,
+//               color: Colors.white,
+//               platform: DevicePlatform.iOS,
+//             ),
+//             AdaptiveIconButton.tinted(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               forceCircularShapeOnApple: true,
+//               iconColor: Colors.yellow,
+//               color: Colors.greenAccent,
+//               platform: DevicePlatform.iOS,
+//             ),
+//             AdaptiveIconButton.fill(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               iconColor: Colors.black,
+//               color: Colors.greenAccent,
+//               forceCircularShapeOnApple: true,
+//               platform: DevicePlatform.iOS,
+//             ),
+//           ],
+//         ),
+//         Row(
+//           children: [
+//             const Text('Material'),
+//             const Spacer(),
+//             AdaptiveIconButton(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.android,
+//             ),
+//             AdaptiveIconButton.outlined(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.android,
+//             ),
+//             AdaptiveIconButton.tinted(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.android,
+//             ),
+//             AdaptiveIconButton.fill(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.android,
+//             ),
+//           ],
+//         ),
+//         Row(
+//           children: [
+//             const Text('Material Custom'),
+//             const Spacer(),
+//             AdaptiveIconButton(
+//               onPressed: () {},
+//               iconColor: Colors.purpleAccent,
+//               forceCircularShapeOnApple: true,
+//               iconData: AppStyle.icons.bolt,
+//               platform: DevicePlatform.android,
+//             ),
+//             AdaptiveIconButton.outlined(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               forceCircularShapeOnApple: true,
+//               iconSize: 35,
+//               iconColor: Colors.tealAccent,
+//               color: Colors.white,
+//               platform: DevicePlatform.android,
+//             ),
+//             AdaptiveIconButton.tinted(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               forceCircularShapeOnApple: true,
+//               iconColor: Colors.yellow,
+//               color: Colors.greenAccent,
+//               platform: DevicePlatform.android,
+//             ),
+//             AdaptiveIconButton.fill(
+//               onPressed: () {},
+//               iconData: AppStyle.icons.bolt,
+//               color: Colors.greenAccent,
+//               iconColor: Colors.black,
+//               forceCircularShapeOnApple: true,
+//               platform: DevicePlatform.android,
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//     // return Table(
+//     //   // defaultColumnWidth: const FlexColumnWidth(),
+//     //   defaultColumnWidth: const IntrinsicColumnWidth(),
+//     //   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+//     //   border: TableBorder.all(color: AppStyle.colors.adaptivePrimary(ref)),
+//     //   // columnWidths: const {
+//     //   //   0: FlexColumnWidth(),
+//     //   //   1: FlexColumnWidth(),
+//     //   //   2: FlexColumnWidth(),
+//     //   //   3: FlexColumnWidth(),
+//     //   //   4: FlexColumnWidth(),
+//     //   // },
+//     //   children: [
+//     //     TableRow(
+//     //       children: [
+//     //         const Text('Apple'),
+//     //         AdaptiveIconButton(
+//     //           onPressed: () {},
+//     //           iconData: Icons.add,
+//     //           platform: DevicePlatform.iOS,
+//     //         ),
+//     //         AdaptiveIconButton.outlined(
+//     //           onPressed: () {},
+//     //           iconData: Icons.add,
+//     //           platform: DevicePlatform.iOS,
+//     //         ),
+//     //         AdaptiveIconButton.tinted(
+//     //           onPressed: () {},
+//     //           iconData: Icons.add,
+//     //           platform: DevicePlatform.iOS,
+//     //         ),
+//     //         AdaptiveIconButton.fill(
+//     //           onPressed: () {},
+//     //           iconData: Icons.add,
+//     //           platform: DevicePlatform.iOS,
+//     //         ),
+//     //       ],
+//     //     ),
+//     //     TableRow(
+//     //       children: [
+//     //         const Text('Android & Others'),
+//     //         AdaptiveIconButton(
+//     //           onPressed: () {},
+//     //           iconData: Icons.add,
+//     //           platform: DevicePlatform.android,
+//     //         ),
+//     //         AdaptiveIconButton.outlined(
+//     //           onPressed: () {},
+//     //           iconData: Icons.add,
+//     //           platform: DevicePlatform.android,
+//     //         ),
+//     //         AdaptiveIconButton.tinted(
+//     //           onPressed: () {},
+//     //           iconData: Icons.add,
+//     //           platform: DevicePlatform.android,
+//     //         ),
+//     //         AdaptiveIconButton.fill(
+//     //           onPressed: () {},
+//     //           iconData: Icons.add,
+//     //           platform: DevicePlatform.android,
+//     //         ),
+//     //       ],
+//     //     ),
+//     //   ],
+//     // );
+//   }
+// }

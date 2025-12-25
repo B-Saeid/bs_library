@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../riverpod_widgets/consumer_or_stateless.dart';
 import '../theme/adaptive_tiles_theme.dart';
 import '../theme/adaptive_tiles_theme_helper.dart';
 import 'platforms/android_tile.dart';
@@ -23,7 +24,7 @@ enum AdaptiveTileType {
   bool get isSwitch => this == AdaptiveTileType.switchTile;
 }
 
-class AdaptiveTile extends ConsumerWidget {
+class AdaptiveTile extends ConsumerOrStatelessWidget {
   const AdaptiveTile({
     this.leading,
     this.trailing,
@@ -106,7 +107,7 @@ class AdaptiveTile extends ConsumerWidget {
   DevicePlatform get _platform => platform ?? StaticData.platform;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef? ref) {
     final lookedUpTheme = AdaptiveTilesTheme.of(context);
 
     final platform = lookedUpTheme?.platform ?? _platform;
@@ -165,8 +166,8 @@ class AdaptiveTile extends ConsumerWidget {
     if (lookedUpTheme != null) return child;
 
     /// If parent has not been wrapped in AdaptiveTilesTheme
-    return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+    return ConsumerOrStateless(
+      builder: (BuildContext context, WidgetRef? ref, Widget? child) {
         final tilesThemeData =
             AdaptiveTilesThemeHelper.getThemeData(
               platform: platform,

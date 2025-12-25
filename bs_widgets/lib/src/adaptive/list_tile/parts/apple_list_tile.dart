@@ -17,10 +17,10 @@ class AppleListTile extends AdaptiveListTile {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) =>
+  Widget build(BuildContext context, WidgetRef? ref) =>
       IgnorePointer(ignoring: !enabled, child: buildContent(ref, context));
 
-  Widget buildContent(WidgetRef ref, BuildContext context) => CupertinoWell(
+  Widget buildContent(WidgetRef? ref, BuildContext context) => CupertinoWell(
     // color: theme.themeData.tileColor,
     color: AppStyle.colors.onScaffoldBackground(ref: ref, context: context),
     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -66,7 +66,7 @@ class AppleListTile extends AdaptiveListTile {
     ),
   );
 
-  Widget buildLeading(WidgetRef ref, BuildContext context) => FitWithin(
+  Widget buildLeading(WidgetRef? ref, BuildContext context) => FitWithin(
     size: Size.square(32.scalableFlexible(ref: ref, context: context, maxFactor: 2)),
     alignment: AlignmentDirectional.center,
     child: Padding(
@@ -82,21 +82,21 @@ class AppleListTile extends AdaptiveListTile {
     ),
   );
 
-  Widget buildTitle(WidgetRef ref, BuildContext context) => DefaultTextStyle.merge(
+  Widget buildTitle(WidgetRef? ref, BuildContext context) => DefaultTextStyle.merge(
     style: LiveDataOrQuery.textTheme(ref: ref, context: context).titleMedium?.copyWith(
       color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: title,
   );
 
-  Widget buildDescription(WidgetRef ref, BuildContext context) => DefaultTextStyle.merge(
+  Widget buildDescription(WidgetRef? ref, BuildContext context) => DefaultTextStyle.merge(
     style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium?.copyWith(
       color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
     ),
     child: description!,
   );
 
-  Widget buildTrailing(WidgetRef ref, BuildContext context) => IconTheme.merge(
+  Widget buildTrailing(WidgetRef? ref, BuildContext context) => IconTheme.merge(
     data: IconThemeData(
       size: 24.scalableFlexible(ref: ref, context: context, maxFactor: 1.5),
       color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
