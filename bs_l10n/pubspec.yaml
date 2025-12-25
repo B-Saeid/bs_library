@@ -2,8 +2,8 @@ name: bs_l10n
 description: "L10n foundation and resources using Riverpod NOT arb"
 version: 0.0.1
 homepage: https://bsaeid.dev/
-#repository: https://github.com/B-Saeid/bs_l10n
-#issue_tracker: https://github.com/ueman/bs_l10n/issues
+repository: https://github.com/B-Saeid/bs_library/tree/main/bs_l10n
+issue_tracker: https://github.com/B-Saeid/bs_library/issues
 publish_to: none
 
 

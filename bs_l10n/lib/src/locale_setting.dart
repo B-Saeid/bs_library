@@ -28,7 +28,7 @@ enum LocaleSetting {
     return LocaleSetting.values.firstWhereOrNull((e) => value == e.name) ?? LocaleSetting.auto;
   }
 
-  String displayName(WidgetRef ref) => l10nR.localeSettingDisplayName(this, ref);
+  String displayName([WidgetRef? ref]) => l10nR.localeSettingDisplayName(this, ref);
 
   static LocaleSetting fromSupported(SupportedLocale supported) => switch (supported) {
     SupportedLocale.ar => LocaleSetting.arabic,
