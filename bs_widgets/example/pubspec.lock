@@ -52,72 +52,92 @@ packages:
   bs_internet_checker:
     dependency: transitive
     description:
-      path: "../../bs_internet_checker"
-      relative: true
-    source: path
+      path: bs_internet_checker
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   bs_internet_service:
     dependency: "direct main"
     description:
-      path: "../../bs_internet_service"
-      relative: true
-    source: path
+      path: bs_internet_service
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   bs_l10n:
     dependency: transitive
     description:
-      path: "../../bs_l10n"
-      relative: true
-    source: path
+      path: bs_l10n
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   bs_overlay:
     dependency: transitive
     description:
-      path: "../../bs_overlay"
-      relative: true
-    source: path
+      path: bs_overlay
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   bs_ref_query:
     dependency: transitive
     description:
-      path: "../../bs_ref_query"
-      relative: true
-    source: path
+      path: bs_ref_query
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   bs_riverpod_utils:
     dependency: transitive
     description:
-      path: "../../bs_riverpod_utils"
-      relative: true
-    source: path
+      path: bs_riverpod_utils
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   bs_styles:
     dependency: "direct main"
     description:
-      path: "../../bs_styles"
-      relative: true
-    source: path
+      path: bs_styles
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   bs_toast:
     dependency: "direct main"
     description:
-      path: "../../bs_toast"
-      relative: true
-    source: path
+      path: bs_toast
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   bs_utils:
     dependency: "direct main"
     description:
-      path: "../../bs_utils"
-      relative: true
-    source: path
+      path: bs_utils
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   bs_widgets:
     dependency: "direct main"
     description:
-      path: ".."
-      relative: true
-    source: path
+      path: bs_widgets
+      ref: HEAD
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      url: "https://github.com/B-Saeid/bs_library.git"
+    source: git
     version: "0.0.1"
   characters:
     dependency: transitive

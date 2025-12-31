@@ -54,7 +54,7 @@ packages:
     description:
       path: bs_internet_checker
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -63,7 +63,7 @@ packages:
     description:
       path: bs_internet_service
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -72,7 +72,7 @@ packages:
     description:
       path: bs_l10n
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -81,7 +81,7 @@ packages:
     description:
       path: bs_overlay
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -90,7 +90,7 @@ packages:
     description:
       path: bs_ref_query
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -99,7 +99,7 @@ packages:
     description:
       path: bs_riverpod_utils
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -108,7 +108,7 @@ packages:
     description:
       path: bs_styles
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -117,7 +117,7 @@ packages:
     description:
       path: bs_toast
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -126,7 +126,7 @@ packages:
     description:
       path: bs_utils
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -135,7 +135,7 @@ packages:
     description:
       path: bs_widgets
       ref: HEAD
-      resolved-ref: "9906dcd262df116a7f2d084bd062869f0ad27463"
+      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
