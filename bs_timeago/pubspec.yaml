@@ -2,8 +2,8 @@ name: bs_timeago
 description: "Fork of timeago packages packed with utility widgets and improvements"
 version: 0.0.1
 homepage: https://bsaeid.dev
-#repository: https://github.com/B-Saeid/bs_timeago
-#issue_tracker: https://github.com/ueman/bs_timeago/issues
+repository: https://github.com/B-Saeid/bs_library/tree/main/bs_timeago
+issue_tracker: https://github.com/B-Saeid/bs_library/issues
 environment:
   sdk: ^3.10.1
   flutter: ">=1.17.0"

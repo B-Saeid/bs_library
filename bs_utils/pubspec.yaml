@@ -2,8 +2,8 @@ name: bs_utils
 description: "Combination of useful utilities used across bs_packages."
 version: 0.0.1
 homepage: https://bsaeid.dev/
-#repository: https://github.com/B-Saeid/bs_internet_checker
-#issue_tracker: https://github.com/ueman/bs_internet_checker/issues
+repository: https://github.com/B-Saeid/bs_library/tree/main/bs_utils
+issue_tracker: https://github.com/B-Saeid/bs_library/issues
 
 environment:
   sdk: ^3.10.1
