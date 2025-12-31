@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../adaptive/neat_circular_indicator.dart';
+import '../adaptive/adaptive_loading_indicator.dart';
 
 class AsyncValueWidget<T> extends StatelessWidget {
   const AsyncValueWidget({
@@ -40,8 +40,8 @@ class AsyncValueWidget<T> extends StatelessWidget {
     loading:
         loading ??
         () => _sliver
-            ? const SliverToBoxAdapter(child: NeatCircularIndicator())
-            : const NeatCircularIndicator(),
+            ? const SliverToBoxAdapter(child: AdaptiveLoadingIndicator())
+            : const AdaptiveLoadingIndicator(),
     error: (e, st) {
       // if (reportError) {
       //   ErrorMonitorService.report(

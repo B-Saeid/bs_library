@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../riverpod_widgets/consumer_or_stateless.dart';
-import '../../../neat_circular_indicator.dart';
+import '../../../adaptive_loading_indicator.dart';
 import '../adaptive_tile.dart';
 
 class AndroidTile extends ConsumerOrStatelessWidget {
@@ -179,7 +179,7 @@ class AndroidTile extends ConsumerOrStatelessWidget {
     subtitle: description ?? value,
     onTap: onPressed,
     enabled: enabled,
-    trailing: loading ? const NeatCircularIndicator() : trailing,
+    trailing: loading ? const AdaptiveLoadingIndicator() : trailing,
   );
 
   Widget buildValue(BuildContext context, WidgetRef? ref) => DefaultTextStyle.merge(
@@ -195,7 +195,7 @@ class AndroidTile extends ConsumerOrStatelessWidget {
       enabled: enabled,
       title: title,
       trailing: loading
-          ? const NeatCircularIndicator()
+          ? const AdaptiveLoadingIndicator()
           : Switch(value: switchValue, onChanged: enabled ? onToggle : null),
       onTap: onPressed ?? () => onToggle?.call(!switchValue),
       subtitle: description,

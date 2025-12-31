@@ -6,13 +6,13 @@ export 'drops.dart';
 export 'placeholders.dart';
 export 'riverpod_widgets.dart';
 // adaptive
+export 'src/adaptive/adaptive_loading_indicator.dart';
 export 'src/adaptive/adaptive_button.dart';
 export 'src/adaptive/adaptive_icon_button.dart';
 export 'src/adaptive/adaptive_segmented_actions.dart';
 export 'src/adaptive/adaptive_tappable.dart';
 export 'src/adaptive/form_field/adaptive_form_field.dart';
 export 'src/adaptive/list_tile/adaptive_list_tile.dart';
-export 'src/adaptive/neat_circular_indicator.dart';
 // tiles_groups
 export 'src/adaptive/tiles_groups/adaptive_tiles_list.dart';
 export 'src/adaptive/tiles_groups/groups/abstract_group.dart';

@@ -3,7 +3,7 @@ import 'package:bs_l10n/bs_l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../adaptive/neat_circular_indicator.dart';
+import '../adaptive/adaptive_loading_indicator.dart';
 import '../misc/l10nr_text.dart';
 import '../riverpod_widgets/consumer_or_stateless.dart';
 
@@ -199,7 +199,7 @@ class _SliverNav extends ConsumerWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const NeatCircularIndicator(),
+                  const AdaptiveLoadingIndicator(),
                   const SizedBox(width: 10),
                   L10nRText(notConnectedString ?? (_) => 'Waiting for network...'),
                 ],

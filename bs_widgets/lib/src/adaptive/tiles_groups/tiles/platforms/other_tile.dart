@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../riverpod_widgets/consumer_or_stateless.dart';
-import '../../../neat_circular_indicator.dart';
+import '../../../adaptive_loading_indicator.dart';
 import '../../theme/adaptive_tiles_theme.dart';
 import '../adaptive_tile.dart';
 
@@ -214,7 +214,7 @@ class OtherTile extends ConsumerOrStatelessWidget {
           child: trailing!,
         )
       : switch (tileType) {
-          _ when loading => const NeatCircularIndicator(),
+          _ when loading => const AdaptiveLoadingIndicator(),
           AdaptiveTileType.simpleTile => const SizedBox(),
           AdaptiveTileType.switchTile => Switch.adaptive(
             value: initialValue!,

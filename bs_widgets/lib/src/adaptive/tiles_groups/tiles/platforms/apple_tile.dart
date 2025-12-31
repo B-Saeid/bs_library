@@ -7,7 +7,7 @@ import '../../../../../adaptive_tiles_groups.dart';
 import '../../../../cupertino/cupertino_well.dart';
 import '../../../../layout/fit_within.dart';
 import '../../../../riverpod_widgets/consumer_or_stateless.dart';
-import '../../../neat_circular_indicator.dart';
+import '../../../adaptive_loading_indicator.dart';
 
 class AppleTile extends ConsumerOrStatelessWidget {
   const AppleTile({
@@ -193,7 +193,7 @@ class AppleTile extends ConsumerOrStatelessWidget {
 
     final scaleFactor = LiveDataOrQuery.scalePercentage(ref: ref, context: context);
     return switch (tileType) {
-      _ when loading => const NeatCircularIndicator(),
+      _ when loading => const AdaptiveLoadingIndicator(),
       AdaptiveTileType.simpleTile => const SizedBox(),
       AdaptiveTileType.switchTile => CupertinoSwitch(
         value: initialValue!,

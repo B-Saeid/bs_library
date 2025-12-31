@@ -3,7 +3,7 @@ import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../adaptive/neat_circular_indicator.dart';
+import '../adaptive/adaptive_loading_indicator.dart';
 import '../riverpod_widgets/consumer_or_stateless.dart';
 
 class LoadingPleaseWait extends ConsumerOrStatelessWidget {
@@ -23,7 +23,7 @@ class LoadingPleaseWait extends ConsumerOrStatelessWidget {
       SizedBox(
         height: 10.scalableFlexible(ref: ref, context: context, allowBelow: false),
       ),
-      const NeatCircularIndicator(),
+      const AdaptiveLoadingIndicator(),
       if (child != null) ...[
         SizedBox(
           height: 20.scalableFlexible(ref: ref, context: context, allowBelow: false),
