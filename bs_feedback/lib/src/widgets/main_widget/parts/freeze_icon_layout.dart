@@ -33,7 +33,7 @@ class FreezeIconLayout extends StatelessWidget {
                   icon: Icon(internalState.freezeIcon),
                 ),
               ),
-              if (internalState.freezeIcon == null) const NeatCircularIndicator(),
+              if (internalState.freezeIcon == null) const AdaptiveLoadingIndicator(),
             ],
           ),
         ),

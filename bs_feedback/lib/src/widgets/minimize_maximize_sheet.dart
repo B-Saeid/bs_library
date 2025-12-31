@@ -1,5 +1,5 @@
 import 'package:bs_styles/bs_styles.dart';
-import 'package:bs_widgets/bs_widgets.dart';
+import 'package:bs_widgets/adaptive_button.dart';
 import 'package:flutter/material.dart';
 
 import '../better_feedback.dart';
@@ -64,11 +64,13 @@ class _MinimizeMaximizeSheetState extends State<MinimizeMaximizeSheet> {
         mainAxisSize: MainAxisSize.min,
         spacing: 10,
         children: [
-          AdaptiveIconButton.fill(
+          AdaptiveIconButton(
+            type: AdaptiveIconButtonType.filled,
             iconData: AppStyle.icons.arrowUp,
             onPressed: _isMax ? null : maximize,
           ),
-          AdaptiveIconButton.fill(
+          AdaptiveIconButton(
+            type: AdaptiveIconButtonType.filled,
             iconData: AppStyle.icons.arrowDown,
             onPressed: _isMin ? null : minimize,
           ),
