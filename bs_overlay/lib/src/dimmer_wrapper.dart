@@ -144,17 +144,11 @@ class _DismissIconButton extends ConsumerOrStatelessWidget {
       top: viewPadding.top + 10,
       end: baseEndPadding + 10,
 
-      /// Refactor when you move type to normal parameter instead of named constructor
-      child: StaticData.platform.isApple
-          ? AdaptiveIconButton.fill(
-              onPressed: _handleDismiss,
-              iconData: AppStyle.icons.close,
-              forceCircularShapeOnApple: true,
-            )
-          : AdaptiveIconButton.tinted(
-              onPressed: _handleDismiss,
-              iconData: AppStyle.icons.close,
-            ),
+      child: AdaptiveIconButton(
+        type: AdaptiveIconButtonType.tinted,
+        onPressed: _handleDismiss,
+        iconData: AppStyle.icons.close,
+      ),
     );
   }
 }

@@ -35,8 +35,8 @@ class _MyAppState extends State<MyApp> {
     darkTheme: ThemeData(brightness: Brightness.dark, colorSchemeSeed: Colors.lightGreen),
     themeMode: mode,
     builder: (context, child) {
-      /// Example does use Toast without context, so this line is necessary
-      /// If you will ONLY use Toast with context passed you can omit this line on your app
+      /// Example does use BsOverlay without context, so this line is necessary
+      /// If you will ONLY use BsOverlay with context passed you can omit this line on your app
       BsOverlay.setNavigatorKey(MyApp.navigatorKey);
 
       // ignore: use_build_context_synchronously
