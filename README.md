@@ -2,6 +2,8 @@
 
 ### Group of inter-dependent packages used as building blocks of apps.
 
+## ℹ️ Note: The library is still under construction. Docs, examples, and tests are not all ready yet.
+
 | Name                | README                                                                              | View Source                                                                                   | Additional Dependencies                                                                                                                                   |
 |---------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | BS Utils            | [📖](https://github.com/B-Saeid/bs_library/blob/main/bs_utils/README.md)            | [`bs_utils`](https://github.com/B-Saeid/bs_library/blob/main/bs_utils/)                       | [intl](https://pub.dev/packages/intl), [timing](https://pub.dev/packages/timing)                                                                          |
@@ -26,4 +28,4 @@ our [issue tracker](https://github.com/B-Saeid/bs_library/issues/new).
 ## Contributing
 
 If you wish to contribute a change to any of the existing packages in this repo,
-you can open a [pull request](https://github.com/firebase/flutterfire/pulls).
+you can open a [pull request](https://github.com/B-Saeid/bs_library/pulls).
