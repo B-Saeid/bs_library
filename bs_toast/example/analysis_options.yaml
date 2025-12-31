@@ -9,6 +9,16 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
+
+formatter:
+  trailing_commas: preserve
+
+analyzer:
+  plugins:
+    - custom_lint
+  errors:
+    invalid_annotation_target: ignore
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
@@ -21,6 +31,24 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
+
+    avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    # SUPER USEFUL LINT RULE ... when you type a class name of any thing in your project
+    # it automatically import the it using its relative path
+    prefer_relative_imports: true
+    library_prefixes: true
+    package_names: true
+    always_declare_return_types: true
+    omit_local_variable_types: true
+    directives_ordering: true # Adhere to Effective Dart Guide directives sorting conventions.
+    cancel_subscriptions: true
+    close_sinks: true
+    avoid_void_async: true
+    implicit_call_tearoffs: false
+    sort_constructors_first: true
+    sort_unnamed_constructors_first: true
+    prefer_const_constructors: true
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 

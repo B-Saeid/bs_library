@@ -8,7 +8,7 @@ class BSToastExampleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
+    padding: const EdgeInsets.symmetric(horizontal: 16.0),
     child: Column(
       children: [
         const SizedBox(height: 25),

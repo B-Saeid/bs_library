@@ -2,8 +2,8 @@ name: bs_toast
 description: "Toast that is aware of others enqueued and can be prioritized."
 version: 0.0.1
 homepage: https://bsaeid.dev/
-#repository: https://github.com/B-Saeid/bs_overlay
-#issue_tracker: https://github.com/ueman/bs_overlay/issues
+repository: https://github.com/B-Saeid/bs_library/tree/main/bs_toast
+issue_tracker: https://github.com/ueman/bs_toast/issues
 publish_to: none
 
 environment:

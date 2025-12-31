@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     themeMode: mode,
     builder: (context, child) {
       /// Example does use Toast without context, so this line is necessary
-      /// If you will ONLY use Toast with context passed you can omit this line in your app
+      /// If you will ONLY use Toast with context passed you can omit this line on your app
       Toast.setNavigatorKey(MyApp.navigatorKey);
 
       // ignore: use_build_context_synchronously
@@ -60,9 +60,9 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      title: Text('BSToast Example'),
+      title: const Text('BSToast Example'),
     ),
-    body: BSToastExampleWidget(),
+    body: const BSToastExampleWidget(),
     floatingActionButton: FloatingActionButton(
       onPressed: changeThemeMode,
       child: Icon(mode == ThemeMode.system ? Icons.light_mode : Icons.dark_mode),
