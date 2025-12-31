@@ -1,5 +1,6 @@
 // Separated files
 export 'adaptive_button.dart';
+export 'adaptive_tiles_groups.dart';
 export 'clippers.dart';
 export 'cupertino.dart';
 export 'dialog.dart';
@@ -12,13 +13,6 @@ export 'src/adaptive/adaptive_segmented_actions.dart';
 export 'src/adaptive/adaptive_tappable.dart';
 export 'src/adaptive/form_field/adaptive_form_field.dart';
 export 'src/adaptive/list_tile/adaptive_list_tile.dart';
-// tiles_groups
-export 'src/adaptive/tiles_groups/adaptive_tiles_list.dart';
-export 'src/adaptive/tiles_groups/groups/abstract_group.dart';
-export 'src/adaptive/tiles_groups/groups/adaptive_tiles_group.dart';
-export 'src/adaptive/tiles_groups/theme/adaptive_tiles_theme.dart';
-export 'src/adaptive/tiles_groups/tiles/abstract_tile.dart';
-export 'src/adaptive/tiles_groups/tiles/adaptive_tile.dart';
 // animated
 export 'src/animated/animated_blurred.dart';
 export 'src/animated/custom_animated_size.dart';
