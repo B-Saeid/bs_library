@@ -6,11 +6,11 @@
 // import 'tiles/abstract_tile.dart';
 // import 'tiles/adaptive_tile.dart';
 //
-// class AdaptiveTilesGroupsTesting extends ConsumerWidget {
+// class AdaptiveTilesGroupsTesting extends ConsumerOrStatelessWidget {
 //   const AdaptiveTilesGroupsTesting({super.key});
 //
 //   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
+//   Widget build(BuildContext context, WidgetRef? ref) {
 //     return const ColoredBox(
 //       color: Colors.white12,
 //       child: AdaptiveTilesList(

@@ -1,0 +1,38 @@
+name: bs_widgets_example
+description: "Example app that showcases bs_widgets"
+publish_to: 'none'
+
+version: 1.0.0
+
+environment:
+  sdk: ^3.10.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dartx: 1.2.0
+  bs_internet_service:
+    path: ../../bs_internet_service
+  bs_styles:
+    path: ../../bs_styles
+  bs_toast:
+    path: ../../bs_toast
+  bs_utils:
+    path: ../../bs_utils
+  bs_widgets:
+    path: ../../bs_widgets
+
+  flutter_riverpod: 3.0.3
+
+  # Uncomment if you opt in to use LiveData
+  #  bs_ref_query:
+  #    git:
+  #      url: https://github.com/B-Saeid/bs_library.git
+  #      path: bs_ref_query
+
+  cupertino_icons: 1.0.8
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: 6.0.0

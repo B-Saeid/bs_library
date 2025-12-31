@@ -1,4 +1,5 @@
 // Separated files
+export 'adaptive_button.dart';
 export 'clippers.dart';
 export 'cupertino.dart';
 export 'dialog.dart';
@@ -7,8 +8,6 @@ export 'placeholders.dart';
 export 'riverpod_widgets.dart';
 // adaptive
 export 'src/adaptive/adaptive_loading_indicator.dart';
-export 'src/adaptive/adaptive_button.dart';
-export 'src/adaptive/adaptive_icon_button.dart';
 export 'src/adaptive/adaptive_segmented_actions.dart';
 export 'src/adaptive/adaptive_tappable.dart';
 export 'src/adaptive/form_field/adaptive_form_field.dart';
