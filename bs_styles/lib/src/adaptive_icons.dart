@@ -1,4 +1,5 @@
 import 'package:bs_ref_query/bs_ref_query.dart';
+import 'package:bs_utils/bs_utils.dart';
 import 'package:colorful_iconify_flutter/icons/logos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -14,12 +15,14 @@ import 'overridden_icons.dart';
 
 /// Make sure you are explicitly setting it correctly
 final class AdaptiveIcons {
-  const AdaptiveIcons._();
-
   @internal
-  static final instance = const AdaptiveIcons._();
+  factory AdaptiveIcons([DevicePlatform? platform]) => AdaptiveIcons._(platform);
 
-  bool get isApple => StaticData.platform.isApple;
+  const AdaptiveIcons._(this.platform);
+
+  final DevicePlatform? platform;
+
+  bool get isApple => (platform ?? StaticData.platform).isApple;
 
   Color _adaptiveColor({WidgetRef? ref, BuildContext? context}) =>
       LiveDataOrQuery.isLight(ref: ref, context: context) ? Colors.black : Colors.white;
@@ -126,6 +129,8 @@ final class AdaptiveIcons {
   IconData get calender => isApple ? CupertinoIcons.calendar_today : Icons.today_rounded;
 
   IconData get clock => isApple ? CupertinoIcons.clock : Icons.watch_later_outlined;
+
+  IconData get clockFill => isApple ? CupertinoIcons.clock_fill : Icons.access_time_filled_rounded;
 
   IconData get duration => isApple ? CupertinoIcons.stopwatch_fill : Icons.timer_rounded;
 
@@ -308,6 +313,20 @@ final class AdaptiveIcons {
 
   IconData get openLink =>
       isApple ? CupertinoIcons.arrow_up_right_square_fill : Icons.open_in_new_rounded;
+
+  IconData get dotsCustom => isApple ? CupertinoIcons.ellipsis_circle : Icons.more_vert_rounded;
+
+  IconData get dotsH => isApple ? CupertinoIcons.ellipsis : Icons.more_horiz_rounded;
+
+  IconData get dotsCirH => CupertinoIcons.ellipsis_circle;
+
+  IconData get dotsCirFillH => CupertinoIcons.ellipsis_circle_fill;
+
+  IconData get dotsV => isApple ? CupertinoIcons.ellipsis_vertical : Icons.more_vert_rounded;
+
+  IconData get dotsCircularV => CupertinoIcons.ellipsis_vertical_circle;
+
+  IconData get dotsCircularFillV => CupertinoIcons.ellipsis_vertical_circle_fill;
 }
 
 /// This was commented out, when testing on web and is replaced with [OverriddenIcons]
