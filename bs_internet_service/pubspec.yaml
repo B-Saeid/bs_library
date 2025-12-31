@@ -2,8 +2,8 @@ name: bs_internet_service
 description: "Internet service packed with convenience providers to easily watch connection status."
 version: 0.0.1
 homepage: https://bsaeid.dev/
-#repository: https://github.com/B-Saeid/bs_internet_checker
-#issue_tracker: https://github.com/ueman/bs_internet_checker/issues
+repository: https://github.com/B-Saeid/bs_library/tree/main/bs_internet_service
+issue_tracker: https://github.com/B-Saeid/bs_library/issues
 publish_to: none
 
 environment:

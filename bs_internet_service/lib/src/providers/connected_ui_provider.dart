@@ -35,7 +35,7 @@ class IsConnectedWithUI extends _$IsConnectedWithUI {
   bool? build([BuildContext? context]) {
     ref.onAddListener(() => Internet.addListener(_updateSelf));
 
-    ref.onCancel(() => Internet.removeListener(_updateSelf));
+    ref.onRemoveListener(() => Internet.removeListener(_updateSelf));
 
     // ignore: use_build_context_synchronously
     if (ref.isFirstBuild && ref.mounted) Future(() => _presentationLogic(ref, context));
