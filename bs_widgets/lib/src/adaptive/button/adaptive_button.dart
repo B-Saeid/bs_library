@@ -180,7 +180,7 @@ class AdaptiveButton extends AdaptiveButtonBase {
           ? Theme.of(context)
           : LiveDataOrQuery.themeData(ref: ref, context: context);
 
-      final bodyLarge = themeData.textTheme.bodyLarge;
+      final titleLarge = themeData.textTheme.titleLarge;
       final defaultForegroundColor = _isFilled
           ? themeData.colorScheme.onPrimary
           : themeData.colorScheme.primary;
@@ -191,7 +191,7 @@ class AdaptiveButton extends AdaptiveButtonBase {
       // ///     if enabled this.foregroundColor or fillColor?.invertedBW or defaultForegroundColor
       ///     if not it is = themeData.disabledColor
       ///  -  if this.textStyle is given it is used with its color adjusted as above
-      ///     if not, we check for [this._basic], and only if false we use bodyLarge textStyle
+      ///     if not, we check for [this._basic], and only if false we use titleLarge textStyle
       ///     also with its color adjusted as above
       ///
       /// Disabled foreground color is correctly resolved on Material,
@@ -208,10 +208,10 @@ class AdaptiveButton extends AdaptiveButtonBase {
             : themeData.disabledColor,
 
         /// Used to workaround [CupertinoButton]s not using the app fontFamily
-        fontFamily: bodyLarge?.fontFamily,
+        fontFamily: titleLarge?.fontFamily,
       );
 
-      final merged = this.textStyle ?? (_basic ? null : bodyLarge);
+      final merged = this.textStyle ?? (_basic ? null : titleLarge);
       return merged?.merge(textStyle) ?? textStyle;
     }
 
