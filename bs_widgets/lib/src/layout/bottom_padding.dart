@@ -36,9 +36,9 @@ class BottomPadding extends ConsumerOrStatelessWidget {
   /// defaults to false
   final bool scalable;
 
-  static EdgeInsets asBottomEdgeInsets(
-    BuildContext context,
-    WidgetRef? ref, {
+  static EdgeInsets asBottomEdgeInsets({
+    BuildContext? context,
+    WidgetRef? ref,
     double kbPadding = 30,
     double minPadding = 30,
     bool scalable = false,
@@ -57,9 +57,9 @@ class BottomPadding extends ConsumerOrStatelessWidget {
     );
   }
 
-  static double asDouble(
-    BuildContext context,
-    WidgetRef? ref, {
+  static double asDouble({
+    BuildContext? context,
+    WidgetRef? ref,
     double kbPadding = 30,
     double minPadding = 30,
     bool scalable = false,
