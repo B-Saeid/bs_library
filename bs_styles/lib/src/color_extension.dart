@@ -3,6 +3,10 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 extension ColorExtension on Color {
+  /// Workaround the deprecation of `withOpacity`
+  ///
+  /// 1.0 > Opaque
+  /// 0.0 > Transparent
   Color withAlphaFraction(double fraction) => withAlpha((fraction * 255).round());
 
   /// Darken color according to [by] value
@@ -49,6 +53,11 @@ extension ColorExtension on Color {
     );
   }
 
+  /// returns black or white depending on the luminance of the base color
+  ///
+  /// if Luminant (Close to white) > returns black
+  /// if Dimmed (Close to black) > returns white
+  ///
   /// Expensive method; Use reasonably
   Color get invertedBW => computeLuminance() > 0.5 ? Colors.black : Colors.white;
 }
