@@ -20,11 +20,14 @@ class AppleTilesGroup extends ConsumerOrStatelessWidget {
   final Widget? header;
 
   @override
-  Widget build(BuildContext context, WidgetRef? ref) => ListView(
-    padding: margin ?? EdgeInsets.zero,
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    children: _getTilesList(context),
+  Widget build(BuildContext context, WidgetRef? ref) => Container(
+    constraints: AdaptiveTilesTheme.of(context)?.themeData.constraints,
+    child: ListView(
+      padding: margin ?? EdgeInsets.zero,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: _getTilesList(context),
+    ),
   );
 
   /// Since iOS design impose displaying the description separated under the setting tile.

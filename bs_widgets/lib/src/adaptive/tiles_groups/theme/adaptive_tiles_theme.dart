@@ -1,7 +1,6 @@
 import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/material.dart';
 
-
 class AdaptiveTilesTheme extends InheritedWidget {
   const AdaptiveTilesTheme({
     super.key,
@@ -33,6 +32,7 @@ class AdaptiveTilesTheme extends InheritedWidget {
 class AdaptiveTilesThemeData {
   const AdaptiveTilesThemeData({
     this.iOSTilesGroupMargin,
+    this.constraints,
     this.trailingTextColor,
     // this.settingsListBackground,
     this.tileColor,
@@ -48,6 +48,7 @@ class AdaptiveTilesThemeData {
   /// This is only for iOS.
   /// default is: Cupertino Specific margin
   final EdgeInsets? iOSTilesGroupMargin;
+  final BoxConstraints? constraints;
 
   // final Color? settingsListBackground;
   final Color? trailingTextColor;
@@ -65,6 +66,7 @@ class AdaptiveTilesThemeData {
 
     return copyWith(
       iOSTilesGroupMargin: theme.iOSTilesGroupMargin,
+      constraints: theme.constraints,
       leadingIconsColor: theme.leadingIconsColor,
       tileDescriptionTextColor: theme.tileDescriptionTextColor,
       dividerColor: theme.dividerColor,
@@ -80,6 +82,7 @@ class AdaptiveTilesThemeData {
 
   AdaptiveTilesThemeData copyWith({
     EdgeInsets? iOSTilesGroupMargin,
+    BoxConstraints? constraints,
     // Color? settingsListBackground,
     Color? trailingTextColor,
     Color? leadingIconsColor,
@@ -93,18 +96,17 @@ class AdaptiveTilesThemeData {
   }) {
     return AdaptiveTilesThemeData(
       iOSTilesGroupMargin: iOSTilesGroupMargin ?? this.iOSTilesGroupMargin,
+      constraints: constraints ?? this.constraints,
       // settingsListBackground: settingsListBackground ?? this.settingsListBackground,
       trailingTextColor: trailingTextColor ?? this.trailingTextColor,
       leadingIconsColor: leadingIconsColor ?? this.leadingIconsColor,
       tileColor: tileColor ?? this.tileColor,
       dividerColor: dividerColor ?? this.dividerColor,
-      tileDescriptionTextColor:
-          tileDescriptionTextColor ?? this.tileDescriptionTextColor,
+      tileDescriptionTextColor: tileDescriptionTextColor ?? this.tileDescriptionTextColor,
       tileHighlightColor: tileHighlightColor ?? this.tileHighlightColor,
       titleTextColor: titleTextColor ?? this.titleTextColor,
       inactiveTitleColor: inactiveTitleColor ?? this.inactiveTitleColor,
-      inactiveSubtitleColor:
-          inactiveSubtitleColor ?? this.inactiveSubtitleColor,
+      inactiveSubtitleColor: inactiveSubtitleColor ?? this.inactiveSubtitleColor,
     );
   }
 }

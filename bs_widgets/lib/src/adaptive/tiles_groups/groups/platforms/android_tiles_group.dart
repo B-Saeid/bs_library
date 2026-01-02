@@ -19,7 +19,8 @@ class AndroidTilesGroup extends ConsumerOrStatelessWidget {
   final Widget? header;
 
   @override
-  Widget build(BuildContext context, WidgetRef? ref) => Padding(
+  Widget build(BuildContext context, WidgetRef? ref) => Container(
+    constraints: AdaptiveTilesTheme.of(context)?.themeData.constraints,
     padding: margin ?? EdgeInsets.zero,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,

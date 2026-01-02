@@ -19,6 +19,7 @@ class AdaptiveTilesGroup extends AbstractTilesGroup {
   const AdaptiveTilesGroup({
     required this.tiles,
     this.margin,
+    this.constraints,
     this.header,
     this.platform,
     this.themeData,
@@ -30,6 +31,7 @@ class AdaptiveTilesGroup extends AbstractTilesGroup {
 
   final List<AbstractTile> tiles;
   final EdgeInsetsGeometry? margin;
+  final BoxConstraints? constraints;
   final Widget? header;
   final DevicePlatform? platform;
   final AdaptiveTilesThemeData? themeData;
@@ -67,7 +69,7 @@ class AdaptiveTilesGroup extends AbstractTilesGroup {
               isLight: LiveDataOrQuery.isLight(ref: ref, context: context),
             ).merge(
               themeData ?? (brightness == Brightness.dark ? darkTheme : lightTheme),
-            );
+            ).copyWith(constraints: constraints);
 
         return AdaptiveTilesTheme(
           themeData: tilesThemeData,

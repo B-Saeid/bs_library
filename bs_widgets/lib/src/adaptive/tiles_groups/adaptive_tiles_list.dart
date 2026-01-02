@@ -19,6 +19,7 @@ class AdaptiveTilesList extends ConsumerOrStatelessWidget {
     this.darkTheme,
     this.brightness,
     this.contentPadding,
+    this.constraints,
     super.key,
   });
 
@@ -30,17 +31,20 @@ class AdaptiveTilesList extends ConsumerOrStatelessWidget {
   final AdaptiveTilesThemeData? darkTheme;
   final Brightness? brightness;
   final EdgeInsetsGeometry? contentPadding;
+  final BoxConstraints? constraints;
   final List<AbstractTilesGroup> sections;
 
   DevicePlatform get _platform => platform ?? StaticData.platform;
 
   AdaptiveTilesThemeData settingsThemeData(BuildContext context, WidgetRef? ref) =>
       AdaptiveTilesThemeHelper.getThemeData(
-        platform: _platform,
-        isLight: LiveDataOrQuery.isLight(ref: ref, context: context),
-      ).merge(
-        themeData ?? (brightness == Brightness.dark ? darkTheme : lightTheme),
-      );
+            platform: _platform,
+            isLight: LiveDataOrQuery.isLight(ref: ref, context: context),
+          )
+          .merge(
+            themeData ?? (brightness == Brightness.dark ? darkTheme : lightTheme),
+          )
+          .copyWith(constraints: constraints);
 
   @override
   Widget build(BuildContext context, WidgetRef? ref) {
@@ -49,21 +53,37 @@ class AdaptiveTilesList extends ConsumerOrStatelessWidget {
     //       platform: _platform,
     //     ));
 
-    return Align(
-      alignment: Alignment.center,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 1024),
-        child: AdaptiveTilesTheme(
-          themeData: settingsThemeData(context, ref),
-          platform: _platform,
-          child: ListView.builder(
-            physics: physics,
-            shrinkWrap: shrinkWrap,
-            itemCount: sections.length,
-            padding: contentPadding,
-            itemBuilder: (_, index) => sections[index],
-          ),
-        ),
+    return AdaptiveTilesTheme(
+      themeData: settingsThemeData(context, ref),
+      platform: _platform,
+      child: CustomScrollView(
+        physics: physics,
+        slivers: [
+          shrinkWrap
+              ? SliverList.list(
+                  children: [
+                    ...sections.map(
+                      (e) => Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: contentPadding ?? EdgeInsets.zero,
+                          child: e,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : SliverList.builder(
+                  itemBuilder: (context, index) => Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: contentPadding ?? EdgeInsets.zero,
+                      child: sections[index],
+                    ),
+                  ),
+                  itemCount: sections.length,
+                ),
+        ],
       ),
     );
   }

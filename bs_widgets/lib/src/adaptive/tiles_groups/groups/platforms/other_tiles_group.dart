@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../riverpod_widgets/consumer_or_stateless.dart';
+import '../../theme/adaptive_tiles_theme.dart';
 import '../../tiles/abstract_tile.dart';
 
 class OtherTilesGroup extends ConsumerOrStatelessWidget {
@@ -18,7 +19,8 @@ class OtherTilesGroup extends ConsumerOrStatelessWidget {
   final Widget? header;
 
   @override
-  Widget build(BuildContext context, WidgetRef? ref) => Padding(
+  Widget build(BuildContext context, WidgetRef? ref) => Container(
+    constraints: AdaptiveTilesTheme.of(context)?.themeData.constraints,
     padding: margin ?? EdgeInsets.zero,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
