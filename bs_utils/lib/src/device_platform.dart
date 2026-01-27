@@ -22,7 +22,8 @@ enum DevicePlatform {
   windows,
 
   /// Web
-  web;
+  web
+  ;
 
   bool get isAndroid => this == DevicePlatform.android;
 
@@ -30,8 +31,7 @@ enum DevicePlatform {
 
   bool get isIOS => this == DevicePlatform.iOS;
 
-  bool get isMobile =>
-      [DevicePlatform.android, DevicePlatform.iOS].contains(this);
+  bool get isMobile => [DevicePlatform.android, DevicePlatform.iOS].contains(this);
 
   bool get isApple => [DevicePlatform.iOS, DevicePlatform.macOS].contains(this);
 
@@ -78,4 +78,30 @@ enum DevicePlatform {
     /*if (Platform.isFuchsia) */
     return DevicePlatform.fuchsia;
   }
+}
+
+extension TargetPlatformExtension on TargetPlatform {
+  bool get isAndroid => this == TargetPlatform.android;
+
+  bool get isFuchsia => this == TargetPlatform.fuchsia;
+
+  bool get isIOS => this == TargetPlatform.iOS;
+
+  bool get isMobile => [TargetPlatform.android, TargetPlatform.iOS].contains(this);
+
+  bool get isApple => [TargetPlatform.iOS, TargetPlatform.macOS].contains(this);
+
+  bool get isLinux => this == TargetPlatform.linux;
+
+  bool get isMacOS => this == TargetPlatform.macOS;
+
+  bool get isWindows => this == TargetPlatform.windows;
+
+  // bool get isWeb => kIsWeb;
+
+  bool get isDesktop => [
+    TargetPlatform.windows,
+    TargetPlatform.macOS,
+    TargetPlatform.linux,
+  ].contains(this);
 }
