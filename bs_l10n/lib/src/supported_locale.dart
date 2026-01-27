@@ -20,6 +20,11 @@ enum SupportedLocale {
     SupportedLocale.en => 'English',
   };
 
+  String get shortDisplayName => switch (this) {
+    SupportedLocale.ar => 'ع',
+    SupportedLocale.en => 'EN',
+  };
+
   static SupportedLocale? fromName(String? name) => SupportedLocale.values.firstWhereOrNull(
     (element) => element.name == name,
   );

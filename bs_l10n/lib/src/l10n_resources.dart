@@ -43,13 +43,17 @@ class L10nR {
   void setCurrentLocaleCallback(SupportedLocale Function([WidgetRef? ref]) currentLocale) =>
       _currentLocale = currentLocale;
 
-  String localeSettingDisplayName(LocaleSetting setting, [WidgetRef? ref]) => switch (setting) {
-    LocaleSetting.auto => switch (l10nR.currentLocale(ref)) {
-      SupportedLocale.en => 'Device Language',
-      SupportedLocale.ar => 'لغة الجهاز',
-    },
-    _ => SupportedLocale.fromLocale(setting.locale!).displayName,
-  };
+  String localeSettingDisplayName(LocaleSetting setting, {bool short = false, WidgetRef? ref}) =>
+      switch (setting) {
+        LocaleSetting.auto => switch (l10nR.currentLocale(ref)) {
+          SupportedLocale.en => 'Device Language',
+          SupportedLocale.ar => 'لغة الجهاز',
+        },
+        _ =>
+          short
+              ? SupportedLocale.fromLocale(setting.locale!).shortDisplayName
+              : SupportedLocale.fromLocale(setting.locale!).displayName,
+      };
 
   String tDiscardScreenShot([WidgetRef? ref]) => switch (l10nR.currentLocale(ref)) {
     SupportedLocale.en => 'Discard ScreenShot',
@@ -58,11 +62,11 @@ class L10nR {
 
   String tDiscardScreenShotMessage([WidgetRef? ref]) => switch (l10nR.currentLocale(ref)) {
     SupportedLocale.en =>
-    'Closing the feedback view will discard your screenshot.'
-        '\n\n Are you sure you want to close?',
+      'Closing the feedback view will discard your screenshot.'
+          '\n\n Are you sure you want to close?',
     SupportedLocale.ar =>
-    'سيتم تجاهل لقطة الشاشة عند الاغلاق. '
-        '\n\nهل تريد الاغلاق؟',
+      'سيتم تجاهل لقطة الشاشة عند الاغلاق. '
+          '\n\nهل تريد الاغلاق؟',
   };
 
   String tCancel([WidgetRef? ref]) => switch (l10nR.currentLocale(ref)) {
