@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../bs_widgets.dart';
+import 'abstract_adaptive_list_tile.dart';
 
-class AppleListTile extends AdaptiveListTile {
+class AppleListTile extends AbstractAdaptiveListTile {
   const AppleListTile({
     super.key,
     super.leading,

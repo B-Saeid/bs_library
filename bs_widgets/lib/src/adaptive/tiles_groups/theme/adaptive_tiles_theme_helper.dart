@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'adaptive_tiles_theme.dart';
 
+/// TODO: Needs refactoring, since most values are not proper and not all are used.
 abstract final class AdaptiveTilesThemeHelper {
   static AdaptiveTilesThemeData getThemeData({
     required DevicePlatform platform,

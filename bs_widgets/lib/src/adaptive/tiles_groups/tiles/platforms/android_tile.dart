@@ -1,4 +1,5 @@
 import 'package:bs_ref_query/bs_ref_query.dart';
+import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -150,55 +151,88 @@ class AndroidTile extends ConsumerOrStatelessWidget {
 
     return IgnorePointer(
       ignoring: !enabled,
-      child: switch (tileType) {
-        AdaptiveTileType.switchTile => buildSwitchTile(),
-        _ => buildListTile(context, ref),
-      },
+      child: buildListTile(context, ref),
     );
   }
 
   Widget buildListTile(BuildContext context, WidgetRef? ref) => ListTile(
     leading: leading,
-    title: description != null && value != null
+    title: description != null || value != null
         ? Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             alignment: WrapAlignment.spaceBetween,
-            spacing: 5,
-            // runSpacing: 5,
+            spacing: 15.scalableFlexible(ref: ref, context: context, maxValue: 30),
+            runSpacing: 6.scalableFlexible(ref: ref, context: context, maxValue: 10),
             children: [
-              title,
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 5.0.scalableFlexible(ref: ref, context: context),
-                ),
-                child: buildValue(context, ref),
+              /// Title & Description (Vertical Always)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 2.scalableFlexible(ref: ref, context: context),
+                children: [
+                  title,
+                  if (description != null)
+                    DefaultTextStyle.merge(
+                      style: _mainThemeData(context, ref).textTheme.bodyMedium?.copyWith(
+                        color: enabled
+                            ? _mainThemeData(context, ref).colorScheme.onSurfaceVariant
+                            : _mainThemeData(context, ref).disabledColor,
+                      ),
+                      child: description!,
+                    ),
+                ],
               ),
+
+              /// value will be places in subtitle if description is not null
+              if (description != null && value != null) buildValue(context, ref),
             ],
           )
         : title,
-    subtitle: description ?? value,
-    onTap: onPressed,
+    subtitle: description == null ? value : null,
     enabled: enabled,
-    trailing: loading ? const AdaptiveLoadingIndicator() : trailing,
+    onTap: onPressed ?? (onToggle == null ? null : () => onToggle!(!on!)),
+    trailing: trailing != null || tileType.isSwitch ? buildTrailing(context, ref) : null,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 14),
   );
 
   Widget buildValue(BuildContext context, WidgetRef? ref) => DefaultTextStyle.merge(
-    style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(),
+    style: _mainThemeData(context, ref).textTheme.labelLarge?.copyWith(
+      color: enabled ? null : _mainThemeData(context, ref).disabledColor,
+    ),
     child: value!,
   );
 
-  Widget buildSwitchTile() {
-    final switchValue = on!;
-    assert(trailing == null);
-    return ListTile(
-      leading: leading,
-      enabled: enabled,
-      title: title,
-      trailing: loading
-          ? const AdaptiveLoadingIndicator()
-          : Switch(value: switchValue, onChanged: enabled ? onToggle : null),
-      onTap: onPressed ?? () => onToggle?.call(!switchValue),
-      subtitle: description,
-    );
-  }
+  Widget buildTrailing(BuildContext context, WidgetRef? ref) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      if (onPressed != null && tileType.isSwitch) buildVerticalDivider(context, ref),
+      Stack(
+        alignment: Alignment.center,
+        children: [
+          Visibility.maintain(
+            visible: !loading,
+            child: trailing ?? Switch(value: on!, onChanged: enabled ? onToggle : null),
+          ),
+          if (loading)
+            const Positioned.fill(
+              child: AdaptiveLoadingIndicator(platform: DevicePlatform.android),
+            ),
+        ],
+      ),
+    ],
+  );
+
+  Widget buildVerticalDivider(BuildContext context, WidgetRef? ref) => Container(
+    width: 1,
+    height: 26,
+    margin: const EdgeInsetsDirectional.only(start: 3, end: 6),
+    decoration: ShapeDecoration(
+      shape: const StadiumBorder(),
+      color: enabled
+          ? _mainThemeData(context, ref).dividerColor
+          : _mainThemeData(context, ref).disabledColor,
+    ),
+  );
+
+  ThemeData _mainThemeData(BuildContext context, WidgetRef? ref) =>
+      LiveDataOrQuery.themeData(ref: ref, context: context);
 }

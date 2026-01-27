@@ -11,8 +11,6 @@ import 'platforms/android_tile.dart';
 import 'platforms/apple_tile.dart';
 import 'platforms/other_tile.dart';
 
-export 'abstract_tile.dart';
-
 enum AdaptiveTileType {
   simpleTile,
   switchTile,
@@ -22,6 +20,16 @@ enum AdaptiveTileType {
   bool get isSimple => this == AdaptiveTileType.simpleTile;
 
   bool get isSwitch => this == AdaptiveTileType.switchTile;
+}
+
+class AdaptiveInheritedTile extends InheritedWidget {
+  const AdaptiveInheritedTile({super.key, required super.child, this.description});
+
+  final Widget? description;
+
+  @override
+  bool updateShouldNotify(covariant AdaptiveInheritedTile oldWidget) =>
+      oldWidget.description != description;
 }
 
 class AdaptiveTile extends ConsumerOrStatelessWidget {
@@ -45,9 +53,9 @@ class AdaptiveTile extends ConsumerOrStatelessWidget {
        activeSwitchColor = null,
        tileType = AdaptiveTileType.simpleTile;
 
+  /// Sets the trailing to a chevron icon on all Platforms except for android.
   const AdaptiveTile.navigation({
     this.leading,
-    this.trailing,
     this.value,
     required this.title,
     this.description,
@@ -60,17 +68,19 @@ class AdaptiveTile extends ConsumerOrStatelessWidget {
     this.darkTheme,
     this.brightness,
     super.key,
-  }) : onToggle = null,
+  }) : trailing = null,
+       onToggle = null,
        on = null,
        activeSwitchColor = null,
        tileType = AdaptiveTileType.navigationTile;
 
+  /// Sets the trailing to a Adaptive Switch.
   const AdaptiveTile.switchTile({
     required this.on,
     required this.onToggle,
     this.activeSwitchColor,
     this.leading,
-    this.trailing,
+    this.value,
     required this.title,
     this.description,
     this.onPressed,
@@ -82,7 +92,7 @@ class AdaptiveTile extends ConsumerOrStatelessWidget {
     this.darkTheme,
     this.brightness,
     super.key,
-  }) : value = null,
+  }) : trailing = null,
        tileType = AdaptiveTileType.switchTile;
 
   final Widget? leading;
@@ -112,7 +122,7 @@ class AdaptiveTile extends ConsumerOrStatelessWidget {
 
     final platform = lookedUpTheme?.platform ?? _platform;
 
-    final Widget child;
+    Widget child;
     if (platform.isApple) {
       child = AppleTile(
         description: description,
@@ -159,6 +169,12 @@ class AdaptiveTile extends ConsumerOrStatelessWidget {
         initialValue: on ?? false,
       );
     }
+
+    child = AdaptiveInheritedTile(
+      key: key,
+      description: description,
+      child: child,
+    );
 
     /// If parent has already been wrapped in AdaptiveTilesTheme
     /// then just return the child, and these properties will be ignored

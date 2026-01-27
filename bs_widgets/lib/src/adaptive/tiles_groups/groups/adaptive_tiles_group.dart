@@ -18,7 +18,7 @@ export 'abstract_group.dart';
 class AdaptiveTilesGroup extends AbstractTilesGroup {
   const AdaptiveTilesGroup({
     required this.tiles,
-    this.margin,
+    this.padding,
     this.constraints,
     this.header,
     this.platform,
@@ -30,7 +30,7 @@ class AdaptiveTilesGroup extends AbstractTilesGroup {
   });
 
   final List<AbstractTile> tiles;
-  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
   final BoxConstraints? constraints;
   final Widget? header;
   final DevicePlatform? platform;
@@ -48,11 +48,11 @@ class AdaptiveTilesGroup extends AbstractTilesGroup {
 
     final Widget child;
     if (platform.isApple) {
-      child = AppleTilesGroup(header: header, tiles: tiles, margin: margin);
+      child = AppleTilesGroup(header: header, tiles: tiles, padding: padding);
     } else if (platform.isAndroid) {
-      child = AndroidTilesGroup(header: header, tiles: tiles, margin: margin);
+      child = AndroidTilesGroup(header: header, tiles: tiles, padding: padding);
     } else {
-      child = OtherTilesGroup(header: header, tiles: tiles, margin: margin);
+      child = OtherTilesGroup(header: header, tiles: tiles, padding: padding);
     }
 
     /// If parent has already been wrapped in AdaptiveTilesTheme
@@ -65,11 +65,11 @@ class AdaptiveTilesGroup extends AbstractTilesGroup {
       builder: (BuildContext context, WidgetRef? ref, Widget? child) {
         final tilesThemeData =
             AdaptiveTilesThemeHelper.getThemeData(
-              platform: platform,
-              isLight: LiveDataOrQuery.isLight(ref: ref, context: context),
-            ).merge(
-              themeData ?? (brightness == Brightness.dark ? darkTheme : lightTheme),
-            ).copyWith(constraints: constraints);
+                  platform: platform,
+                  isLight: LiveDataOrQuery.isLight(ref: ref, context: context),
+                )
+                .merge(themeData ?? (brightness == Brightness.dark ? darkTheme : lightTheme))
+                .copyWith(constraints: constraints);
 
         return AdaptiveTilesTheme(
           themeData: tilesThemeData,

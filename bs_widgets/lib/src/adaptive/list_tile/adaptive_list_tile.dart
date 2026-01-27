@@ -4,32 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../riverpod_widgets/consumer_or_stateless.dart';
+import 'parts/abstract_adaptive_list_tile.dart';
 import 'parts/android_list_tile.dart';
 import 'parts/apple_list_tile.dart';
 import 'parts/others_list_tile.dart';
 
-class AdaptiveListTile extends ConsumerOrStatelessWidget {
+class AdaptiveListTile extends AbstractAdaptiveListTile {
   const AdaptiveListTile({
     super.key,
-    this.platform,
-    this.leading,
-    required this.title,
-    this.description,
-    this.onPressed,
-    this.enabled = true,
-    this.trailing,
+    super.leading,
+    required super.title,
+    super.description,
+    super.enabled,
+    super.onPressed,
+    super.trailing,
+    super.platform,
   });
-
-  final Widget? leading;
-  final Widget title;
-  final Widget? description;
-  final VoidCallback? onPressed;
-  final bool enabled;
-  final Widget? trailing;
-
-  @protected
-  final DevicePlatform? platform;
 
   @override
   Widget build(BuildContext context, WidgetRef? ref) => switch (platform ?? StaticData.platform) {

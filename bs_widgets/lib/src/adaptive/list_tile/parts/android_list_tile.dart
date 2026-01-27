@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../adaptive_list_tile.dart';
+import 'abstract_adaptive_list_tile.dart';
 
-class AndroidListTile extends AdaptiveListTile {
+class AndroidListTile extends AbstractAdaptiveListTile {
   const AndroidListTile({
     super.key,
     super.leading,

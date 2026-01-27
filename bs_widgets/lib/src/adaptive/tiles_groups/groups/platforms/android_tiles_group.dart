@@ -9,19 +9,19 @@ import '../../tiles/abstract_tile.dart';
 class AndroidTilesGroup extends ConsumerOrStatelessWidget {
   const AndroidTilesGroup({
     required this.tiles,
-    required this.margin,
+    required this.padding,
     this.header,
     super.key,
   });
 
   final List<AbstractTile> tiles;
-  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
   final Widget? header;
 
   @override
   Widget build(BuildContext context, WidgetRef? ref) => Container(
     constraints: AdaptiveTilesTheme.of(context)?.themeData.constraints,
-    padding: margin ?? EdgeInsets.zero,
+    padding: padding,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

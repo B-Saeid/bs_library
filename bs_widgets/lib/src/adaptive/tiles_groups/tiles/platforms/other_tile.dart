@@ -1,5 +1,6 @@
 import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:bs_styles/bs_styles.dart';
+import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -77,62 +78,81 @@ class OtherTile extends ConsumerOrStatelessWidget {
                   }
                 },
           // highlightColor: themeData.tileHighlightColor,
+          /// Main content of the tile
           child: Row(
             children: [
+              /// Leading
               if (leading != null)
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 24),
                   child: buildLeading(context, ref, themeData),
                 ),
+
+              /// The rest of the tile
               Expanded(
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(
-                    start: 15,
-                    end: 10,
-                    top: 19.scalableFlexible(ref: ref, context: context, maxValue: 25),
-                    bottom: 19.scalableFlexible(ref: ref, context: context, maxValue: 25),
+                    start: 20,
+                    end: 25,
+                    top: 20.scalableFlexible(ref: ref, context: context, maxValue: 25),
+                    bottom: 20.scalableFlexible(ref: ref, context: context, maxValue: 25),
                   ),
                   // padding: EdgeInsetsDirectional.only(start: leading != null ? 12 : 0, end: 18),
                   child: Row(
+                    spacing: 15.scalableFlexible(ref: ref, context: context),
                     children: [
+                      /// Title & Description <<< Space >>> Value
                       Expanded(
                         child: Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
+
+                          /// The <<< Space >>>
                           alignment: WrapAlignment.spaceBetween,
-                          spacing: 5,
+                          spacing: 20.scalableFlexible(ref: ref, context: context, maxFactor: 2),
+                          runSpacing: 10.scalableFlexible(ref: ref, context: context, maxFactor: 2),
                           children: [
-                            /// Title & Value
+                            /// Title & Description
                             Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
+                              spacing: 4.scalableFlexible(ref: ref, context: context, maxFactor: 2),
                               children: [
                                 buildTitle(context, ref),
                                 if (description != null) buildDescription(context, ref, themeData),
                               ],
                             ),
-                            if (value != null)
-                              buildValue(
-                                context: context,
-                                themeData: themeData,
-                              ),
+
+                            /// Value
+                            if (value != null) buildValue(context, ref, themeData),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.only(
-                          start: 16,
-                          end: 8,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (onPressed != null && tileType == AdaptiveTileType.switchTile)
-                              buildVerticalDivider(context, ref),
-                            buildTrailing(context, ref),
-                          ],
-                        ),
-                      ),
+
+                      /// | Trailing
+                      if (trailing != null || !tileType.isSimple)
+                        Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (onPressed != null && tileType.isSwitch)
+                                buildVerticalDivider(context, ref),
+                              if (trailing != null || !tileType.isSimple)
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Visibility.maintain(
+                                      visible: !loading,
+                                      child: buildTrailing(context, ref),
+                                    ),
+                                    if (loading)
+                                      const Positioned.fill(
+                                        child: AdaptiveLoadingIndicator(
+                                          platform: DevicePlatform.windows,
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                            ],
+                          ),
                     ],
                   ),
                 ),
@@ -144,29 +164,69 @@ class OtherTile extends ConsumerOrStatelessWidget {
     );
   }
 
+  ThemeData _mainThemeData(BuildContext context, WidgetRef? ref) =>
+      LiveDataOrQuery.themeData(ref: ref, context: context);
+
   Widget buildLeading(BuildContext context, WidgetRef? ref, AdaptiveTilesThemeData themeData) =>
       IconTheme.merge(
-        data: LiveDataOrQuery.themeData(ref: ref, context: context).iconTheme.copyWith(
-          color: enabled
-              ? themeData.leadingIconsColor
-              : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
+        data: IconThemeData(
+          size: 32.scalableFlexible(ref: ref, context: context, maxValue: 35),
+          color: enabled ? themeData.leadingIconsColor : _mainThemeData(context, ref).disabledColor,
         ),
-        child: leading!,
+        child: DefaultTextStyle.merge(
+          style: TextStyle(
+            color: enabled
+                ? themeData.leadingIconsColor
+                : _mainThemeData(context, ref).disabledColor,
+          ),
+          child: leading!,
+        ),
       );
 
-  Widget buildValue({
-    required BuildContext context,
-    required AdaptiveTilesThemeData themeData,
-  }) => switch (tileType) {
-    AdaptiveTileType.switchTile => const SizedBox(),
-    _ => DefaultTextStyle.merge(
-      style: TextStyle(
-        color: enabled ? themeData.trailingTextColor : themeData.inactiveTitleColor,
-        fontSize: 17,
-      ),
-      child: value!,
+  Widget buildTitle(BuildContext context, WidgetRef? ref) => DefaultTextStyle.merge(
+    style: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w400,
+      color: enabled ? null : _mainThemeData(context, ref).disabledColor,
     ),
-  };
+    child: title,
+  );
+
+  Widget buildDescription(
+    BuildContext context,
+    WidgetRef? ref,
+    AdaptiveTilesThemeData themeData,
+  ) {
+    final color = enabled
+        ? themeData.tileDescriptionTextColor
+        : _mainThemeData(context, ref).disabledColor;
+
+    return IconTheme.merge(
+      data: IconThemeData(color: color),
+      child: DefaultTextStyle.merge(
+        style: TextStyle(color: color),
+        child: description!,
+      ),
+    );
+  }
+
+  Widget buildValue(
+    BuildContext context,
+    WidgetRef? ref,
+    AdaptiveTilesThemeData themeData,
+  ) {
+    final color = enabled
+        ? themeData.trailingTextColor
+        : _mainThemeData(context, ref).disabledColor;
+
+    return IconTheme.merge(
+      data: IconThemeData(color: color),
+      child: DefaultTextStyle.merge(
+        style: _mainThemeData(context, ref).textTheme.labelLarge?.copyWith(color: color),
+        child: value!,
+      ),
+    );
+  }
 
   Widget buildVerticalDivider(BuildContext context, WidgetRef? ref) => Container(
     width: 2,
@@ -174,63 +234,38 @@ class OtherTile extends ConsumerOrStatelessWidget {
     margin: const EdgeInsetsDirectional.only(start: 3, end: 6),
     decoration: ShapeDecoration(
       shape: const StadiumBorder(),
-      color: LiveDataOrQuery.themeData(ref: ref, context: context).dividerColor,
+      color: _mainThemeData(context, ref).dividerColor,
     ),
-  );
-
-  Padding buildDescription(
-    BuildContext context,
-    WidgetRef? ref,
-    AdaptiveTilesThemeData themeData,
-  ) => Padding(
-    padding: const EdgeInsets.only(top: 4.0),
-    child: DefaultTextStyle.merge(
-      style: LiveDataOrQuery.textTheme(ref: ref, context: context).bodyMedium!.copyWith(
-        color: enabled
-            ? themeData.tileDescriptionTextColor
-            : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
-      ),
-      child: description!,
-    ),
-  );
-
-  Widget buildTitle(BuildContext context, WidgetRef? ref) => DefaultTextStyle.merge(
-    style: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w400,
-      color: enabled ? null : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
-    ),
-    child: title,
   );
 
   Widget buildTrailing(BuildContext context, WidgetRef? ref) => trailing != null
-      ? IconTheme.merge(
-          data: IconThemeData(
-            size: 32.scalableFlexible(ref: ref, context: context, maxValue: 40, allowBelow: false),
-            color: enabled
-                ? null
-                : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
+      ? DefaultTextStyle.merge(
+          style: TextStyle(
+            color: enabled ? null : _mainThemeData(context, ref).disabledColor,
           ),
-          child: trailing!,
+          child: IconTheme.merge(
+            data: IconThemeData(
+              size: 24.scalableFlexible(ref: ref, context: context, maxValue: 35),
+              color: enabled ? null : _mainThemeData(context, ref).disabledColor,
+            ),
+            child: trailing!,
+          ),
         )
       : switch (tileType) {
-          _ when loading => const AdaptiveLoadingIndicator(),
           AdaptiveTileType.simpleTile => const SizedBox(),
-          AdaptiveTileType.switchTile => Switch.adaptive(
+          AdaptiveTileType.switchTile => Switch(
             value: initialValue!,
             onChanged: enabled ? onToggle : null,
-            activeThumbColor: enabled
+            activeTrackColor: enabled
                 ? activeSwitchColor
-                : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
+                : _mainThemeData(context, ref).disabledColor,
           ),
           AdaptiveTileType.navigationTile => Icon(
-            color: enabled
-                ? null
-                : LiveDataOrQuery.themeData(ref: ref, context: context).disabledColor,
+            color: enabled ? null : _mainThemeData(context, ref).disabledColor,
             Directionality.of(context) == TextDirection.ltr
                 ? CupertinoIcons.chevron_forward
                 : CupertinoIcons.chevron_left,
-            size: 18.scalableFlexible(ref: ref, context: context),
+            size: 24.scalableFlexible(ref: ref, context: context, maxValue: 35),
           ),
         };
 }

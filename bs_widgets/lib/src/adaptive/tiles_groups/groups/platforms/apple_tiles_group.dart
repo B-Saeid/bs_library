@@ -10,20 +10,20 @@ import '../../tiles/abstract_tile.dart';
 class AppleTilesGroup extends ConsumerOrStatelessWidget {
   const AppleTilesGroup({
     required this.tiles,
-    required this.margin,
+    required this.padding,
     this.header,
     super.key,
   });
 
   final List<AbstractTile> tiles;
-  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
   final Widget? header;
 
   @override
   Widget build(BuildContext context, WidgetRef? ref) => Container(
     constraints: AdaptiveTilesTheme.of(context)?.themeData.constraints,
     child: ListView(
-      padding: margin ?? EdgeInsets.zero,
+      padding: padding,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: _getTilesList(context),
@@ -113,12 +113,15 @@ class AppleTilesGroup extends ConsumerOrStatelessWidget {
     child: DefaultTextStyle.merge(
       style: TextStyle(
         // color: ref.watch(adaptiveTilesThemeProvider).themeData.tileDescriptionTextColor,
-        color: AdaptiveTilesTheme.of(
-          context,
-        )!.themeData.tileDescriptionTextColor,
+        color: AdaptiveTilesTheme.of(context)!.themeData.tileDescriptionTextColor,
         fontSize: 13,
       ),
-      child: description,
+      child: IconTheme(
+        data: IconThemeData(
+          color: AdaptiveTilesTheme.of(context)!.themeData.tileDescriptionTextColor,
+        ),
+        child: description,
+      ),
     ),
   );
 
