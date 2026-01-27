@@ -15,6 +15,7 @@ export 'src/adaptive/form_field/adaptive_form_field.dart';
 export 'src/adaptive/list_tile/adaptive_list_tile.dart';
 // animated
 export 'src/animated/animated_blurred.dart';
+export 'src/animated/animated_loaded_image.dart';
 export 'src/animated/custom_animated_size.dart';
 export 'src/animated/custom_animated_switcher.dart';
 export 'src/animated/lottie_controlled.dart';
@@ -26,6 +27,7 @@ export 'src/crafted/ring_progress.dart';
 // layout
 export 'src/layout/bottom_padding.dart';
 export 'src/layout/break_points.dart';
+export 'src/layout/custom_constrained_widget.dart';
 export 'src/layout/drawer_responsive/drawer_responsive.dart';
 export 'src/layout/fit_within.dart';
 // misc
