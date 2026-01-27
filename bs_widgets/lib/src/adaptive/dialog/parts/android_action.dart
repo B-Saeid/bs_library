@@ -9,20 +9,26 @@ class AndroidDialogueAction extends ConsumerOrStatelessWidget {
     super.key,
     required this.title,
     required this.onPressed,
-    this.encouraged = true,
+    this.encouraged,
   });
 
   final String title;
-  final VoidCallback onPressed;
-  final bool encouraged;
+  final VoidCallback? onPressed;
+  final bool? encouraged;
 
   @override
   Widget build(BuildContext context, WidgetRef? ref) => TextButton(
     onPressed: onPressed,
     child: Text(
       title,
-      style: encouraged
-          ? AppStyle.colors.positiveChoiceStyle(ref: ref, context: context)
+      style: onPressed == null
+          ? null
+          : encouraged != false
+          ? AppStyle.colors.positiveChoiceStyle(
+              ref: ref,
+              context: context,
+              bold: encouraged == true,
+            )
           : AppStyle.colors.negativeChoiceStyle(ref: ref, context: context),
     ),
   );

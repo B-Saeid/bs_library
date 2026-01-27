@@ -13,7 +13,7 @@ class AdaptiveDialogueAction extends StatelessWidget {
   });
 
   final String title;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool? encouraged;
 
   @override
@@ -21,11 +21,11 @@ class AdaptiveDialogueAction extends StatelessWidget {
       ? IOSDialogueAction(
           title: title,
           onPressed: onPressed,
-          encouraged: encouraged ?? true,
+          encouraged: encouraged,
         )
       : AndroidDialogueAction(
           title: title,
           onPressed: onPressed,
-          encouraged: encouraged ?? true,
+          encouraged: encouraged,
         );
 }
