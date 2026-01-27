@@ -54,7 +54,7 @@ packages:
     description:
       path: bs_internet_checker
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -63,16 +63,16 @@ packages:
     description:
       path: bs_internet_service
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
   bs_l10n:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: bs_l10n
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -81,7 +81,7 @@ packages:
     description:
       path: bs_overlay
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -90,16 +90,16 @@ packages:
     description:
       path: bs_ref_query
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
   bs_riverpod_utils:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: bs_riverpod_utils
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -108,7 +108,7 @@ packages:
     description:
       path: bs_styles
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -117,7 +117,7 @@ packages:
     description:
       path: bs_toast
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -126,7 +126,7 @@ packages:
     description:
       path: bs_utils
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -135,7 +135,7 @@ packages:
     description:
       path: bs_widgets
       ref: HEAD
-      resolved-ref: "12a6ba3e2c3f1185726dd4cc2283c460a99924aa"
+      resolved-ref: "45d2a94a3d0458b2c1ee41e9e26492940f0423bc"
       url: "https://github.com/B-Saeid/bs_library.git"
     source: git
     version: "0.0.1"
@@ -164,7 +164,7 @@ packages:
     source: hosted
     version: "1.1.2"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: "2f5709ae4d3d59dd8f7cd309b4e023046b57d8a6c82130785d2b0e5868084e76"
@@ -255,10 +255,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: "289279317b4b16eb2bb7e271abccd4bf84ec9bdcbe999e278a94b804f5630418"
+      sha256: d07d37192dbf97461359c1518788f203b0c9102cfd2c35a716b823741219542c
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   file:
     dependency: transitive
     description:
@@ -289,7 +289,7 @@ packages:
     source: hosted
     version: "6.0.0"
   flutter_localizations:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -319,6 +319,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed_annotation:
+    dependency: "direct main"
+    description:
+      name: freezed_annotation
+      sha256: "7294967ff0a6d98638e7acb774aac3af2550777accd8149c90af5b014e6d44d8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -568,7 +576,7 @@ packages:
     source: hosted
     version: "3.0.3"
   riverpod_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: riverpod_annotation
       sha256: "7230014155777fc31ba3351bc2cb5a3b5717b11bfafe52b1553cb47d385f8897"
@@ -724,6 +732,70 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  url_launcher:
+    dependency: "direct main"
+    description:
+      name: url_launcher
+      sha256: f6a7e5c4835bb4e3026a04793a4199ca2d14c739ec378fdfe23fc8075d0439f8
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.2"
+  url_launcher_android:
+    dependency: transitive
+    description:
+      name: url_launcher_android
+      sha256: "767344bf3063897b5cf0db830e94f904528e6dd50a6dfaf839f0abf509009611"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.28"
+  url_launcher_ios:
+    dependency: transitive
+    description:
+      name: url_launcher_ios
+      sha256: cfde38aa257dae62ffe79c87fab20165dfdf6988c1d31b58ebf59b9106062aad
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.6"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
+      sha256: d5e14138b3bc193a0f63c10a53c94b91d399df0512b1f29b94a043db7482384a
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.2"
+  url_launcher_macos:
+    dependency: transitive
+    description:
+      name: url_launcher_macos
+      sha256: "368adf46f71ad3c21b8f06614adb38346f193f3a59ba8fe9a2fd74133070ba18"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.5"
+  url_launcher_platform_interface:
+    dependency: transitive
+    description:
+      name: url_launcher_platform_interface
+      sha256: "552f8a1e663569be95a8190206a38187b531910283c3e982193e4f2733f01029"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.2"
+  url_launcher_web:
+    dependency: transitive
+    description:
+      name: url_launcher_web
+      sha256: d0412fcf4c6b31ecfdb7762359b7206ffba3bbffd396c6d9f9c4616ece476c1f
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.2"
+  url_launcher_windows:
+    dependency: transitive
+    description:
+      name: url_launcher_windows
+      sha256: "712c70ab1b99744ff066053cbe3e80c73332b38d46e5e945c98689b2e66fc15f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.5"
   uuid:
     dependency: transitive
     description:
@@ -752,10 +824,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: d354a7ec6931e6047785f4db12a1f61ec3d43b207fc0790f863818543f8ff0dc
+      sha256: "201e876b5d52753626af64b6359cd13ac6011b80728731428fd34bc840f71c9b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.19"
+    version: "1.1.20"
   vector_math:
     dependency: transitive
     description:
@@ -776,10 +848,10 @@ packages:
     dependency: transitive
     description:
       name: watcher
-      sha256: f52385d4f73589977c80797e60fe51014f7f2b957b5e9a62c3f6ada439889249
+      sha256: "1398c9f081a753f9226febe8900fce8f7d0a67163334e1c94a2438339d79d635"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   web:
     dependency: transitive
     description:
@@ -830,4 +902,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.10.1 <4.0.0"
-  flutter: ">=3.35.0"
+  flutter: ">=3.38.0"
