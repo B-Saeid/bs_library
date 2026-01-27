@@ -24,4 +24,13 @@ class Entry {
 
   @override
   int get hashCode => uuid.hashCode;
+
+  @override
+  String toString() => ''' Entry(
+    id: $id,
+    uuid: $uuid,
+    entry: $entry,
+    duration: $duration,
+    onDismiss: $onDismiss,
+    )''';
 }

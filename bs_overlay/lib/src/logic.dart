@@ -64,10 +64,15 @@ abstract final class BsOverlayLogic {
   }) {
     /// Developers calling a returned VoidCallback - Unsafe.
     if (uuid != null) {
-      final matchingEntry = _overlayQueue.firstWhereOrNull((entry) => entry.uuid == uuid);
-      if (matchingEntry != current || matchingEntry == null) {
-        _overlayQueue.remove(matchingEntry);
-        return; // Since matchingEntry is not found or not being shown.
+      /// Normal case: remove the currently presenting overlay.
+      /// Rare but possible: remove a scheduled one.
+      /// Worst case: remove a previously removed one.
+      ///
+      /// All are handled here.
+      if (current?.uuid != uuid) {
+        final matchingEntry = _overlayQueue.firstWhereOrNull((entry) => entry.uuid == uuid);
+        _overlayQueue.remove(matchingEntry); // No-op if not existing.
+        return; // Since matchingEntry is not being shown or not found.
       }
     }
     _timer?.cancel();
