@@ -1,8 +1,11 @@
-## BSaeid Flutter Library
+# BSaeid Flutter Library
 
 ### Group of inter-dependent packages used as building blocks of apps.
 
-## ℹ️ Note: The library is still under construction. Docs, examples, and tests are not all ready yet.
+### ℹ️ Note: The library is still under construction. Docs, examples, and tests are not all ready yet.
+### Checkout completed examples [here](https://bsaeid.dev/building-blocks).
+
+#### Packages & their dependencies
 
 | Name                | README                                                                              | View Source                                                                                   | Additional Dependencies                                                                                                                                   |
 |---------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
