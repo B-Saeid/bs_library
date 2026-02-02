@@ -31,7 +31,7 @@ final class AppColors {
       LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme.error;
 
   Color adaptiveNegativeColor({WidgetRef? ref, BuildContext? context}) =>
-      StaticData.platform.isApple
+      StaticData.targetPlatform.isApple
       ? context != null
             ? CupertinoColors.destructiveRed.resolveFrom(context)
             : CupertinoColors.destructiveRed

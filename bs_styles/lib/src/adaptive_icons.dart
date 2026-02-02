@@ -1,5 +1,4 @@
 import 'package:bs_ref_query/bs_ref_query.dart';
-import 'package:bs_utils/bs_utils.dart';
 import 'package:colorful_iconify_flutter/icons/logos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -16,13 +15,13 @@ import 'overridden_icons.dart';
 /// Make sure you are explicitly setting it correctly
 final class AdaptiveIcons {
   @internal
-  factory AdaptiveIcons([DevicePlatform? platform]) => AdaptiveIcons._(platform);
+  factory AdaptiveIcons([TargetPlatform? targetPlatform]) => AdaptiveIcons._(targetPlatform);
 
   const AdaptiveIcons._(this.platform);
 
-  final DevicePlatform? platform;
+  final TargetPlatform? platform;
 
-  bool get isApple => (platform ?? StaticData.platform).isApple;
+  bool get isApple => (platform ?? StaticData.targetPlatform).isApple;
 
   Color _adaptiveColor({WidgetRef? ref, BuildContext? context}) =>
       LiveDataOrQuery.isLight(ref: ref, context: context) ? Colors.black : Colors.white;
