@@ -54,7 +54,7 @@ class _DimmedWrapperState extends State<DimmedWrapper> {
       onKeyEvent: !widget.barrierDismissible ? null : _dismissOnESCPressed,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
-        color: Colors.black87.withAlphaFraction(StaticData.platform.isApple ? 0.4 : 0.8),
+        color: Colors.black87.withAlphaFraction(StaticData.targetPlatform.isApple ? 0.4 : 0.8),
         width: LiveDataOrQuery.deviceWidth(ref: ref, context: context),
         height: LiveDataOrQuery.deviceHeight(ref: ref, context: context),
         child: child!,
@@ -106,7 +106,7 @@ class _DimmedWrapperState extends State<DimmedWrapper> {
 
     Widget childWrapper;
 
-    if (StaticData.platform.isApple) {
+    if (StaticData.targetPlatform.isApple) {
       childWrapper = CupertinoPopupSurface(
         child: Container(
           padding: padding,
