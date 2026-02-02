@@ -41,6 +41,26 @@ abstract class FeedbackLocalizations {
   /// the feedback view is dismissed
   String get close;
 
+  // TODO : Implement missing languages other than Arabic & English
+  /// {@template dismissScreenshot}
+  /// Name of the stay choice button
+  /// if the user taps the feedback close button, while the screenshot is taken
+  /// they will be presented with a dialog to confirm the discard of the screenshot
+  /// {@endtemplate}
+  ///
+  /// this is the action button that will keep them in.
+  String get no;
+
+  /// {@macro dismissScreenshot}
+  ///
+  /// this is the dialog title
+  String get discardScreenShotTitle;
+
+  /// {@macro dismissScreenshot}
+  ///
+  /// this is the dialog description
+  String get discardScreenShotDescription;
+
   /// This method is used to obtain a localized instance of
   /// [FeedbackLocalizations].
   static FeedbackLocalizations of(BuildContext context) {
@@ -89,6 +109,15 @@ class DeFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Navigieren';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default english localization
@@ -110,6 +139,17 @@ class EnFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Navigate';
+
+  @override
+  String get discardScreenShotTitle => 'Discard ScreenShot';
+
+  @override
+  String get discardScreenShotDescription =>
+      'Closing the feedback view will discard your screenshot.'
+          '\n\n Are you sure you want to close?';
+
+  @override
+  String get no => 'No';
 }
 
 /// Default persian localization
@@ -131,6 +171,15 @@ class FaFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'پیمایش';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default french localization
@@ -152,6 +201,15 @@ class FrFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Naviguer';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default arabic localization
@@ -173,6 +231,17 @@ class ArFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'إنتقال';
+
+  @override
+  String get discardScreenShotTitle => 'تجاهل لقطة الشاشة';
+
+  @override
+  String get discardScreenShotDescription =>
+      'سيتم تجاهل لقطة الشاشة عند الاغلاق. '
+          '\n\nهل تريد الاغلاق؟';
+
+  @override
+  String get no => 'لا';
 }
 
 /// Default russian localization
@@ -194,6 +263,15 @@ class RuFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Навигация';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default swedish localization
@@ -215,6 +293,15 @@ class SvFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Navigera';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default ukrainian localization
@@ -236,6 +323,15 @@ class UkFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Навігація';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default turkish localization
@@ -257,6 +353,15 @@ class TrFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Gezin';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default Simplified Chinese localization
@@ -278,6 +383,15 @@ class ZhFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => '导航';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default polish localization
@@ -299,6 +413,15 @@ class PlFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Nawiguj';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default portuguese localization
@@ -320,6 +443,15 @@ class PtFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Navegar';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default japanese localization
@@ -341,6 +473,15 @@ class JaFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'ナビゲート';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default greek localization
@@ -362,6 +503,15 @@ class ElFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Πλοήγηση';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default bulgarian localization
@@ -383,6 +533,15 @@ class BgFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Навигиране';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 /// Default spanish localization
@@ -404,6 +563,15 @@ class EsFeedbackLocalizations extends FeedbackLocalizations {
 
   @override
   String get navigate => 'Navegar';
+
+  @override
+  String get discardScreenShotTitle => throw UnimplementedError();
+
+  @override
+  String get discardScreenShotDescription => throw UnimplementedError();
+
+  @override
+  String get no => throw UnimplementedError();
 }
 
 // coverage:ignore-end
@@ -416,7 +584,7 @@ class GlobalFeedbackLocalizationsDelegate extends LocalizationsDelegate<Feedback
 
   /// Returns the default instance of a [GlobalFeedbackLocalizationsDelegate].
   static LocalizationsDelegate<FeedbackLocalizations> delegate =
-      GlobalFeedbackLocalizationsDelegate();
+  GlobalFeedbackLocalizationsDelegate();
 
   /// Returns a dict of all supported locales.
   /// Override this member to provide your own localized strings.
@@ -451,7 +619,7 @@ class GlobalFeedbackLocalizationsDelegate extends LocalizationsDelegate<Feedback
     }
     debugPrint(
       'The locale $locale is not supported, '
-      'falling back to english translations',
+          'falling back to english translations',
     );
     return true;
   }

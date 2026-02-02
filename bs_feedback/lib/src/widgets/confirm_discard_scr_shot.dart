@@ -1,5 +1,3 @@
-// TODO : Remove l10n dependency by implementing the strings in FeedbackLocalization
-import 'package:bs_l10n/bs_l10n.dart';
 import 'package:bs_widgets/bs_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -38,22 +36,14 @@ class _ConfirmDiscardScrShotState extends State<ConfirmDiscardScrShot> {
   Widget build(BuildContext context) => Container(
     decoration: BoxDecoration(boxShadow: kElevationToShadow[4]),
     child: BsDialogue(
-      /// Todo: Add translation
-      // title: FeedbackLocalizations.of(context).discardScreenShot,
-      title: l10nR.tDiscardScreenShot(),
-
-      /// Todo: Add translation
-      // content: FeedbackLocalizations.of(context).discardScreenShotMessage,
-      content: l10nR.tDiscardScreenShotMessage(),
+      title: FeedbackLocalizations.of(context).discardScreenShotTitle,
+      content: FeedbackLocalizations.of(context).discardScreenShotDescription,
       actionTitle: FeedbackLocalizations.of(context).close,
       actionFunction: () {
         BetterFeedback.of(context).hide();
         ConfirmDiscardScrShot.closeHandler?.call();
       },
-
-      /// Todo: Add translation
-      // dismissTitle: FeedbackLocalizations.of(context).cancel,
-      dismissTitle: l10nR.tCancel(),
+      dismissTitle: FeedbackLocalizations.of(context).no,
       dismissFunction: ConfirmDiscardScrShot.closeHandler,
       counterRecommended: true,
     ),
