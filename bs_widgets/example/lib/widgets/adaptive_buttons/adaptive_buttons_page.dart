@@ -1,7 +1,6 @@
 import 'package:bs_internet_service/bs_internet_service.dart';
 import 'package:bs_styles/bs_styles.dart';
 import 'package:bs_toast/bs_toast.dart';
-import 'package:bs_utils/bs_utils.dart';
 import 'package:bs_widgets/bs_widgets.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/foundation.dart';
@@ -45,21 +44,21 @@ class _AdaptiveButtonsPageState extends State<AdaptiveButtonsPage> {
   }) {
     if (mType != null) {
       return switch (mType) {
-        MaterialButtonType.text => _icons(DevicePlatform.android)[0],
-        MaterialButtonType.outlined => _icons(DevicePlatform.android)[1],
-        MaterialButtonType.elevated => _icons(DevicePlatform.android)[2],
-        MaterialButtonType.filledTonal => _icons(DevicePlatform.android)[3],
-        MaterialButtonType.filled => _icons(DevicePlatform.android)[4],
+        MaterialButtonType.text => _icons(TargetPlatform.android)[0],
+        MaterialButtonType.outlined => _icons(TargetPlatform.android)[1],
+        MaterialButtonType.elevated => _icons(TargetPlatform.android)[2],
+        MaterialButtonType.filledTonal => _icons(TargetPlatform.android)[3],
+        MaterialButtonType.filled => _icons(TargetPlatform.android)[4],
       };
     } else if (cType != null) {
       return switch (cType) {
-        CupertinoButtonType.plain => _icons(DevicePlatform.iOS)[0],
-        CupertinoButtonType.greyish => _icons(DevicePlatform.iOS)[2],
-        CupertinoButtonType.tinted => _icons(DevicePlatform.iOS)[3],
-        CupertinoButtonType.filled => _icons(DevicePlatform.iOS)[4],
+        CupertinoButtonType.plain => _icons(TargetPlatform.iOS)[0],
+        CupertinoButtonType.greyish => _icons(TargetPlatform.iOS)[2],
+        CupertinoButtonType.tinted => _icons(TargetPlatform.iOS)[3],
+        CupertinoButtonType.filled => _icons(TargetPlatform.iOS)[4],
       };
     } else if (iType != null) {
-      final platform = isMaterial! ? DevicePlatform.android : DevicePlatform.iOS;
+      final platform = isMaterial! ? TargetPlatform.android : TargetPlatform.iOS;
       return switch (iType) {
         AdaptiveIconButtonType.plain => _icons(platform)[0],
         AdaptiveIconButtonType.outlined => _icons(platform)[1],
@@ -70,7 +69,7 @@ class _AdaptiveButtonsPageState extends State<AdaptiveButtonsPage> {
     return AppStyle.icons.home;
   }
 
-  List<IconData> _icons(DevicePlatform platform) => [
+  List<IconData> _icons(TargetPlatform platform) => [
     AppStyle.iconsOfPlatform(platform).home,
     AppStyle.iconsOfPlatform(platform).photo,
     AppStyle.iconsOfPlatform(platform).share,
@@ -89,7 +88,7 @@ class _AdaptiveButtonsPageState extends State<AdaptiveButtonsPage> {
             return basic
                 ? AdaptiveButton(
                     materialType: mType,
-                    platform: DevicePlatform.android,
+                    platform: TargetPlatform.android,
                     icon: withIcon ? Icon(_getIcon(mType: mType)) : null,
                     child: nameCapitalized,
                     onPressed: () => _onPressed(
@@ -108,7 +107,7 @@ class _AdaptiveButtonsPageState extends State<AdaptiveButtonsPage> {
                     // takes precedence over [type]
                     materialType: mType,
                     // overridden to show a material button
-                    platform: DevicePlatform.android,
+                    platform: TargetPlatform.android,
                     icon: withIcon ? Icon(_getIcon(mType: mType)) : null,
                     child: nameCapitalized,
                     onPressed: () => _onPressed(
@@ -131,7 +130,7 @@ class _AdaptiveButtonsPageState extends State<AdaptiveButtonsPage> {
             return basic
                 ? AdaptiveButton(
                     cupertinoType: cType,
-                    platform: DevicePlatform.iOS,
+                    platform: TargetPlatform.iOS,
                     icon: withIcon ? Icon(_getIcon(cType: cType)) : null,
                     child: nameCapitalized,
                     onPressed: () => _onPressed(
@@ -149,7 +148,7 @@ class _AdaptiveButtonsPageState extends State<AdaptiveButtonsPage> {
                 : AdaptiveButton.custom(
                     cupertinoType: cType,
                     // takes precedence over [type]
-                    platform: DevicePlatform.iOS,
+                    platform: TargetPlatform.iOS,
                     // overridden to show a cupertino button
                     icon: withIcon ? Icon(_getIcon(cType: cType)) : null,
                     child: nameCapitalized,
@@ -179,7 +178,7 @@ class _AdaptiveButtonsPageState extends State<AdaptiveButtonsPage> {
       padding: EdgeInsets.zero,
       //
       iconData: _getIcon(isMaterial: isMaterial, iType: type),
-      platform: isMaterial ? DevicePlatform.android : DevicePlatform.iOS,
+      platform: isMaterial ? TargetPlatform.android : TargetPlatform.iOS,
       onPressed: () =>
           _onPressed('Icon${isMaterial ? ' Material' : ' Cupertino'} ${type.name.capitalize()}'),
       onLongPressed: () => _onLongPressed(

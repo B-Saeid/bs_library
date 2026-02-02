@@ -1,6 +1,5 @@
 import 'package:bs_l10n/bs_l10n.dart';
 import 'package:bs_styles/bs_styles.dart';
-import 'package:bs_utils/bs_utils.dart';
 import 'package:bs_widgets/bs_widgets.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +54,7 @@ class _TilesExampleState extends ConsumerState<TilesExample> {
   bool showValue = true;
 
   AdaptiveIcons adaptiveIcons(bool isMaterial) =>
-      AppStyle.iconsOfPlatform(isMaterial ? DevicePlatform.android : DevicePlatform.iOS);
+      AppStyle.iconsOfPlatform(isMaterial ? TargetPlatform.android : TargetPlatform.iOS);
 
   List<(IconData?, String, String?, String?)> _placeHolders({
     required bool isMaterial,
@@ -286,7 +285,7 @@ class _TilesExampleState extends ConsumerState<TilesExample> {
                                 if (group)
                                   AdaptiveTilesGroup(
                                     header: showGroupTitle ? Text(l10nR.tGroupTitle(ref)) : null,
-                                    platform: DevicePlatform.android,
+                                    platform: TargetPlatform.android,
                                     tiles: [
                                       ..._placeHolders(isMaterial: true, group: true).mapIndexed(
                                         (i, data) => TileInGroup(
@@ -317,7 +316,7 @@ class _TilesExampleState extends ConsumerState<TilesExample> {
                                       onPressed: onPressed ? () {} : null,
                                       description: data.$3 != null ? Text(data.$3!) : null,
                                       trailing: showTrailing ? Icon(trailingIcon(true)) : null,
-                                      platform: DevicePlatform.android,
+                                      platform: TargetPlatform.android,
                                     ),
                                   ),
                               ],
@@ -346,7 +345,7 @@ class _TilesExampleState extends ConsumerState<TilesExample> {
                                 if (group)
                                   AdaptiveTilesGroup(
                                     header: showGroupTitle ? Text(l10nR.tGroupTitle(ref)) : null,
-                                    platform: DevicePlatform.iOS,
+                                    platform: TargetPlatform.iOS,
                                     tiles: [
                                       ..._placeHolders(isMaterial: false, group: true).mapIndexed(
                                         (i, data) => TileInGroup(
@@ -376,7 +375,7 @@ class _TilesExampleState extends ConsumerState<TilesExample> {
                                       trailing: showTrailing
                                           ? Icon(adaptiveIcons(false).info)
                                           : null,
-                                      platform: DevicePlatform.iOS,
+                                      platform: TargetPlatform.iOS,
                                     ),
                                   ),
                               ],
@@ -403,7 +402,7 @@ class _TilesExampleState extends ConsumerState<TilesExample> {
                           if (group)
                             AdaptiveTilesGroup(
                               header: showGroupTitle ? Text(l10nR.tGroupTitle(ref)) : null,
-                              platform: DevicePlatform.windows,
+                              platform: TargetPlatform.windows,
                               tiles: [
                                 ..._placeHolders(isMaterial: true, group: true).mapIndexed(
                                   (i, data) => TileInGroup(
@@ -429,7 +428,7 @@ class _TilesExampleState extends ConsumerState<TilesExample> {
                                 onPressed: onPressed ? () {} : null,
                                 description: data.$3 != null ? Text(data.$3!) : null,
                                 trailing: showTrailing ? Icon(trailingIcon(true)) : null,
-                                platform: DevicePlatform.windows,
+                                platform: TargetPlatform.windows,
                               ),
                             ),
                         ],
