@@ -7,6 +7,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'live_data_or_query.dart';
 
+export 'package:bs_utils/bs_utils.dart' show TargetPlatformExtension, DevicePlatform;
+
 part 'extensions.dart';
 part 'session_data.g.dart';
 part 'static_data.dart';

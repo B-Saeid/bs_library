@@ -67,6 +67,8 @@ abstract final class StaticData {
 
   static final DevicePlatform platform = DevicePlatform.fromIO;
 
+  static final TargetPlatform targetPlatform = LiveData.__themeData.platform;
+
   /// Use this to force a specific device platform
   /// besides wrapping up your router with Theme with TargetPlatform
   /// overridden and do any necessary work in deviceInfo stuff
