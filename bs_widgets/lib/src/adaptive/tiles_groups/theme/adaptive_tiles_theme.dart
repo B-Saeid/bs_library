@@ -1,4 +1,3 @@
-import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/material.dart';
 
 class AdaptiveTilesTheme extends InheritedWidget {
@@ -10,7 +9,7 @@ class AdaptiveTilesTheme extends InheritedWidget {
   });
 
   final AdaptiveTilesThemeData themeData;
-  final DevicePlatform platform;
+  final TargetPlatform platform;
 
   static AdaptiveTilesTheme? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<AdaptiveTilesTheme>();
@@ -26,7 +25,7 @@ class AdaptiveTilesTheme extends InheritedWidget {
 //   });
 //
 //   final AdaptiveTilesThemeData themeData;
-//   final DevicePlatform platform;
+//   final TargetPlatform platform;
 // }
 
 class AdaptiveTilesThemeData {

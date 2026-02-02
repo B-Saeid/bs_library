@@ -1,5 +1,4 @@
 import 'package:bs_ref_query/bs_ref_query.dart';
-import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -214,7 +213,7 @@ class AndroidTile extends ConsumerOrStatelessWidget {
           ),
           if (loading)
             const Positioned.fill(
-              child: AdaptiveLoadingIndicator(platform: DevicePlatform.android),
+              child: AdaptiveLoadingIndicator(targetPlatform: TargetPlatform.android),
             ),
         ],
       ),

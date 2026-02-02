@@ -443,7 +443,7 @@ class _DatePickerModeToggleButtonState
                 container: true,
                 child: SizedBox(
                   height: _subHeaderHeight,
-                  child: StaticData.platform.isApple
+                  child: StaticData.targetPlatform.isApple
                       ? CupertinoButton(
                           padding: EdgeInsets.zero,
                           onPressed: widget.onTitlePressed,
@@ -1221,7 +1221,7 @@ class _DayState extends State<_Day> {
         overlayColor: dayOverlayColor,
         customBorder: dayShape,
         containedInkWell: true,
-        splashFactory: StaticData.platform.isApple ? NoSplash.splashFactory : null,
+        splashFactory: StaticData.targetPlatform.isApple ? NoSplash.splashFactory : null,
         child: Semantics(
           // We want the day of month to be spoken first irrespective of the
           // locale-specific preferences or TextDirection. This is because

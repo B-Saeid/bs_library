@@ -1,6 +1,5 @@
 import 'package:bs_internet_service/bs_internet_service.dart';
 import 'package:bs_ref_query/bs_ref_query.dart';
-import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,7 +46,7 @@ abstract class AdaptiveButtonBase extends StatelessWidget {
   final bool adaptive;
 
   /// Overrides the current default platform.
-  final DevicePlatform? platform;
+  final TargetPlatform? platform;
 
   /// If you have a text child:
   /// It is **recommended** to pass the string directly to
@@ -194,7 +193,7 @@ abstract class AdaptiveButtonBase extends StatelessWidget {
   /// if not null, it will take precedence over [density]
   final CupertinoButtonSize? cupertinoSizeStyle;
 
-  bool get isAppleAndAdaptive => (platform ?? StaticData.platform).isApple && adaptive;
+  bool get isAppleAndAdaptive => (platform ?? StaticData.targetPlatform).isApple && adaptive;
 
   VisualDensity? get visualDensity => materialDensity ?? density?.visualDensity;
 
@@ -227,7 +226,7 @@ abstract class AdaptiveButtonBase extends StatelessWidget {
           ),
           if (loadingIndicator!)
             Positioned.fill(
-              child: AdaptiveLoadingIndicator(platform: platform),
+              child: AdaptiveLoadingIndicator(targetPlatform: platform),
             ),
         ],
       );

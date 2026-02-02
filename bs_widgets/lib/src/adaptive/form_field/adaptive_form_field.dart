@@ -1,5 +1,4 @@
 import 'package:bs_ref_query/bs_ref_query.dart';
-import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,7 +56,7 @@ class AdaptiveFormField extends StatelessWidget {
     this.textDirection,
     this.inputFormatters,
     this.textCapitalization = TextCapitalization.none,
-    this.platform,
+    this.targetPlatform,
   }) : enableInteractiveSelection = enableInteractiveSelection ?? (!readOnly || !isPass);
 
   final TextEditingController? controller;
@@ -130,7 +129,7 @@ class AdaptiveFormField extends StatelessWidget {
   final TextCapitalization textCapitalization;
 
   /// This is used to override the platform
-  final DevicePlatform? platform;
+  final TargetPlatform? targetPlatform;
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +137,7 @@ class AdaptiveFormField extends StatelessWidget {
         ? Row(
             spacing: 10,
             children: [
-              if (prefixIcon != null) prefixIcon!,
+              ?prefixIcon,
               if (prefixText != null)
                 DefaultTextStyle.merge(
                   style: textStyle,
@@ -192,7 +191,7 @@ class AdaptiveFormField extends StatelessWidget {
       inputFormatters: inputFormatters,
       textCapitalization: textCapitalization,
     );
-    return (platform ?? StaticData.platform).isApple
+    return (targetPlatform ?? StaticData.targetPlatform).isApple
         ? CupertinoCard(
             color: (filled ?? false) ? fillColor : CupertinoColors.transparent,
             borderColor: borderColor ?? CupertinoColors.systemGrey,

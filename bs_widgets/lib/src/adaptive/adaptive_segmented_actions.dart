@@ -38,7 +38,7 @@ class AdaptiveSegmentedActions<T extends Object> extends StatelessWidget {
   final T? groupValue;
 
   @override
-  Widget build(BuildContext context) => StaticData.platform.isApple
+  Widget build(BuildContext context) => StaticData.targetPlatform.isApple
       ? buildCupertinoSegmentedControl(context, useSlidingInCupertino)
       : buildSegmentedButton(context);
 
@@ -71,7 +71,7 @@ class AdaptiveSegmentedActions<T extends Object> extends StatelessWidget {
           selectedActions.isEmpty ? null : onSelectionChanged(selectedActions.first),
       emptySelectionAllowed: true,
       segments: segments,
-      selected: {if (groupValue != null) groupValue!},
+      selected: {?groupValue},
       showSelectedIcon: false,
       style: SegmentedButton.styleFrom(
         backgroundColor: backgroundColor ?? Theme.of(context).canvasColor,
@@ -133,7 +133,7 @@ class AdaptiveSegmentedActions<T extends Object> extends StatelessWidget {
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     return StaticData.platform.isApple
+//     return StaticData.targetPlatform.isApple
 //         ? Cupertino<ActionType>(
 //             children: SplayTreeMap..addAll(other),
 //             onValueChanged: (value) {},

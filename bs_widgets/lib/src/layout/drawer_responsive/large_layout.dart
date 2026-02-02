@@ -1,9 +1,11 @@
 import 'package:bs_l10n/bs_l10n.dart';
 import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:bs_styles/bs_styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../adaptive_button.dart';
 import '../../animated/custom_animated_size.dart';
 import '../../misc/l10nr_text.dart';
 import '../../misc/scale_controlled_text.dart';
@@ -64,7 +66,7 @@ class _LargeLayoutDrawer extends StatelessWidget {
     child: SizedBox(
       width: 220,
       child: Stack(
-        alignment: AlignmentDirectional.topStart,
+        alignment: AlignmentDirectional.topEnd,
         children: [
           drawer,
           _HideDrawerButton(hideDrawerTitle, hideDrawerTooltip),
@@ -83,19 +85,25 @@ class _HideDrawerButton extends ConsumerOrStatelessWidget {
   @override
   Widget build(BuildContext context, WidgetRef? ref) => Padding(
     padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
-    child: ActionChip(
-      label: ScaleControlledText(hideDrawerTitle(ref), maxFactor: 2),
-      avatar: Icon(
-        Directionality.of(context) == TextDirection.ltr
-            ? AppStyle.icons.arrowLeft
-            : AppStyle.icons.arrowRight,
-        size: 24.scalableFlexible(ref: ref, context: context, maxValue: 32),
-      ),
-      onPressed: () => LargeLayout.drawerHidden.value = true,
-      tooltip: hideDrawerTooltip(ref),
-      visualDensity: VisualDensity.compact,
-      shape: const StadiumBorder(),
-    ),
+    child: StaticData.targetPlatform.isApple
+        ? AdaptiveIconButton(
+            type: AdaptiveIconButtonType.tinted,
+            iconData: CupertinoIcons.sidebar_left,
+            onPressed: () => LargeLayout.drawerHidden.value = true,
+          )
+        : ActionChip(
+            label: ScaleControlledText(hideDrawerTitle(ref), maxFactor: 2),
+            avatar: Icon(
+              Directionality.of(context) == TextDirection.ltr
+                  ? AppStyle.icons.arrowLeft
+                  : AppStyle.icons.arrowRight,
+              size: 20.scalableFlexible(ref: ref, context: context, maxValue: 32),
+            ),
+            onPressed: () => LargeLayout.drawerHidden.value = true,
+            tooltip: hideDrawerTooltip(ref),
+            visualDensity: VisualDensity.compact,
+            shape: const StadiumBorder(),
+          ),
   );
 }
 

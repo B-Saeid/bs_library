@@ -49,7 +49,7 @@ class BsDialogue extends ConsumerOrStatelessWidget {
   final List<Widget>? customAdaptiveActions;
   final bool androidCenterTitle;
 
-  bool get isApple => StaticData.platform.isApple;
+  bool get isApple => StaticData.targetPlatform.isApple;
 
   bool get showAndroidActions => isApple
       ? false
@@ -85,14 +85,14 @@ class BsDialogue extends ConsumerOrStatelessWidget {
         ? title
         : Row(
             children: [
-              if (startCorner != null) startCorner!,
+              ?startCorner,
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: title,
                 ),
               ),
-              if (endCorner != null) endCorner!,
+              ?endCorner,
             ],
           );
 

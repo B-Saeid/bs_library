@@ -17,7 +17,7 @@ class AdaptiveDialogueAction extends StatelessWidget {
   final bool? encouraged;
 
   @override
-  Widget build(BuildContext context) => StaticData.platform.isApple
+  Widget build(BuildContext context) => StaticData.targetPlatform.isApple
       ? IOSDialogueAction(
           title: title,
           onPressed: onPressed,

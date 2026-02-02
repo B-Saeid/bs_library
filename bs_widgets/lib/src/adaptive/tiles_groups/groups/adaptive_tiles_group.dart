@@ -1,5 +1,4 @@
 import 'package:bs_ref_query/bs_ref_query.dart';
-import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,13 +32,13 @@ class AdaptiveTilesGroup extends AbstractTilesGroup {
   final EdgeInsetsGeometry? padding;
   final BoxConstraints? constraints;
   final Widget? header;
-  final DevicePlatform? platform;
+  final TargetPlatform? platform;
   final AdaptiveTilesThemeData? themeData;
   final AdaptiveTilesThemeData? lightTheme;
   final AdaptiveTilesThemeData? darkTheme;
   final Brightness? brightness;
 
-  DevicePlatform get _platform => platform ?? StaticData.platform;
+  TargetPlatform get _platform => platform ?? StaticData.targetPlatform;
 
   @override
   Widget build(BuildContext context) {

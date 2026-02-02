@@ -1,6 +1,5 @@
 import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:bs_styles/bs_styles.dart';
-import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -131,28 +130,28 @@ class OtherTile extends ConsumerOrStatelessWidget {
                       /// | Trailing
                       if (trailing != null || !tileType.isSimple)
                         Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (onPressed != null && tileType.isSwitch)
-                                buildVerticalDivider(context, ref),
-                              if (trailing != null || !tileType.isSimple)
-                                Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Visibility.maintain(
-                                      visible: !loading,
-                                      child: buildTrailing(context, ref),
-                                    ),
-                                    if (loading)
-                                      const Positioned.fill(
-                                        child: AdaptiveLoadingIndicator(
-                                          platform: DevicePlatform.windows,
-                                        ),
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (onPressed != null && tileType.isSwitch)
+                              buildVerticalDivider(context, ref),
+                            if (trailing != null || !tileType.isSimple)
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Visibility.maintain(
+                                    visible: !loading,
+                                    child: buildTrailing(context, ref),
+                                  ),
+                                  if (loading)
+                                    const Positioned.fill(
+                                      child: AdaptiveLoadingIndicator(
+                                        targetPlatform: TargetPlatform.windows,
                                       ),
-                                  ],
-                                ),
-                            ],
-                          ),
+                                    ),
+                                ],
+                              ),
+                          ],
+                        ),
                     ],
                   ),
                 ),

@@ -41,7 +41,7 @@ class AdaptiveTappable extends ConsumerOrStatelessWidget {
   Widget build(BuildContext context, WidgetRef? ref) {
     late final Widget widget;
 
-    if (StaticData.platform.isApple) {
+    if (StaticData.targetPlatform.isApple) {
       // final defaultColor = color ?? AppStyle.colors.adaptiveIPrimary(ref);
       final colorScheme = LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme;
       final defaultColor =

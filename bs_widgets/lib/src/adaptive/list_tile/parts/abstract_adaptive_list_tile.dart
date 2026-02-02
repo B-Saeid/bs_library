@@ -1,4 +1,3 @@
-import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../../riverpod_widgets/consumer_or_stateless.dart';
@@ -23,5 +22,5 @@ abstract class AbstractAdaptiveListTile extends ConsumerOrStatelessWidget {
   final Widget? trailing;
 
   @protected
-  final DevicePlatform? platform;
+  final TargetPlatform? platform;
 }
