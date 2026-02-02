@@ -54,25 +54,6 @@ class L10nR {
               ? SupportedLocale.fromLocale(setting.locale!).shortDisplayName
               : SupportedLocale.fromLocale(setting.locale!).displayName,
       };
-
-  String tDiscardScreenShot([WidgetRef? ref]) => switch (l10nR.currentLocale(ref)) {
-    SupportedLocale.en => 'Discard ScreenShot',
-    SupportedLocale.ar => 'تجاهل لقطة الشاشة',
-  };
-
-  String tDiscardScreenShotMessage([WidgetRef? ref]) => switch (l10nR.currentLocale(ref)) {
-    SupportedLocale.en =>
-      'Closing the feedback view will discard your screenshot.'
-          '\n\n Are you sure you want to close?',
-    SupportedLocale.ar =>
-      'سيتم تجاهل لقطة الشاشة عند الاغلاق. '
-          '\n\nهل تريد الاغلاق؟',
-  };
-
-  String tCancel([WidgetRef? ref]) => switch (l10nR.currentLocale(ref)) {
-    SupportedLocale.en => 'Cancel',
-    SupportedLocale.ar => 'إنهاء',
-  };
 }
 
 extension DevicePlatformName on DevicePlatform {
