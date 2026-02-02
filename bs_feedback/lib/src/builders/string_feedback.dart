@@ -79,7 +79,7 @@ class _StringFeedbackState extends State<StringFeedback> {
               children: [
                 Visibility.maintain(
                   visible: false,
-                  child: StaticData.platform.isMobile
+                  child: StaticData.targetPlatform.isMobile
                       ? const FeedbackSheetDragHandle()
                       : const MinimizeMaximizeSheet(),
                 ),
@@ -90,7 +90,7 @@ class _StringFeedbackState extends State<StringFeedback> {
               top: 0,
               left: 0,
               right: 0,
-              child: StaticData.platform.isMobile
+              child: StaticData.targetPlatform.isMobile
                   ? const FeedbackSheetDragHandle()
                   : const MinimizeMaximizeSheet(),
             ),

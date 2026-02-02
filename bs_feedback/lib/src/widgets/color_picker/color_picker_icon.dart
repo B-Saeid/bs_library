@@ -44,9 +44,9 @@ class ColorPickerIcon extends StatelessWidget {
   /*- 1*/;
 
   @override
-  Widget build(BuildContext context) => IconButton(
+  Widget build(BuildContext context) => AdaptiveIconButton(
     onPressed: onColorChanged == null ? null : () => _showColorPicker(context),
-    icon: Stack(
+    child: Stack(
       alignment: Alignment.center,
       children: [
         ClipPath(

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:bs_styles/bs_styles.dart';
+import 'package:bs_widgets/adaptive_button.dart';
 import 'package:flutter/material.dart';
 
 import 'color_picker/color_picker_icon.dart';
@@ -42,9 +43,9 @@ class DrawingColumn extends StatelessWidget {
       direction: Axis.vertical,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: <Widget>[
-        IconButton(
+        AdaptiveIconButton(
           key: const ValueKey<String>('clear_button'),
-          icon: Icon(AppStyle.icons.pin),
+          iconData: AppStyle.icons.pin,
           onPressed: onClearDrawing,
         ),
         const _ColumnDivider(),
@@ -61,9 +62,9 @@ class DrawingColumn extends StatelessWidget {
           activeColor: activeColor,
         ),
         const _ColumnDivider(),
-        IconButton(
+        AdaptiveIconButton(
           key: const ValueKey<String>('undo_button'),
-          icon: Icon(AppStyle.icons.undo),
+          iconData: AppStyle.icons.undo,
           onPressed: onUndo,
         ),
       ],
@@ -84,13 +85,11 @@ class _ColorSelectionIconButton extends StatelessWidget {
   final bool isActive;
 
   @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(isActive ? Icons.lens : Icons.panorama_fish_eye),
-      color: color,
-      onPressed: onPressed == null ? null : () => onPressed!(color),
-    );
-  }
+  Widget build(BuildContext context) => AdaptiveIconButton(
+    iconData: isActive ? Icons.lens : Icons.panorama_fish_eye,
+    iconColor: color,
+    onPressed: onPressed == null ? null : () => onPressed!(color),
+  );
 }
 
 class _ColumnDivider extends StatelessWidget {

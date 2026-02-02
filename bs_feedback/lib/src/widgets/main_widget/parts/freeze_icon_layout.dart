@@ -28,9 +28,10 @@ class FreezeIconLayout extends StatelessWidget {
             children: [
               Visibility.maintain(
                 visible: internalState.freezeIcon != null,
-                child: IconButton.filledTonal(
+                child: AdaptiveIconButton(
+                  type: AdaptiveIconButtonType.tinted,
                   onPressed: () => internalState.freezeIcon != null ? _toggleFreeze(context) : null,
-                  icon: Icon(internalState.freezeIcon),
+                  child: Icon(internalState.freezeIcon),
                 ),
               ),
               if (internalState.freezeIcon == null) const AdaptiveLoadingIndicator(),
