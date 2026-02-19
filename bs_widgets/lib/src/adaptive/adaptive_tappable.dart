@@ -21,6 +21,7 @@ class AdaptiveTappable extends ConsumerOrStatelessWidget {
     this.padding,
     this.margin,
     this.borderRadius,
+    this.platform,
   });
 
   final Widget child;
@@ -34,6 +35,7 @@ class AdaptiveTappable extends ConsumerOrStatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final BorderRadius? borderRadius;
+  final TargetPlatform? platform;
 
   EdgeInsetsGeometry get getMargin => margin ?? const EdgeInsets.symmetric(horizontal: 8);
 
@@ -41,7 +43,7 @@ class AdaptiveTappable extends ConsumerOrStatelessWidget {
   Widget build(BuildContext context, WidgetRef? ref) {
     late final Widget widget;
 
-    if (StaticData.targetPlatform.isApple) {
+    if ((platform ?? StaticData.targetPlatform).isApple) {
       // final defaultColor = color ?? AppStyle.colors.adaptiveIPrimary(ref);
       final colorScheme = LiveDataOrQuery.themeData(ref: ref, context: context).colorScheme;
       final defaultColor =
