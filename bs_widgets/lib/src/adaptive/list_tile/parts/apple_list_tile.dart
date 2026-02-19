@@ -40,7 +40,7 @@ class AppleListTile extends AbstractAdaptiveListTile {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.only(end: 14),
+                  padding: EdgeInsetsDirectional.only(end: trailing == null ? 0.0 : 14.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
