@@ -1,5 +1,6 @@
 // Separated files
 export 'adaptive_button.dart';
+export 'adaptive_popup_menu_item.dart';
 export 'adaptive_tiles_groups.dart';
 export 'clippers.dart';
 export 'cupertino.dart';
