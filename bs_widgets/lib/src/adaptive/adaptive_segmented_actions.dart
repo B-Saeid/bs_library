@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SegmentedAction<T extends Object> {
-  SegmentedAction({required this.label, required this.icon, required this.value});
+  SegmentedAction({required this.label, this.icon, required this.value});
 
   final Widget label;
   final Widget? icon;
