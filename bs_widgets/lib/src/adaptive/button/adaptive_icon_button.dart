@@ -146,7 +146,7 @@ class AdaptiveIconButton extends AdaptiveButtonBase {
               : themeData.disabledColor,
           size: iconSize,
         );
-        return IconTheme(
+        return IconTheme.merge(
           data: iconThemeData,
           child: result,
         );
