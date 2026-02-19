@@ -15,6 +15,7 @@ export 'src/adaptive/adaptive_tappable.dart';
 export 'src/adaptive/form_field/adaptive_form_field.dart';
 export 'src/adaptive/list_tile/adaptive_list_tile.dart';
 // animated
+export 'src/animated/animated_blur_reveal.dart';
 export 'src/animated/animated_blurred.dart';
 export 'src/animated/animated_loaded_image.dart';
 export 'src/animated/custom_animated_size.dart';
