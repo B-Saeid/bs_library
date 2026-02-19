@@ -251,6 +251,13 @@ final class AdaptiveIcons {
 
   IconData get reply => isApple ? CupertinoIcons.reply : Icons.reply;
 
+  IconData get feedbackOutlined =>
+      isApple ? CupertinoIcons.exclamationmark_bubble : Icons.feedback_outlined;
+
+  IconData get doc => CupertinoIcons.doc;
+
+  IconData get logout => isApple ? CupertinoIcons.square_arrow_left : Icons.logout_rounded;
+
   IconData get copy => isApple ? CupertinoIcons.doc_on_doc_fill : Icons.copy_rounded;
 
   IconData get pause => isApple ? CupertinoIcons.pause : Icons.pause_rounded;
@@ -264,6 +271,10 @@ final class AdaptiveIcons {
   IconData get camera => isApple ? CupertinoIcons.camera_fill : Icons.camera_alt_rounded;
 
   IconData get speaker => isApple ? CupertinoIcons.speaker_2_fill : Icons.volume_up_rounded;
+
+  IconData get speakerLow => isApple ? CupertinoIcons.speaker_1_fill : Icons.volume_down_rounded;
+
+  IconData get speakerOff => isApple ? CupertinoIcons.speaker_slash_fill : Icons.volume_off_rounded;
 
   IconData get microphone => isApple ? CupertinoIcons.mic_fill : Icons.mic_rounded;
 
