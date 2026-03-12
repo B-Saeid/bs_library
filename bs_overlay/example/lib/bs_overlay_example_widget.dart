@@ -265,7 +265,7 @@ class _OverlayShowcaseState extends State<OverlayShowcase> {
         ),
       ),
     );
-    return BreakPoints.isMobile(MediaQuery.sizeOf(context).width)
+    return MediaQuery.sizeOf(context).width <= 768.0
         ? Column(
             children: [
               Card(

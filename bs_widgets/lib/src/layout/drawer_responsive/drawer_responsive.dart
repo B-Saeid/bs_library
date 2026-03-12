@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../riverpod_widgets/consumer_or_stateless.dart';
-import '../break_points.dart';
 import 'large_layout.dart';
 import 'mobile_layout.dart';
 
@@ -33,7 +32,7 @@ class DrawerResponsiveLayout extends ConsumerOrStatelessWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef? ref) =>
-      BreakPoints.isMobile(LiveDataOrQuery.deviceWidth(ref: ref, context: context))
+      LiveDataOrQuery.deviceType(ref: ref, context: context).isMobileOrTablet
       ? MobileLayout(
           content: content,
           title: title,

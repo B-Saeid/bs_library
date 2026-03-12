@@ -28,7 +28,6 @@ export 'src/crafted/my_handle.dart';
 export 'src/crafted/ring_progress.dart';
 // layout
 export 'src/layout/bottom_padding.dart';
-export 'src/layout/break_points.dart';
 export 'src/layout/custom_constrained_widget.dart';
 export 'src/layout/drawer_responsive/drawer_responsive.dart';
 export 'src/layout/fit_within.dart';
