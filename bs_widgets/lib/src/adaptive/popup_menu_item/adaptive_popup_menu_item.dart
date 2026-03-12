@@ -255,6 +255,7 @@ class AdaptivePopupMenuItem<T> extends PopupMenuEntry<T> {
     this.autoPop = true,
     this.enabled = true,
     this.checked,
+    this.leading,
     this.selected,
     double? height,
     // this.padding,
@@ -270,7 +271,14 @@ class AdaptivePopupMenuItem<T> extends PopupMenuEntry<T> {
 
   final bool? checked;
   final bool? selected;
+
+  /// Whether to pop the menu when [onTap] is called
+  /// defaults to `true`
   final bool autoPop;
+
+  /// Leading widget, typically an Icon Widget.
+  /// Ignored if [checked] == true.
+  final Widget? leading;
 
   /// The value that will be returned by [showMenu] if this entry is selected.
   final T? value;
@@ -294,9 +302,9 @@ class AdaptivePopupMenuItem<T> extends PopupMenuEntry<T> {
   @override
   double get height =>
       _height ??
-      (StaticData.targetPlatform.isApple
-          ? kMinInteractiveDimensionCupertino
-          : kMinInteractiveDimension);
+          (StaticData.targetPlatform.isApple
+              ? kMinInteractiveDimensionCupertino
+              : kMinInteractiveDimension);
 
   // /// The padding of the menu item.
   // ///
@@ -379,15 +387,15 @@ class _AdaptivePopupMenuItemState<T> extends State<AdaptivePopupMenuItem<T>> {
       builder: (context, ref, child) {
         final leading = widget.checked == true
             ? Icon(
-                AppStyle.icons.check,
-                size: 24.scalableFlexible(
-                  ref: ref,
-                  context: context,
-                  maxFactor: 1.2,
-                  allowBelow: false,
-                ),
-              )
-            : null;
+          AppStyle.icons.check,
+          size: 24.scalableFlexible(
+            ref: ref,
+            context: context,
+            maxFactor: 1.2,
+            allowBelow: false,
+          ),
+        )
+            : widget.leading;
 
         final themeData = LiveDataOrQuery.themeData(ref: ref, context: context);
         final selected = widget.selected == true;

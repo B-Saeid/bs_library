@@ -27,6 +27,7 @@ class AdaptiveSegmentedActions<T extends Object> extends StatelessWidget {
     this.useSlidingInCupertino = true,
     this.groupValue,
     this.backgroundColor,
+    this.platform,
   });
 
   final List<SegmentedAction<T>> actions;
@@ -37,8 +38,10 @@ class AdaptiveSegmentedActions<T extends Object> extends StatelessWidget {
   /// If this attribute is null, no action will be initially selected.
   final T? groupValue;
 
+  final TargetPlatform? platform;
+
   @override
-  Widget build(BuildContext context) => StaticData.targetPlatform.isApple
+  Widget build(BuildContext context) => (platform ?? StaticData.targetPlatform).isApple
       ? buildCupertinoSegmentedControl(context, useSlidingInCupertino)
       : buildSegmentedButton(context);
 

@@ -58,12 +58,14 @@ class AnimatedBlurred extends StatefulWidget {
     this.duration = const Duration(milliseconds: 600),
     this.curve = Curves.fastOutSlowIn,
     this.blur = 0.0,
+    this.initialAnimation = false,
   });
 
   final Widget child;
   final Duration duration;
   final Curve curve;
   final double blur;
+  final bool initialAnimation;
 
   @override
   State<AnimatedBlurred> createState() => _AnimatedBlurredState();
@@ -100,7 +102,11 @@ class _AnimatedBlurredState extends State<AnimatedBlurred> with SingleTickerProv
     // ).drive(_tween);
     // ----------------
 
-    animate();
+    if (widget.initialAnimation) {
+      animate();
+    } else {
+      controller.value = 1.0;
+    }
   }
 
   @override

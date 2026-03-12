@@ -17,6 +17,10 @@ class AnimatedLoadedImage extends ConsumerOrStatelessWidget {
     this.fit,
     this.filterQuality = FilterQuality.high,
     this.isAntiAlias = true,
+    this.appearDelay,
+    this.duration,
+    this.curve,
+    this.origin,
   }) : _bytes = bytes,
        _url = null,
        _path = null,
@@ -29,6 +33,10 @@ class AnimatedLoadedImage extends ConsumerOrStatelessWidget {
     this.fit,
     this.filterQuality = FilterQuality.high,
     this.isAntiAlias = true,
+    this.appearDelay,
+    this.duration,
+    this.curve,
+    this.origin,
   }) : _path = path,
        _url = null,
        _bytes = null,
@@ -41,6 +49,10 @@ class AnimatedLoadedImage extends ConsumerOrStatelessWidget {
     this.fit,
     this.filterQuality = FilterQuality.high,
     this.isAntiAlias = true,
+    this.appearDelay,
+    this.duration,
+    this.curve,
+    this.origin,
   }) : _url = url,
        _bytes = null,
        _path = null,
@@ -100,6 +112,18 @@ class AnimatedLoadedImage extends ConsumerOrStatelessWidget {
   /// Anti-aliasing alleviates the sawtooth artifact when the image is rotated.
   final bool isAntiAlias;
 
+  /// defaults to 1 second
+  final Duration? duration;
+
+  /// Use this to delay the appearance of the widget
+  final Duration? appearDelay;
+
+  /// defaults to [Alignment.topCenter]
+  final Alignment? origin;
+
+  /// defaults to [Curves.easeInOutCubicEmphasized]
+  final Curve? curve;
+
   @override
   Widget build(BuildContext context, WidgetRef? ref) {
     return Image(
@@ -122,6 +146,10 @@ class AnimatedLoadedImage extends ConsumerOrStatelessWidget {
             ),
           ),
       frameBuilder: (context, child, frame, wasSynchronouslyLoaded) => CustomAnimatedSize(
+        appearDelay: appearDelay,
+        curve: curve,
+        duration: duration,
+        origin: origin,
         child: KeyedSubtree(
           key: ValueKey(frame),
           child: frame == null
