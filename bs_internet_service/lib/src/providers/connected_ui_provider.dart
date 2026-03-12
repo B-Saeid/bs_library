@@ -60,8 +60,9 @@ class IsConnectedWithUI extends _$IsConnectedWithUI {
   }
 
   void _updateSelf() {
+    if (!ref.mounted) return;
     state = Internet.connected;
-    if (ref.mounted) _presentationLogic(ref, context);
+    _presentationLogic(ref, context);
   }
 
   @override
