@@ -79,14 +79,16 @@ class _DimmedWrapperState extends State<DimmedWrapper> {
   }
 
   Widget _centerContainer(Object child, bool ignorePointer) => ConsumerOrStateless(
-    builder: (_, ref, _) => Center(
-      child: widget.dismissOnTap
-          ? GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: _handleDismiss,
-              child: _childWrapper(context, ref, child),
-            )
-          : AbsorbPointer(absorbing: ignorePointer, child: _childWrapper(context, ref, child)),
+    builder: (_, ref, _) => SafeArea(
+      child: Center(
+        child: widget.dismissOnTap
+            ? GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: _handleDismiss,
+                child: _childWrapper(context, ref, child),
+              )
+            : AbsorbPointer(absorbing: ignorePointer, child: _childWrapper(context, ref, child)),
+      ),
     ),
   );
 
