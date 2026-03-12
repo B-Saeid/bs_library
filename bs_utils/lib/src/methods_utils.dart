@@ -150,6 +150,21 @@ abstract final class MethodsUtils {
     }
   }
 
+  static int _token = 0;
+
+  /// THis method implements the pattern:
+  /// "Only latest caller is valid"
+  ///
+  /// Return `true` only if no other function was called in the meantime,
+  /// and `false` otherwise.
+  static Future<bool> latestValid(FutureOr Function() task) async {
+    final myToken = ++_token;
+
+    await task();
+
+    return myToken == _token;
+  }
+
   // static Future<bool> retryOnHandshake(VoidCallback methodCallback, {int retryAttempts = 1}) async {
   //   try {
   //     methodCallback();
