@@ -43,6 +43,7 @@ class PopoverItem extends StatefulWidget {
   final PopoverTransition transition;
 
   @override
+  // ignore: library_private_types_in_public_api
   _PopoverItemState createState() => _PopoverItemState();
 }
 

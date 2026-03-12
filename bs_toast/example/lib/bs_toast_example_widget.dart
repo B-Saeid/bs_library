@@ -222,6 +222,7 @@ class _CustomizationsState extends State<_Customizations> {
                                 case BsPriority.replaceAll:
                                   messageController.text =
                                       'DESTRUCTIVE Show me NOW and clear the queue';
+                                // ignore: invalid_use_of_internal_member
                                 case BsPriority.overall:
                                   throw ('Internal Use only');
                               }
