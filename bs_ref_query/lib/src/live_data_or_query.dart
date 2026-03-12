@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 
+import 'responsive.dart';
 import 'session_data.dart';
 
 /// This is a helper class written to be used in internally in bs_library.
@@ -124,6 +125,17 @@ abstract class LiveDataOrQuery {
       : context != null
       ? MediaQuery.sizeOf(context).height
       : StaticData.deviceHeight;
+
+  static DeviceType deviceType({WidgetRef? ref, BuildContext? context}) => ref != null
+      ? _getLiveValueOrNull(
+              ref: ref,
+              selector: liveDataProvider.select((p) => p.deviceType),
+              context: context,
+            ) ??
+            DeviceType.fromWidth(MediaQuery.sizeOf(context!).width)
+      : context != null
+      ? DeviceType.fromWidth(MediaQuery.sizeOf(context).width)
+      : StaticData.deviceType;
 
   static EdgeInsets viewPadding({WidgetRef? ref, BuildContext? context}) => ref != null
       ? _getLiveValueOrNull(

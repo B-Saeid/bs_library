@@ -304,3 +304,199 @@ extension LiveStringSize on String {
     maxFactor: maxFactor,
   ).height;
 }
+
+extension ResponsiveDouble on num {
+  double _responsive({
+    required DeviceType current,
+    DeviceType base = DeviceType.mobile480,
+    double min = 0.0,
+    double max = double.infinity,
+    double percentageFactor = 1.0,
+  }) {
+    if (base == current) return toDouble();
+
+    final change = this * _calculatePercentageStep(base, current, percentageFactor);
+    final result = this + change;
+
+    print('orig = $this, change: $change, = $result');
+
+    return result.clamp(min, max);
+  }
+
+  /// {@template responsive_double}
+  /// Returns a responsive double value by comparing `maxWidth` of `current` deviceType
+  /// with [base] if:
+  ///   - == `current` returns the double unchanged.
+  ///   - \> `current` then we scale down
+  ///   - < `current` then we scale up
+  ///
+  /// Scaling is calculated based on the percentage difference (the increase/decrease)
+  /// between (base and current)'s maxWidth value and then reflect
+  /// this change in the resulting double.
+  ///
+  /// Note: You can factor this percentage either by taking a portion of it if
+  /// you see it too big, or scale it even bigger by using `percentageFactor`.
+  ///
+  /// {@endtemplate}
+  double responsive(
+    WidgetRef ref, {
+    DeviceType base = DeviceType.mobile480,
+    double min = 0.0,
+    double max = double.infinity,
+    double percentageFactor = 1.0,
+  }) => _responsive(
+    current: LiveData.deviceType(ref),
+    base: base,
+    min: min,
+    max: max,
+    percentageFactor: percentageFactor,
+  );
+
+  /// Same as [responsive] method but it has the flexiblity to use `context` as well as `ref`
+  /// to internally get the current [DeviceType].
+  ///
+  /// It uses [LiveData.deviceType] if `ref` is passed and if not available
+  /// ,while `context` is passed, it fallbacks to using [LiveDataOrQuery.deviceType], which
+  /// internally uses `MediaQuery.sizeOf(context).width` to determine the current [DeviceType].
+  ///
+  /// ###### Be aware:
+  /// If neither is passed it uses [StaticData], which needs [LiveData] to be at least initialized.
+  /// Otherwise make sure you pass either `ref` or `context`.
+  ///
+  /// {@macro responsive_double}
+  double responsiveFlexible({
+    WidgetRef? ref,
+    BuildContext? context,
+    DeviceType base = DeviceType.mobile480,
+    double min = 0.0,
+    double max = double.infinity,
+    double percentageFactor = 1.0,
+  }) => _responsive(
+    current: LiveDataOrQuery.deviceType(ref: ref, context: context),
+    base: base,
+    min: min,
+    max: max,
+    percentageFactor: percentageFactor,
+  );
+
+  double _calculatePercentageStep(DeviceType base, DeviceType current, double percentageFactor) {
+    assert(
+      base != current,
+      'Base cannot be equal to current, try returning the style without any calculations',
+    );
+    assert(
+      percentageFactor.isFinite && !percentageFactor.isNegative,
+      'Percentage Factor must be finite and positive',
+    );
+    double percentageStep;
+    if (current.maxWidth < base.maxWidth) {
+      /// Scaling down
+      percentageStep = -(base.maxWidth - current.maxWidth) / base.maxWidth;
+    } else {
+      /// Scaling up
+      percentageStep = (current.maxWidth - base.maxWidth) / current.maxWidth;
+    }
+    return percentageStep * percentageFactor.abs();
+  }
+}
+
+extension ResponsiveTypography on TextStyle {
+  // TextStyle? changeSize({double? change, double? percentage}) {
+  //   assert(
+  //     (change != null) ^ (percentage != null),
+  //     'Only one of change and percentage must be passed, '
+  //     '${change == null && change == null ? 'Neither was passed' : 'NOT BOTH'}.',
+  //   );
+
+  //   if (fontSize == null) return null;
+
+  //   double newFontSize;
+  //   final baseSize = fontSize!;
+
+  //   if (change != null) {
+  //     newFontSize = baseSize + change;
+  //   } else {
+  //     newFontSize = baseSize + (baseSize * percentage!);
+  //   }
+  //   return copyWith(fontSize: newFontSize);
+  // }
+
+  /// {@template responsive_textStyle}
+  /// Returns a responsive textStyle by adjusting its `fontsize` value. It is done by comparing
+  /// `maxWidth` of `current` deviceType with [base] if:
+  ///   - == `current` returns the same textStyle.
+  ///   - \> `current` then we scale down
+  ///   - < `current` then we scale up
+  ///
+  /// Scaling is calculated based on the percentage difference (the increase/decrease)
+  /// between (base and current)'s maxWidth value and then reflect
+  /// this change in the resulting double.
+  ///
+  /// Note: You can factor this percentage either by taking a portion of it if
+  /// you see it too big, or scale it even bigger by using `percentageFactor`.
+  ///
+  /// Here, we only take _half_ of the percentage difference because the actual
+  /// value will be too large to account for. Here is why:
+  ///
+  /// when [base] == [DeviceType.mini1280] and [current] is [DeviceType.standard1920]
+  /// (1920 - 1280) / 1280  = 1 / 2, which means a textStyle of fontSize `16`
+  /// would be `24` i.e `50%` increase (too big). We handled that by only taking half
+  /// of the percentage (making `percentageFactor` defaults to `0.5`)
+  /// which in the above case would be only `25%` increase i.e. `16` -> `20` instead of `16` -> `24`
+  ///
+  /// This is more reasonable for the step from a miniScreen to a standardScreen
+  /// {@endtemplate}
+  TextStyle? responsive(
+    WidgetRef ref, {
+    DeviceType base = DeviceType.mobile480,
+    double min = 0.0,
+    double max = double.infinity,
+    double percentageFactor = 0.5,
+  }) {
+    if (fontSize == null) return null;
+
+    return copyWith(
+      fontSize: fontSize?.responsive(
+        ref,
+        base: base,
+        min: min,
+        max: max,
+        percentageFactor: percentageFactor,
+      ),
+    );
+  }
+
+  /// Same as [responsive] method but it has the flexiblity to use `context` as well as `ref`
+  /// to internally get the current [DeviceType].
+  ///
+  /// It uses [LiveData.deviceType] if `ref` is passed and if not available
+  /// ,while `context` is passed, it fallbacks to using [LiveDataOrQuery.deviceType], which
+  /// internally uses `MediaQuery.sizeOf(context).width` to determine the current [DeviceType].
+  ///
+  /// ###### Be aware:
+  /// If neither is passed it uses [StaticData], which needs [LiveData] to be at least initialized.
+  /// Otherwise make sure you pass either `ref` or `context`.
+  ///
+  /// {@macro responsive_textStyle}
+  TextStyle? responsiveFlexibe({
+    WidgetRef? ref,
+    BuildContext? context,
+    DeviceType base = DeviceType.mobile480,
+    double min = 0.0,
+    double max = double.infinity,
+    double percentageFactor = 0.5,
+  }) {
+    if (fontSize == null) return null;
+
+    return copyWith(
+      fontSize: fontSize?.responsiveFlexible(
+        ref: ref,
+        context: context,
+        base: base,
+        min: min,
+        max: max,
+        percentageFactor: percentageFactor,
+      ),
+    );
+  }
+}

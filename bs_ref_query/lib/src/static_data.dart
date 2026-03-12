@@ -30,6 +30,11 @@ abstract final class StaticData {
     return LiveData.__deviceHeight;
   }
 
+  static DeviceType get deviceType {
+    LiveData._assertInitialized();
+    return LiveData.__deviceType;
+  }
+
   static EdgeInsets get viewPadding {
     LiveData._assertInitialized();
     return LiveData.__viewPadding;

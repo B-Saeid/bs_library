@@ -1,11 +1,12 @@
 import 'package:bs_riverpod_utils/bs_riverpod_utils.dart';
-import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'live_data_or_query.dart';
+import 'responsive.dart';
+import 'session_data.dart';
 
 export 'package:bs_utils/bs_utils.dart' show TargetPlatformExtension, DevicePlatform;
 
@@ -57,6 +58,8 @@ class LiveData extends _$LiveData {
 
   static bool _initialized = false;
 
+  static bool get initialized => _initialized;
+
   static void _assertInitialized() {
     assert(_initialized, notInitializedAssertionString);
   }
@@ -77,6 +80,8 @@ class LiveData extends _$LiveData {
   static double __deviceWidth = __sizeQuery.width;
 
   static double __deviceHeight = __sizeQuery.height;
+
+  static DeviceType __deviceType = DeviceType.mobile480;
 
   static EdgeInsets __viewPadding = EdgeInsets.zero;
 
@@ -109,11 +114,13 @@ class LiveData extends _$LiveData {
 
   void _updateMediaDependants(MediaQueryData newMediaQuery) {
     final sizeQuery = newMediaQuery.size;
+    // print('sizeQuery = $sizeQuery');
     state = state._copyWith(
       mediaQuery: newMediaQuery,
       sizeQuery: sizeQuery,
       deviceWidth: sizeQuery.width,
       deviceHeight: sizeQuery.height,
+      deviceType: DeviceType.fromWidth(sizeQuery.width),
       viewPadding: newMediaQuery.viewPadding,
       viewInsets: newMediaQuery.viewInsets,
       padding: newMediaQuery.padding,
@@ -123,6 +130,7 @@ class LiveData extends _$LiveData {
     __sizeQuery = state.sizeQuery;
     __deviceWidth = state.deviceWidth;
     __deviceHeight = state.deviceHeight;
+    __deviceType = state.deviceType;
     __viewPadding = state.viewPadding;
     __viewInsets = state.viewInsets;
     __padding = state.padding;
@@ -192,6 +200,12 @@ class LiveData extends _$LiveData {
 
   static double deviceHeight(WidgetRef ref) =>
       ref.watch(liveDataProvider.select((p) => p.deviceHeight));
+
+  static ProviderListenable<DeviceType> get deviceTypeSelector =>
+      liveDataProvider.select((value) => value.deviceType);
+
+  static DeviceType deviceType(WidgetRef ref) =>
+      ref.watch(liveDataProvider.select((p) => p.deviceType));
 
   static ProviderListenable<EdgeInsets> get viewPaddingSelector =>
       liveDataProvider.select((value) => value.viewPadding);
@@ -265,6 +279,7 @@ class LiveDataState {
     Size sizeQuery = Size.zero,
     double deviceWidth = 0.0,
     double deviceHeight = 0.0,
+    DeviceType deviceType = DeviceType.mobile480,
     EdgeInsets viewPadding = EdgeInsets.zero,
     EdgeInsets viewInsets = EdgeInsets.zero,
     EdgeInsets padding = EdgeInsets.zero,
@@ -281,6 +296,7 @@ class LiveDataState {
        _deviceHeight = deviceHeight,
        _deviceWidth = deviceWidth,
        _sizeQuery = sizeQuery,
+       _deviceType = deviceType,
        _mediaQuery = mediaQuery,
        _scaleFactor = scaleFactor,
        _themeData = themeData ?? ThemeData();
@@ -319,6 +335,13 @@ class LiveDataState {
     LiveData._assertInitialized();
     return _deviceHeight;
   }
+
+  DeviceType get deviceType {
+    LiveData._assertInitialized();
+    return _deviceType;
+  }
+
+  final DeviceType _deviceType;
 
   final EdgeInsets _viewPadding;
 
@@ -375,6 +398,7 @@ class LiveDataState {
     Size? sizeQuery,
     double? deviceWidth,
     double? deviceHeight,
+    DeviceType? deviceType,
     EdgeInsets? viewPadding,
     EdgeInsets? viewInsets,
     EdgeInsets? padding,
@@ -388,6 +412,7 @@ class LiveDataState {
     sizeQuery: sizeQuery ?? this.sizeQuery,
     deviceWidth: deviceWidth ?? this.deviceWidth,
     deviceHeight: deviceHeight ?? this.deviceHeight,
+    deviceType: deviceType ?? this.deviceType,
     viewPadding: viewPadding ?? this.viewPadding,
     viewInsets: viewInsets ?? this.viewInsets,
     padding: padding ?? this.padding,
