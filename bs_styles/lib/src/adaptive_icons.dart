@@ -147,6 +147,10 @@ final class AdaptiveIcons {
 
   IconData get emptyStar => isApple ? CupertinoIcons.star : Icons.star_border_rounded;
 
+  // IconData get thumpsUp => isApple ? CupertinoIcons.hand_thumbsup_fill : Icons.thumb_up_rounded;
+
+  // IconData get recommended => isApple ? CupertinoIcons.hand_thumbsup_fill : Icons.recommend_rounded;
+
   IconData get globe => isApple ? CupertinoIcons.globe : Icons.language_rounded;
 
   IconData get info => isApple ? CupertinoIcons.info_circle : Icons.info_outline_rounded;
@@ -226,6 +230,9 @@ final class AdaptiveIcons {
 
   IconData get arrowUp => isApple ? CupertinoIcons.chevron_up : Icons.keyboard_arrow_up_rounded;
 
+  IconData get longArrowUp =>
+      isApple ? CupertinoIcons.arrow_up_circle_fill : Icons.arrow_circle_up_rounded;
+
   IconData get arrowDown =>
       isApple ? CupertinoIcons.chevron_down : Icons.keyboard_arrow_down_rounded;
 
@@ -263,6 +270,8 @@ final class AdaptiveIcons {
   IconData get pause => isApple ? CupertinoIcons.pause : Icons.pause_rounded;
 
   IconData get play => isApple ? CupertinoIcons.play_fill : Icons.play_arrow_rounded;
+
+  IconData get tvPlay => isApple ? CupertinoIcons.play_rectangle_fill : Icons.smart_display_rounded;
 
   IconData get stop => isApple ? CupertinoIcons.stop_fill : Icons.stop_rounded;
 
