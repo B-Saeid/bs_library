@@ -7,7 +7,9 @@ import '../controllers/internal_controller.dart';
 import '../theme/feedback_theme.dart';
 
 class MinimizeMaximizeSheet extends StatefulWidget {
-  const MinimizeMaximizeSheet({super.key});
+  const MinimizeMaximizeSheet({super.key, this.padding});
+
+  final EdgeInsets? padding;
 
   @override
   State<MinimizeMaximizeSheet> createState() => _MinimizeMaximizeSheetState();
@@ -57,7 +59,7 @@ class _MinimizeMaximizeSheetState extends State<MinimizeMaximizeSheet> {
     final feedbackTheme = FeedbackTheme.of(context);
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: widget.padding,
       color: feedbackTheme.feedbackSheetColor ?? Theme.of(context).canvasColor,
       alignment: AlignmentDirectional.centerEnd,
       child: Row(
