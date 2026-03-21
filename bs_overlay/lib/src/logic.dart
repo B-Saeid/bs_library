@@ -241,16 +241,9 @@ abstract final class BsOverlayLogic {
           if (_overlayQueue.last.id != id) _overlayQueue.add(myEntry);
         }
       case BsPriority.nowNoRepeat:
-        if (_overlayQueue.isEmpty) {
-          if (current?.id != id) {
-            _overlayQueue.insert(0, myEntry);
-            resetAndGoToNext(context: context);
-          }
-        } else {
-          if (_overlayQueue.last.id != id) {
-            _overlayQueue.insert(0, myEntry);
-            resetAndGoToNext(context: context);
-          }
+        if (current?.id != id) {
+          _overlayQueue.insert(0, myEntry);
+          resetAndGoToNext(context: context);
         }
       case BsPriority.now:
         _overlayQueue.insert(0, myEntry);
