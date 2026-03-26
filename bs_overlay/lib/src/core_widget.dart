@@ -135,9 +135,9 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
   /// [_barrierDismissWrapper] ->
   /// [_bottomCareWrapper] ->
   /// [_backDismissWrapper] ->
-  /// [_centerMaterialWrapper] ->
   /// [_ignorePointerWrapper] ->
-  /// [_tapHandlerWrapper] ->
+  /// [_centerMaterialWrapper] ->
+  /// [_childDismissOnTapHandler] ->
   /// finally [_child]
   @override
   Widget build(BuildContext context) => _barrierDismissWrapper;
@@ -210,7 +210,7 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
               /// elsewhere like performing back navigation or closing the app
               /// unintentionally while an overlay is shown
               () => Future.value(false),
-        child: _centerMaterialWrapper,
+        child: _ignorePointerWrapper,
       );
     }
 
@@ -222,17 +222,17 @@ class _CoreWidgetState extends State<CoreWidget> with SingleTickerProviderStateM
       );
     }
 
-    return _centerMaterialWrapper;
+    return _ignorePointerWrapper;
   }
 
+  Widget get _ignorePointerWrapper =>
+      widget.ignorePointer ? IgnorePointer(child: _centerMaterialWrapper) : _centerMaterialWrapper;
+
   Center get _centerMaterialWrapper => Center(
-    child: Material(color: Colors.transparent, child: _ignorePointerWrapper),
+    child: Material(color: Colors.transparent, child: _childDismissOnTapHandler),
   );
 
-  Widget get _ignorePointerWrapper =>
-      widget.ignorePointer ? IgnorePointer(child: _tapHandlerWrapper) : _tapHandlerWrapper;
-
-  Widget get _tapHandlerWrapper => widget.dismissOnTap
+  Widget get _childDismissOnTapHandler => widget.dismissOnTap
       ? GestureDetector(
           onTap: animateDismiss,
           behavior: HitTestBehavior.translucent,
