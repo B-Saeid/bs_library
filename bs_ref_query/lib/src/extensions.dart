@@ -311,11 +311,12 @@ extension ResponsiveDouble on num {
     DeviceType base = DeviceType.mobile480,
     double min = 0.0,
     double max = double.infinity,
+    Responsiveness type = Responsiveness.relative,
     double percentageFactor = 1.0,
   }) {
     if (base == current) return toDouble();
 
-    final change = this * _calculatePercentageStep(base, current, percentageFactor);
+    final change = this * _calculatePercentageStep(base, current, percentageFactor, type);
     final result = this + change;
 
     print('orig = $this, change: $change, = $result');
@@ -334,6 +335,9 @@ extension ResponsiveDouble on num {
   /// between (base and current)'s maxWidth value and then reflect
   /// this change in the resulting double.
   ///
+  /// Use [type] if you want to change the algorithm of the sacling.
+  /// defaults to [Responsiveness.relative]
+  ///
   /// Note: You can factor this percentage either by taking a portion of it if
   /// you see it too big, or scale it even bigger by using `percentageFactor`.
   ///
@@ -343,12 +347,14 @@ extension ResponsiveDouble on num {
     DeviceType base = DeviceType.mobile480,
     double min = 0.0,
     double max = double.infinity,
+    Responsiveness type = Responsiveness.relative,
     double percentageFactor = 1.0,
   }) => _responsive(
     current: LiveData.deviceType(ref),
     base: base,
     min: min,
     max: max,
+    type: type,
     percentageFactor: percentageFactor,
   );
 
@@ -368,18 +374,26 @@ extension ResponsiveDouble on num {
     WidgetRef? ref,
     BuildContext? context,
     DeviceType base = DeviceType.mobile480,
+    DeviceType? override,
     double min = 0.0,
     double max = double.infinity,
+    Responsiveness type = Responsiveness.relative,
     double percentageFactor = 1.0,
   }) => _responsive(
-    current: LiveDataOrQuery.deviceType(ref: ref, context: context),
+    current: override ?? LiveDataOrQuery.deviceType(ref: ref, context: context),
     base: base,
     min: min,
     max: max,
+    type: type,
     percentageFactor: percentageFactor,
   );
 
-  double _calculatePercentageStep(DeviceType base, DeviceType current, double percentageFactor) {
+  double _calculatePercentageStep(
+    DeviceType base,
+    DeviceType current,
+    double percentageFactor,
+    Responsiveness type,
+  ) {
     assert(
       base != current,
       'Base cannot be equal to current, try returning the style without any calculations',
@@ -391,10 +405,14 @@ extension ResponsiveDouble on num {
     double percentageStep;
     if (current.maxWidth < base.maxWidth) {
       /// Scaling down
-      percentageStep = -(base.maxWidth - current.maxWidth) / base.maxWidth;
+      percentageStep =
+          -(base.maxWidth - current.maxWidth) /
+          (type == Responsiveness.relative ? base.maxWidth : current.maxWidth);
     } else {
       /// Scaling up
-      percentageStep = (current.maxWidth - base.maxWidth) / current.maxWidth;
+      percentageStep =
+          (current.maxWidth - base.maxWidth) /
+          (type == Responsiveness.relative ? current.maxWidth : base.maxWidth);
     }
     return percentageStep * percentageFactor.abs();
   }
@@ -445,12 +463,16 @@ extension ResponsiveTypography on TextStyle {
   /// which in the above case would be only `25%` increase i.e. `16` -> `20` instead of `16` -> `24`
   ///
   /// This is more reasonable for the step from a miniScreen to a standardScreen
+  ///
+  /// Use [type] if you want to change the algorithm of the sacling.
+  /// defaults to [Responsiveness.relative]. **Avoid** changing it unless you know what you are doing.
   /// {@endtemplate}
   TextStyle? responsive(
     WidgetRef ref, {
     DeviceType base = DeviceType.mobile480,
     double min = 0.0,
     double max = double.infinity,
+    Responsiveness type = Responsiveness.relative,
     double percentageFactor = 0.5,
   }) {
     if (fontSize == null) return null;
@@ -461,6 +483,7 @@ extension ResponsiveTypography on TextStyle {
         base: base,
         min: min,
         max: max,
+        type: type,
         percentageFactor: percentageFactor,
       ),
     );
@@ -482,8 +505,10 @@ extension ResponsiveTypography on TextStyle {
     WidgetRef? ref,
     BuildContext? context,
     DeviceType base = DeviceType.mobile480,
+    DeviceType? override,
     double min = 0.0,
     double max = double.infinity,
+    Responsiveness type = Responsiveness.relative,
     double percentageFactor = 0.5,
   }) {
     if (fontSize == null) return null;
@@ -493,10 +518,34 @@ extension ResponsiveTypography on TextStyle {
         ref: ref,
         context: context,
         base: base,
+        override: override,
         min: min,
         max: max,
+        type: type,
         percentageFactor: percentageFactor,
       ),
     );
   }
+}
+
+enum Responsiveness {
+  /// Uses a relative difference when calculating the step between [DeviceType]s
+  ///
+  /// For EX:
+  /// Consider a value of `8.0`, base: DeviceType.mobile480 and width is detected as DeviceType.wide1920,
+  /// then [Responsiveness.relative] will say `(1920 - 480) / 1920 = 0.75`, then increase `8.0` by `75%`
+  ///
+  /// returning `14.0`
+  ///
+  relative,
+
+  /// Uses the actual difference when calculating the step between [DeviceType]s
+  ///
+  /// For EX:
+  /// Consider a value of `8.0`, base: DeviceType.mobile480 and width is detected as DeviceType.wide1920,
+  /// then [Responsiveness.relative] will say `(1920 - 480) / 480 = 3.0`, then scale `8.0` by `3x`
+  ///
+  /// returning `24.0`
+  ///
+  scale,
 }
