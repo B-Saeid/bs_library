@@ -1,3 +1,4 @@
+import 'package:bs_utils/bs_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../service.dart';
@@ -9,6 +10,8 @@ class IsConnected extends _$IsConnected {
   @override
   bool? build() {
     ref.onAddListener(() {
+      dprint('IsConnected onAdd');
+      dprint('_listenerAdded $_listenerAdded');
       if (!_listenerAdded) {
         _listenerAdded = true;
         Internet.addListener(_updateSelf);
@@ -16,6 +19,7 @@ class IsConnected extends _$IsConnected {
     });
 
     ref.onCancel(() {
+      dprint('IsConnected onCancel');
       Internet.removeListener(_updateSelf);
       _listenerAdded = false;
     });
@@ -25,7 +29,10 @@ class IsConnected extends _$IsConnected {
 
   static bool _listenerAdded = false;
 
-  void _updateSelf() => state = Internet.connected;
+  void _updateSelf() {
+    dprint(' +++>> _updateSelf state: $state, Internet.connected ${Internet.connected}');
+    state = Internet.connected;
+  }
 
   @override
   set state(bool? newValue) {

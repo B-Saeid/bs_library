@@ -2,6 +2,7 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -27,7 +28,7 @@ class ScreenshotController {
       final image = await renderObject.toImage(pixelRatio: pixelRatio);
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       final bytes = byteData!.buffer.asUint8List();
-      print('image size = ${(bytes.lengthInBytes / 1024).toStringAsFixed(2)} KB');
+      dprint('image size = ${(bytes.lengthInBytes / 1024).toStringAsFixed(2)} KB');
       return bytes;
     }
   }

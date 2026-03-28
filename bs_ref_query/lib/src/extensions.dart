@@ -319,7 +319,7 @@ extension ResponsiveDouble on num {
     final change = this * _calculatePercentageStep(base, current, percentageFactor, type);
     final result = this + change;
 
-    print('orig = $this, change: $change, = $result');
+    dprint('orig = $this, change: $change, = $result');
 
     return result.clamp(min, max);
   }

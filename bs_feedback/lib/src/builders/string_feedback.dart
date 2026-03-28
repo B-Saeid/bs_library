@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bs_ref_query/bs_ref_query.dart';
 import 'package:bs_styles/bs_styles.dart';
+import 'package:bs_utils/bs_utils.dart';
 import 'package:bs_widgets/bs_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -212,8 +213,6 @@ class _InputField extends StatelessWidget {
           ),
         ),
     textInputAction: TextInputAction.done,
-    onChanged: (value) {
-      print(value);
-    },
+    onChanged: dprint,
   );
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'core.dart';
 
 abstract final class TimeagoUtils {
@@ -48,7 +50,7 @@ abstract final class TimeagoUtils {
   static String format(DateTime date, {String? locale, DateTime? clock, bool allowFromNow = true}) {
     final locale0 = locale ?? _default;
     if (_lookupMessagesMap[locale0] == null) {
-      print(
+      log(
         'Locale [$locale0] has not been added, using [$_default] as fallback. To add a locale use [setLocaleMessages]',
       );
     }

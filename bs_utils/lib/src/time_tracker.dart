@@ -2,13 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:timing/timing.dart';
 
 import 'extensions/time/on_duration.dart';
+import 'true_debug_print.dart';
 
 abstract final class Tracker {
   static Duration trackSync(dynamic Function() callback, {String? name}) {
     final tracker = SyncTimeTracker();
     tracker.track(callback);
     final statement = '${name ?? callback}\n -- took: ${tracker.duration.sMsUsFormatted}';
-    debugPrint(statement);
+    dprint(statement);
     return tracker.duration;
   }
 
@@ -19,7 +20,7 @@ abstract final class Tracker {
     final tracker = AsyncTimeTracker();
     await tracker.track(callback);
     final statement = '${name ?? callback}-- took: ${tracker.duration.sMsUsFormatted}';
-    debugPrint(statement);
+    dprint(statement);
     return tracker.duration;
   }
 
@@ -59,14 +60,14 @@ abstract final class Tracker {
     Duration second, {
     bool firstIsTheSync = false,
   }) {
-    if (first == second) return debugPrint('Equal');
+    if (first == second) return dprint('Equal');
 
     final diff = first - second;
     final smaller = diff.isNegative ? first : second;
     final bigger = smaller == first ? second : first;
     final percentage = (smaller.inMicroseconds / bigger.inMicroseconds) * 100;
 
-    debugPrint(
+    dprint(
       '${smaller == first
           ? firstIsTheSync
                 ? 'Sync'

@@ -1,3 +1,4 @@
+import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -146,7 +147,7 @@ class EnFeedbackLocalizations extends FeedbackLocalizations {
   @override
   String get discardScreenShotDescription =>
       'Closing the feedback view will discard your screenshot.'
-          '\n\n Are you sure you want to close?';
+      '\n\n Are you sure you want to close?';
 
   @override
   String get no => 'No';
@@ -238,7 +239,7 @@ class ArFeedbackLocalizations extends FeedbackLocalizations {
   @override
   String get discardScreenShotDescription =>
       'سيتم تجاهل لقطة الشاشة عند الاغلاق. '
-          '\n\nهل تريد الاغلاق؟';
+      '\n\nهل تريد الاغلاق؟';
 
   @override
   String get no => 'لا';
@@ -584,7 +585,7 @@ class GlobalFeedbackLocalizationsDelegate extends LocalizationsDelegate<Feedback
 
   /// Returns the default instance of a [GlobalFeedbackLocalizationsDelegate].
   static LocalizationsDelegate<FeedbackLocalizations> delegate =
-  GlobalFeedbackLocalizationsDelegate();
+      GlobalFeedbackLocalizationsDelegate();
 
   /// Returns a dict of all supported locales.
   /// Override this member to provide your own localized strings.
@@ -617,9 +618,9 @@ class GlobalFeedbackLocalizationsDelegate extends LocalizationsDelegate<Feedback
     if (supportedLocales.containsKey(Locale(locale.languageCode))) {
       return true;
     }
-    debugPrint(
+    dprint(
       'The locale $locale is not supported, '
-          'falling back to english translations',
+      'falling back to english translations',
     );
     return true;
   }

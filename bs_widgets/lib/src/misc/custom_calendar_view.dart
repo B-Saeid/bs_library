@@ -1058,9 +1058,9 @@ class _DayPickerState extends State<_DayPicker> {
         ;
         // final isSelectedDay = DateUtils.isSameDay(widget.selectedDate, dayToBuild);
         final isSelectedDay = widget.selectedDates?.contains(dayToBuild) ?? false;
-        // print('widget.selectedDates ${widget.selectedDates}');
-        // print('dayToBuild $dayToBuild');
-        // print('isSelectedDay $isSelectedDay');
+        // dprint('widget.selectedDates ${widget.selectedDates}');
+        // dprint('dayToBuild $dayToBuild');
+        // dprint('isSelectedDay $isSelectedDay');
         final isToday = DateUtils.isSameDay(widget.currentDate, dayToBuild);
 
         dayItems.add(

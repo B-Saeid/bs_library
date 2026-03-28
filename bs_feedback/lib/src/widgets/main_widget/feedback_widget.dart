@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:bs_overlay/bs_overlay.dart';
 import 'package:bs_styles/bs_styles.dart';
+import 'package:bs_utils/bs_utils.dart';
 import 'package:bs_widgets/bs_widgets.dart';
 import 'package:collection/collection.dart';
 // import 'package:collection/collection.dart';
@@ -82,27 +83,27 @@ class FeedbackWidgetState extends State<FeedbackWidget> with TickerProviderState
       vsync: this,
       duration: duration,
     );
-    print('columnController: ${_columnController.value}');
+    dprint('columnController: ${_columnController.value}');
     _columnAnimation = CurvedAnimation(
       parent: _columnController,
       curve: Curves.easeInOutCubic,
       reverseCurve: Curves.easeOutCubic,
     );
-    print('columnAnimation: ${_columnAnimation.value}');
-    print('columnAnimation isDismissed: ${_columnAnimation.isDismissed}');
+    dprint('columnAnimation: ${_columnAnimation.value}');
+    dprint('columnAnimation isDismissed: ${_columnAnimation.isDismissed}');
 
     _controller = AnimationController(
       vsync: this,
       duration: duration,
     );
-    print('controller: ${_controller.value}');
+    dprint('controller: ${_controller.value}');
     _animation = CurvedAnimation(
       parent: _controller,
       curve: Curves.easeInOutCubic,
       reverseCurve: Curves.easeOutCubic,
     );
-    print('animation: ${_animation.value}');
-    print('animation isDismissed: ${_animation.isDismissed}');
+    dprint('animation: ${_animation.value}');
+    dprint('animation isDismissed: ${_animation.isDismissed}');
   }
 
   @override
@@ -158,7 +159,7 @@ class FeedbackWidgetState extends State<FeedbackWidget> with TickerProviderState
     /// to widget.mode when we open the keyboard .. Don't know why
     /// but it is not hurting anything right now
     // mode = widget.mode;
-    print('widget.isFeedbackVisible ${widget.isFeedbackVisible}');
+    dprint('widget.isFeedbackVisible ${widget.isFeedbackVisible}');
     if (widget.isFeedbackVisible) {
       isDrawMode ? _columnController.forward() : _columnController.reverse();
     }

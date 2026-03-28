@@ -204,33 +204,33 @@ class _MyVisibilityDetectorState extends State<MyVisibilityDetector> {
     //
     // final overlaps = boxRect.overlaps(visibleRect);
     // final intersect = boxRect.intersect(visibleRect);
-    // print('overlaps $overlaps');
-    // print('intersect $intersect');
+    // dprint('overlaps $overlaps');
+    // dprint('intersect $intersect');
     /// Is Totally above visible area
     if (yBoxBottom < yTop) {
-      // print('Is Totally above visible area');
+      // dprint('Is Totally above visible area');
     }
     /// Is Totally below visible area
     else if (yBoxTop > yBottom) {
-      // print('Is Totally below visible area');
+      // dprint('Is Totally below visible area');
     }
     /// Is approaching visible area from TOP
     else if (yBoxTop < yTop && yBoxBottom < yBottom) {
-      // print('Is approaching visible area from TOP');
+      // dprint('Is approaching visible area from TOP');
       final childPercentage = childHeight * widget.percentage;
       final desiredY = yBoxBottom - childPercentage;
       visible = desiredY > yTop;
     }
     /// Is leaving visible area to Below
     else if (yBoxTop < yBottom && yBoxBottom > yBottom) {
-      // print('Is leaving visible area to Below');
+      // dprint('Is leaving visible area to Below');
       final childPercentage = childHeight * widget.percentage;
       final desiredY = yBoxTop + childPercentage;
       visible = desiredY < yBottom;
     }
     /// is fully visible
     else {
-      // print('is fully visible');
+      // dprint('is fully visible');
       visible = true;
     }
 
@@ -274,29 +274,29 @@ class _MyVisibilityDetectorState extends State<MyVisibilityDetector> {
     // if (xPosition < deviceWidth - desiredX) visible = true;
     /// Is Totally before visible area
     if (xBoxRight < xLeft) {
-      // print('Is Totally before visible area');
+      // dprint('Is Totally before visible area');
     }
     /// Is Totally After visible area
     else if (xBoxLeft > xRight) {
-      // print('Is Totally After visible area');
+      // dprint('Is Totally After visible area');
     }
     /// Is approaching visible area from LEFT
     else if (xBoxLeft < xLeft && xBoxRight < xRight) {
-      // print('Is approaching visible area from LEFT');
+      // dprint('Is approaching visible area from LEFT');
       final childPercentage = childWidth * widget.percentage;
       final desiredX = xBoxRight - childPercentage;
       visible = desiredX > xLeft;
     }
     /// Is leaving visible area to going Right
     else if (xBoxLeft < xRight && xBoxRight > xRight) {
-      // print('Is leaving visible area to going Right');
+      // dprint('Is leaving visible area to going Right');
       final childPercentage = childWidth * widget.percentage;
       final desiredX = xBoxLeft + childPercentage;
       visible = desiredX < xRight;
     }
     /// is fully visible
     else {
-      // print('is fully visible');
+      // dprint('is fully visible');
       visible = true;
     }
 

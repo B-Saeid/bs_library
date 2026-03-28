@@ -130,7 +130,7 @@ extension DurationTimeExtension on Duration {
   ///  - MM:SS if the hours is 0
   String get dynamicColonSeparated {
     /// d = const Duration(hours: 1, minutes: 10, microseconds: 500);
-    /// print(d.toString()); // 1:10:00.000500
+    /// dprint(d.toString()); // 1:10:00.000500
 
     // final components = toString().split('.').?first.split(':');
     // final hours = int.parse(components[0]);

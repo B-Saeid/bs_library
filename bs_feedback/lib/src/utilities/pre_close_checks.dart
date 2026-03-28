@@ -3,6 +3,7 @@
 import 'dart:collection';
 import 'dart:developer';
 
+import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/widgets.dart';
 
 abstract final class PreCloseChecks {
@@ -58,12 +59,12 @@ abstract final class PreCloseChecks {
     // _prioritizedCallbacks.values.any((callbackList) => callbackList.remove(callback));
     // _prioritizedCallbacks.removeWhere((key, value) => value.isEmpty);
 
-    // print('_prioritizedCallbacks length = ${_prioritizedCallbacks.length}');
+    // dprint('_prioritizedCallbacks length = ${_prioritizedCallbacks.length}');
     _prioritizedCallbacks.removeWhere((_, insideCallBack) {
-      if (insideCallBack == callback) print('removed callback is $insideCallBack');
+      if (insideCallBack == callback) dprint('removed callback is $insideCallBack');
       return callback == insideCallBack;
     });
-    // print('_prioritizedCallbacks length = ${_prioritizedCallbacks.length}');
+    // dprint('_prioritizedCallbacks length = ${_prioritizedCallbacks.length}');
   }
 
   static Iterable<ValueGetter<bool>> get _callbacks => _prioritizedCallbacks.values;

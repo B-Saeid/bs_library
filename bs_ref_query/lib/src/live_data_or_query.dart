@@ -1,3 +1,4 @@
+import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
@@ -64,7 +65,7 @@ abstract class LiveDataOrQuery {
   static double scalePercentage({WidgetRef? ref, BuildContext? context}) {
     double getLiveScalePercentage(TextScaler textScaler) {
       final percentage = textScaler.scale(16) / 16;
-      print('percentage: $percentage');
+      dprint('percentage: $percentage');
       return percentage;
     }
 

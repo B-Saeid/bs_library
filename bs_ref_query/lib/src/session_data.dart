@@ -1,4 +1,5 @@
 import 'package:bs_riverpod_utils/bs_riverpod_utils.dart';
+import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -114,7 +115,7 @@ class LiveData extends _$LiveData {
 
   void _updateMediaDependants(MediaQueryData newMediaQuery) {
     final sizeQuery = newMediaQuery.size;
-    // print('sizeQuery = $sizeQuery');
+    // dprint('sizeQuery = $sizeQuery');
     state = state._copyWith(
       mediaQuery: newMediaQuery,
       sizeQuery: sizeQuery,
@@ -159,7 +160,7 @@ class LiveData extends _$LiveData {
   void _updateLiveScalePercentage(TextScaler textScaler) {
     final newPercentage = textScaler.scale(16) / 16;
     if (state.scaleFactor == newPercentage) return;
-    // print('newPercentage: $newPercentage');
+    // dprint('newPercentage: $newPercentage');
 
     state = state._copyWith(scaleFactor: newPercentage);
     __scalePercentage = state.scaleFactor;

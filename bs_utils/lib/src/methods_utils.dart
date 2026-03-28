@@ -61,11 +61,11 @@ abstract final class MethodsUtils {
     if (retryAttempts == -1) {
       while (true) {
         if (!await condition()) {
-          // print('entering the while condition: ${!await condition()}');
-          // print('Before waiting');
+          // dprint('entering the while condition: ${!await condition()}');
+          // dprint('Before waiting');
           await retryEvery.delay;
         } else {
-          // print('Condition Met. Breaking and calling the function...');
+          // dprint('Condition Met. Breaking and calling the function...');
           break;
         }
       }
@@ -74,23 +74,23 @@ abstract final class MethodsUtils {
       return await condition() ? await tryThis(function) : orElse?.call();
     } else {
       if (await condition()) {
-        // print('Condition Met. Breaking... and calling the function');
+        // dprint('Condition Met. Breaking... and calling the function');
         return await tryThis(function);
       } else {
         var attempts = 1; // starts from 1 as the first attempt is already done
         while (attempts < retryAttempts) {
           await retryEvery.delay;
-          // print('attempts: $attempts');
+          // dprint('attempts: $attempts');
           attempts++;
-          // print('now attempts: $attempts');
+          // dprint('now attempts: $attempts');
           if (await condition()) {
-            // print(
+            // dprint(
             //   'Condition Met. After $attempts attempts. Breaking... and calling the function',
             // );
             return await tryThis(function);
           }
         }
-        // print(
+        // dprint(
         //   'Calling `orElse` as attempts are over and condition is still false',
         // );
         return orElse?.call();
@@ -115,12 +115,12 @@ abstract final class MethodsUtils {
     if (retryAttempts == -1) {
       while (true) {
         if (!await condition()) {
-          // print(
+          // dprint(
           //   'condition: false, waiting ${retryEvery.inMilliseconds} ms ...',
           // );
           await retryEvery.delay;
         } else {
-          // print('Condition Met. Breaking...');
+          // dprint('Condition Met. Breaking...');
           break;
         }
       }
@@ -129,21 +129,21 @@ abstract final class MethodsUtils {
       return await condition();
     } else {
       if (await condition()) {
-        // print('Condition Met. Breaking...');
+        // dprint('Condition Met. Breaking...');
         return true;
       } else {
         var attempts = 1; // starts from 1 as the first attempt is already done
         while (attempts < retryAttempts) {
           await retryEvery.delay;
-          // print('attempts: $attempts');
+          // dprint('attempts: $attempts');
           attempts++;
-          // print('now attempts: $attempts');
+          // dprint('now attempts: $attempts');
           if (await condition()) {
-            // print('Condition Met. After $attempts attempts. Breaking...');
+            // dprint('Condition Met. After $attempts attempts. Breaking...');
             return true;
           }
         }
-        // // print('Calling `orElse` as attempts are over and condition is still false');
+        // // dprint('Calling `orElse` as attempts are over and condition is still false');
         // return orElse?.call();
         return false;
       }
@@ -170,18 +170,18 @@ abstract final class MethodsUtils {
   //     methodCallback();
   //     return true;
   //   } on HandshakeException catch (e, s) {
-  // //     print('HandshakeException Occurred in $s');
+  // //     dprint('HandshakeException Occurred in $s');
   //
   //     if (_retryFallBack < _retryIncrement * retryAttempts) {
   //       _retryFallBack += _retryIncrement;
-  // //       print('retrying after a $_retryFallBack s ....... ');
+  // //       dprint('retrying after a $_retryFallBack s ....... ');
   //       await _retryFallBack.seconds.delay;
   //       return retryOnHandshake(methodCallback, retryAttempts: retryAttempts);
   //     }
-  // //     print('retrying is OVER and _retryFallBack = $_retryFallBack s');
+  // //     dprint('retrying is OVER and _retryFallBack = $_retryFallBack s');
   //     return false;
   //   } catch (error, stackTrace) {
-  // //     print('Error occurred in tryThis call ${error.toString()} with stackTrace $stackTrace');
+  // //     dprint('Error occurred in tryThis call ${error.toString()} with stackTrace $stackTrace');
   //     return false;
   //   }
   // }

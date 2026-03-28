@@ -3,6 +3,7 @@
 import 'dart:collection';
 import 'dart:developer';
 
+import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/widgets.dart';
 
 class BackButtonInterceptor with WidgetsBindingObserver {
@@ -66,7 +67,7 @@ class BackButtonInterceptor with WidgetsBindingObserver {
 
     // Convert to double so that we have a valid maximum value to sort null
     // priorities last.
-    print('add $callback priority $priority');
+    dprint('add $callback priority $priority');
     final doublePriority = priority?.toDouble() ?? double.infinity;
     final insideCallback = _prioritizedCallbacks[doublePriority];
     if (insideCallback != null) {
@@ -89,18 +90,18 @@ class BackButtonInterceptor with WidgetsBindingObserver {
 
   /// removes a callback from being called when the back button is pressed
   static void remove(ValueGetter<bool> callback) {
-    // print('remove $callback');
+    // dprint('remove $callback');
 
     /// These two lines are smart.
     // _prioritizedCallbacks.values.any((callbackList) => callbackList.remove(callback));
     // _prioritizedCallbacks.removeWhere((key, value) => value.isEmpty);
 
-    // print('_prioritizedCallbacks length = ${_prioritizedCallbacks.length}');
+    // dprint('_prioritizedCallbacks length = ${_prioritizedCallbacks.length}');
     _prioritizedCallbacks.removeWhere((_, insideCallBack) {
-      if (insideCallBack == callback) print('removed callback is $insideCallBack');
+      if (insideCallBack == callback) dprint('removed callback is $insideCallBack');
       return callback == insideCallBack;
     });
-    // print('_prioritizedCallbacks length = ${_prioritizedCallbacks.length}');
+    // dprint('_prioritizedCallbacks length = ${_prioritizedCallbacks.length}');
     if (_prioritizedCallbacks.isEmpty) _unMount();
   }
 
@@ -115,8 +116,8 @@ class BackButtonInterceptor with WidgetsBindingObserver {
 
   @override
   Future<bool> didPopRoute() async {
-    // print('_callbacks = $_callbacks');
-    // print('_callbacks length = ${_callbacks.length}');
+    // dprint('_callbacks = $_callbacks');
+    // dprint('_callbacks length = ${_callbacks.length}');
     if (_callbacks.isEmpty) return await super.didPopRoute();
 
     return _callbacks.any((callback) => callback());

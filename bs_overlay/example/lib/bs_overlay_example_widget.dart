@@ -59,7 +59,7 @@ class _OverlayShowcaseState extends State<OverlayShowcase> {
     } catch (e) {
       if (e is AssertionError) {
         errorMessage = e.message.toString();
-        // print(e.message);
+        // dprint(e.message);
       } else {
         errorMessage = e.toString();
       }

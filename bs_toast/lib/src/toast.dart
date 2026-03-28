@@ -1,4 +1,5 @@
 import 'package:bs_overlay/bs_overlay.dart';
+import 'package:bs_utils/bs_utils.dart';
 import 'package:flutter/material.dart';
 
 import 'parts/enum.dart';
@@ -100,7 +101,7 @@ abstract final class Toast {
       if (!_navigatorKeyIsSet && context == null) {
         throw ('You need to call Toast.setNavigatorKey or pass in the context');
       }
-      print(
+      dprint(
         '===== TOAST ^ & & & & ^ ERROR ====== ${error.toString()}\n'
         'With Trace >> : $stackTrace',
       );

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bs_utils/bs_utils.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,7 @@ abstract final class BsOverlayLogic {
       /// with animation above by calling [entry.animatedHide!].
       entry.entry.remove();
       final removed = topEntries.remove(entry);
-      print('removed = $removed');
+      dprint('removed = $removed');
       if (!removed) throw (FlutterError('Failed to remove entry'));
     }
 
@@ -158,7 +159,7 @@ abstract final class BsOverlayLogic {
         throw ('You need to call BSOverlay.setNavigatorKey or pass in the context');
       }
       clearAllEnqueuedOverlays();
-      print(
+      dprint(
         'Error While _showOverlay ${error.toString()} with ${stackTrace.toString()}',
       );
     }

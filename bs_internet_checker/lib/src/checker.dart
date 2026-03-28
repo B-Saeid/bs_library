@@ -238,14 +238,14 @@ final class BsInternetChecker {
       final stopwatch = Stopwatch()..start();
       final response = await _httpClient.head(option.uri).timeout(option.timeout);
       // headers: {'mode': 'no-cors'},
-      // print('URL = ${option.uri}');
-      // print('response = $response');
-      // print('statusCode = ${response.statusCode}');
-      // print('[100 - 600] = ${response.statusCode >= 100 && response.statusCode < 600}');
+      // dprint('URL = ${option.uri}');
+      // dprint('response = $response');
+      // dprint('statusCode = ${response.statusCode}');
+      // dprint('[100 - 600] = ${response.statusCode >= 100 && response.statusCode < 600}');
       stopwatch.stop();
 
       final isFast = stopwatch.elapsed < _config.slowConnectionThreshold;
-      // print('isFast = $isFast');
+      // dprint('isFast = $isFast');
 
       /*
       This condition considers any valid HTTP response
@@ -264,7 +264,7 @@ final class BsInternetChecker {
         isSuccess: response.statusCode >= 100 && response.statusCode < 600,
       );
     } catch (e) {
-      // print('error = $e');
+      // dprint('error = $e');
       return AddressCheckResult(
         option,
         isSuccess: false,
